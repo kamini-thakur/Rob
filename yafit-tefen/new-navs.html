@@ -1,0 +1,229 @@
+
+<div class="main-navigation-wrapper" data-section-id="{{ section.id }}" data-section-type="navigation">
+  <nav class="main-navigation goesHere" data-main-navigation>
+    <ul class="navigation-list" data-navigation-list>
+      {% for link in linklists[section.settings.navigationMainMenu].links %}
+
+        {% assign linkHandle = link.title | handle %}
+
+        {% assign hasChildren = false %}
+        {% if linklists[linkHandle].links.size > 0 %}
+          {% assign hasChildren = true %}
+        {% endif %}
+      
+      	{% for block in section.blocks %}
+      		{% if linklists[block.settings.magaNavigation].links.size > 0 %}
+      		  {% assign navigationSuperTrigger = nil %}
+              {% assign departmentsLinklist = linklists[block.settings.magaNavigation] %}
+              {% assign magaNavTrigger = departmentsLinklist.title %}
+
+      		  {% if link.title == magaNavTrigger %}
+                    {% assign navigationSuperTrigger = magaNavTrigger %}
+      				{% assign navigationSuperHandle = departmentsLinklist.handle %}
+      				
+
+        <li class="navigation-list-item {% if hasChildren %}has-dropdown{% endif %} {% if link.title == navigationSuperTrigger %}has-super-nav{% endif %} {% include 'sale-checker' %}" data-navigation-item>
+          <a href="{{ link.url }}" {%if hasChildren %}data-navigation-dropdown="{{ link.title | handle }}"{% endif %}>
+            {{ link.title }}
+            {% if hasChildren or link.title == navigationSuperTrigger %}
+              <span class="navigation-dropdown-toggle">
+                <svg><use xlink:href="#icon-arrow-down"></use></svg>
+              </span>
+            {% endif %}
+          </a>
+
+          {% if hasChildren and link.title != navigationSuperTrigger %}
+            <ul class="navigation-dropdown-simple">
+              {% assign linkHandle = link.title | handle %}
+              {% for link in linklists[linkHandle].links %}
+                <li class="{% include 'sale-checker' %}" data-navigation-dropdown-item>{{ link.title | link_to: link.url }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if navigationSuperTrigger and link.title == navigationSuperTrigger %}
+            {% assign linkHandle = navigationSuperTrigger | handle %}
+
+            <div class="nothere navigation-super-wrapper" data-navigation-super="{{ navigationSuperHandle }}">
+              <div class="navigation-super grid">
+                <div class="navigation-super-departments grid-item-25" data-navigation-super-departments>
+                  <h4>{{ navigationSuperTrigger }}</h4>
+                  <ul>
+                    {% for link in linklists[navigationSuperHandle].links %}
+                      <li class="child-collection {% include 'sale-checker' %}" data-collection-image="{% if collection.image %}{{ collection.image | img_url: 'medium' }}{% endif %}" data-navigation-super-department-wrapper>
+                        {% assign linkHandle = link.title | handle %}
+                        {% assign linkParent = link.handle %}
+                        {% assign linkId1 = linkHandle %}
+                        {% assign hasChildren = false %}
+                        {% if linklists[linkHandle].links.size > 0 %}
+                          {% assign hasChildren = true %}
+                        {% endif %}
+                        <a class="navigation-super-department" href="{{ link.url }}" data-navigation-dropdown-item="{% if hasChildren %}{{ link.title | handle }}{% else %}default{% endif %}">
+                          {{ link.title }}
+                          {% if hasChildren %}
+                            <svg><use xlink:href="#icon-arrow-right"></use></svg>
+                          {% endif %}
+                        </a>
+
+                        {% if hasChildren %}
+                          <ul>
+                            {% for link in linklists[linkHandle].links %}
+                              {% assign linkHandle = link.title | handle %}
+                              {% assign linkId2 = linkId1 | append: '-' | append: linkHandle %}
+                              {% assign linkHandle = linkParent | append: '-' | append: linkHandle %}
+
+                              <li>
+                                {% if link.url != "/" and link.url != "http://" %}
+                                  <a href="{{ link.url }}" data-navigation-dropdown-item="{{ linkId2 }}">{{ link.title }}</a>
+                                {% endif %}
+
+                                {% if linklists[linkHandle].links.size > 0 %}
+                                  <ul>
+                                    {% for link in linklists[linkHandle].links %}
+                                      {% assign linkHandle = link.title | handle %}
+                                      {% assign linkId3 = linkId2 | append: '-' | append: linkHandle %}
+
+                                      <li>
+                                        <a href="{{ link.url }}" data-navigation-dropdown-item="{{ linkId3 }}">{{ link.title }}</a>
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                                {% endif %}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+
+                <div class="gettingImg navigation-super-collections grid-item-75" data-navigation-super-collections>
+                  {% if block.settings.navigationMegaImage %}
+                    <div class="navigation-super-default visible" data-navigation-super-default>
+                      {% if block.settings.navigationMegaImageLink != blank %}
+                        {% assign navigationImageLink = block.settings.navigationMegaImageLink %}
+                      {% endif %}
+                      {% assign imageSize = "1388x" %}
+
+                      {% if navigationImageLink %}
+                        <a href="{{ navigationImageLink }}">
+                      {% endif %}
+
+                      <img src="{{ block.settings.navigationMegaImage | img_url: imageSize }}" data-setting-image="{{ block.settings.navigationMegaImage | img_url: imageSize }}"
+                           srcset="{{ block.settings.navigationMegaImage | img_url: imageSize }} 1x, {{ block.settings.navigationMegaImage | img_url: imageSize, scale: 2 }} 2x"
+                           alt="{{ navigationSuperTrigger | escape }}" class="megaCollImage">
+
+                      {% if navigationImageLink %}
+                        </a>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+
+                  {% for link in linklists[navigationSuperHandle].links %}
+                    {% assign linkHandle = link.title | handle %}
+                    {% assign linkParent = link.handle %}
+                    {% assign linkId1 = linkHandle %}
+
+                    {% if linklists[linkHandle].links.size > 0 %}
+                      <div data-navigation-super-collection-parent="{{ linkHandle }}">
+                        {% for link in linklists[linkHandle].links %}
+                          {% assign linkHandle = link.title | handle %}
+                          {% assign linkId2 = linkId1 | append: "-" | append: linkHandle %}
+                          {% assign linkHandle = linkParent | append: '-' | append: linkHandle %}
+
+                          <div class="navigation-super-collection">
+                            <h4>
+                              {% if link.url != "/" and link.url != "http://" %}
+                                <a href="{{ link.url }}" id="{{ linkId2 }}">{{ link.title }}</a>
+                              {% else %}
+                                <span>{{ link.title }}</span>
+                              {% endif %}
+                            </h4>
+
+                            {% if linklists[linkHandle].links.size > 0 %}
+                              <ul>
+                                {% for link in linklists[linkHandle].links %}
+                                  {% assign linkHandle = link.title | handle %}
+                                  {% assign linkId3 = linkId2 | append: "-" | append: linkHandle %}
+                                  <li class="{% include 'sale-checker' %}">
+                                    <a href="{{ link.url }}" id="{{ linkId3 }}">{{ link.title }}</a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            {% endif %}
+                          </div>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </li>
+      
+      		  {% break %}
+              {% endif %}
+			{% endif %}
+        {% endfor %}
+
+      {% endfor %}
+    </ul>
+  </nav>
+</div>
+
+{% include 'navigation-mobile' %}
+
+
+{% schema %}
+  {
+    "name": "Navigation",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "navigationMainMenu",
+        "label": "Choose main navigation menu",
+        "default": "main-menu"
+      }
+    ],
+	"blocks": [
+      {
+        "type": "Megamenu",
+        "name": "Add Megamenu",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "magaNavigation",
+            "label": "Enable Magamenu",
+            "info": "Select a menu with a title equal to that of a link within your main menu."
+          },
+          {
+            "type": "image_picker",
+            "id": "navigationMegaImage",
+            "label": "Enable Magamenu navigation image"
+          },
+          {
+            "type": "url",
+            "id": "navigationMegaImageLink",
+            "label": "Choose image link"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<script>  
+    /*
+  $( ".child-collection" ).hover(
+    function() {
+      	var hoverImg = $(this).attr('data-collection-image');
+        $('.megaCollImage').attr('src',hoverImg);
+    }, function() {
+      	var withoutHoverImg = $('.megaCollImage').attr('data-setting-image');
+      	$('.megaCollImage').attr('src',withoutHoverImg);
+    }
+  ); */
+</script>

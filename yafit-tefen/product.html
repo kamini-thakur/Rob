@@ -1,0 +1,140 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<main class="page-wrapper" data-product="{{ product.handle }}" data-product-json="{{ product | json | escape }}" data-product-current-variant="{{ current_variant | json | escape }}" data-section-id="{{ section.id }}" data-section-type="product">
+  <div class="product-message" data-product-message></div>
+
+  <div class="product-wrapper grid">
+    <div class="product-details grid-item-33" id="product-column1">
+      {% include "product-title" show_at: "large" %}
+      {% include "product-description" with show_at: "large" %}
+      {% include "share" with url: product.url, title: product.title, image: product.featured_image, collection: collection.title, show_at: "large" %}
+    </div>
+
+    <div class="product-images grid-item-41" id="product-column2">
+      {% include "product-title" with show_at: "small" %}
+      {% include "product-brand-type" with show_at: "small" %}
+      {% include "product-price" with show_at: "small" %}
+      {% include "product-image" %}
+      {% include "product-thumbnails" %}
+    </div>
+
+    <div class="product-options grid-item-25" id="product-column3">
+      {% include "product-title" with show_at: "medium" %}
+      {% include "product-brand-type" with show_at: "medium" %}
+      {% include "product-price" with show_at: "medium large" %}
+      {% include "product-options" %}
+      {% include "product-description" with show_at: "small medium" %}
+      {% include "share" with url: product.url, title: product.title, image: product.featured_image, collection: collection.title, show_at: "small medium" %}
+    </div>
+  </div>
+
+  {% include "breadcrumbs" %}
+
+  {% if section.settings.productsRelated %}
+    {% include "product-related" with additionalInfo: true %}
+  {% endif %}
+
+  {% if section.settings.productsRecent %}
+    {% include "product-recent" %}
+  {% endif %}
+</main>
+
+<script>
+    $(".showAccordion").click(function(){ 
+       $(this).parent().siblings().removeClass('active');
+       $(this).parent().toggleClass('active');
+       $(this).parent().siblings().find('.panel').slideUp('300').removeClass('active');
+       $(this).parent().find('.panel').slideToggle('300').addClass('active');
+    });
+</script>
+
+<style>
+.showAccordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.showAccordion:hover {
+    background-color: #ccc; 
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+}
+</style>
+{% schema %}
+  {
+    "name": "Product",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "productType",
+        "label": "Show product type"
+      },
+      {
+        "type": "range",
+        "id": "productStockLevel",
+        "label": "Show low stock indicator",
+        "info": "Enter a number representing the stock level below which the indicator will begin to decrease.",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "productsRelated",
+        "label": "Enable related products"
+      },
+      {
+        "type": "checkbox",
+        "id": "productsRecent",
+        "label": "Enable recently viewed products"
+      },
+	  {
+        "type": "header",
+        "content": "Shop by Color"
+      }
+	 ],
+	 "blocks": [
+        {
+          "type": "text",
+          "name": "Add Color Option",
+          "settings": [
+            {
+              "type": "text",
+              "id": "color_text_eng",
+              "label": "Color in English",
+              "info": "i.e \"Red\"."
+            },
+            {
+              "type": "text",
+              "id": "color_text_hebrew",
+              "label": "Color in Hebrew"
+            },
+			{
+              "type": "text",
+              "id": "color_code",
+              "label": "Color Code"
+            },
+			{
+              "type": "image_picker",
+              "id": "ColorImage",
+              "label": "Color image"
+          	}
+          ]
+        }
+      ]
+  }
+{% endschema %}

@@ -1,0 +1,490 @@
+
+<!-- <div class="product-form-submit-wrap">
+    <input type="button" id="open-popup" class="button outline add-to-cart-button" name="answer" value="PERSONALIZE..." />
+</div> -->
+
+<div id="welcomePop-up" class=" popup_configurator" >
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <div class="wrapper wrapper--margins wrapper__article popup_configurator_outer">
+            <div class="rte"> 
+
+                <div class="row">    
+                    <div id = "3dframe" class="col-sm-7 col-xs-12">                       
+                            <div class="hidelogoup"></div>
+                            <iframe id = "api-frame" height= "100%" width= "100%" background-color = white allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe>
+                            <div class="hidelogodown"></div>
+                    </div>
+                    <div class="col-sm-5 col-xs-12">
+									<!-------------Rooms starts here--------------->
+                                    <div class="rooms">
+                                        {% for i in (1..6) %}
+                                        {% capture RoomEnable %}Room_{{ i }}_enabled{% endcapture %}
+                                        {% capture RoomName %}Room_{{ i }}{% endcapture %}
+                                        {% capture RoomImage %}Room_{{ i }}.jpg{% endcapture %}
+                                        {% if settings[RoomEnable] %}
+                                        <label class="imgsWrap">
+                                            <input type="radio" name="selectRoom" data-show="room_{{ i }}" value='{{ RoomImage | asset_url }}' data-room-Name="{{ settings[RoomName] }}" />
+                                            <span> {{ RoomImage | asset_url | img_tag }}<span>{{ settings[RoomName] }}</span></span>
+                                        </label>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <!-------------Rooms ends here--------------->
+
+                                    <!-------------Patterns starts here--------------->
+                                    <div class="patterns-wrapper" style="display:none;">
+                                        <button type="button" id="getPattern" data-pattern-image="" class="btn btn-block btn-default btn-xl" data-toggle="collapse" data-target="#pattern"><img id = "patternButton" src="buttons/pattern/pattern1.png" width="44" /> Change pattern</button>
+                                        <div id="pattern" class="collapse">
+                                            <div id="room_1" class="patterns" style="display:none;">
+                                                {% capture RoomEnable %}Room_1_enabled{% endcapture %}
+                                                {% if settings[RoomEnable] %}
+                                                {% for j in (1..50) %}
+                                                {% capture patternImageEnable %}Pattern1_{{ j }}_enabled{% endcapture %}
+                                                {% capture patternImage %}Pattern1_{{ j }}.jpg{% endcapture %}
+                                                {% capture patternName %}Pattern1_{{ j }}_text{% endcapture %}
+                                                {% if settings[patternImageEnable] %}
+                                                <label class="imgsWrap">
+                                                    
+                                                  <span><button type="button" id= "{{ patternImage | asset_url }}" class="btn btn-default btn-xs setRectButton" data-toggle="tooltip" title="{{ settings[patternName] | remove: ".jpg" }}"><img src="{{ patternImage | asset_url }}" width="99" /></button></span>
+                                                </label>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                            <div id="room_2" class="patterns" style="display:none;">
+                                                {% capture RoomEnable %}Room_2_enabled{% endcapture %}
+                                                {% if settings[RoomEnable] %}
+                                                {% for j in (1..50) %}
+                                                {% capture patternImageEnable %}Pattern2_{{ j }}_enabled{% endcapture %}
+                                                {% capture patternImage %}Pattern2_{{ j }}.jpg{% endcapture %}
+                                                {% capture patternName %}Pattern2_{{ j }}_text{% endcapture %}
+                                                {% if settings[patternImageEnable] %}
+                                                <label class="imgsWrap">
+                  
+                                                    <button type="button" id= "{{ patternImage | asset_url }}" class="btn btn-default btn-xs setRectButton" data-toggle="tooltip" title="{{ settings[patternName] | remove: ".jpg" }}"><img src="{{ patternImage | asset_url }}" width="99" /></button>
+                                                </label>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                            <div id="room_3" class="patterns" style="display:none;">
+                                                {% capture RoomEnable %}Room_3_enabled{% endcapture %}
+                                                {% if settings[RoomEnable] %}
+                                                {% for j in (1..50) %}
+                                                {% capture patternImageEnable %}Pattern3_{{ j }}_enabled{% endcapture %}
+                                                {% capture patternImage %}Pattern3_{{ j }}.jpg{% endcapture %}
+                                                {% capture patternName %}Pattern3_{{ j }}_text{% endcapture %}
+                                                {% if settings[patternImageEnable] %}
+                                                <label class="imgsWrap">
+<!--                                                     <input type="radio" name="radioName" value='{{ patternImage | asset_url }}' data-patternName="{{ settings[patternName] }}" /> -->
+                                                    <span><button type="button" id= "{{ patternImage | asset_url }}" class="btn btn-default btn-xs setRectButton" data-toggle="tooltip" title="{{ settings[patternName] | remove: ".jpg" }}"><img src="{{ patternImage | asset_url }}" width="99" /></button></span>
+                                                </label>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                            <div id="room_4" class="patterns" style="display:none;">
+                                                {% capture RoomEnable %}Room_4_enabled{% endcapture %}
+                                                {% if settings[RoomEnable] %}
+                                                {% for j in (1..50) %}
+                                                {% capture patternImageEnable %}Pattern4_{{ j }}_enabled{% endcapture %}
+                                                {% capture patternImage %}Pattern4_{{ j }}.jpg{% endcapture %}
+                                                {% capture patternName %}Pattern4_{{ j }}_text{% endcapture %}
+                                                {% if settings[patternImageEnable] %}
+                                                <label class="imgsWrap">
+<!--                                                     <input type="radio" name="radioName" value='{{ patternImage | asset_url }}' data-patternName="{{ settings[patternName] }}" /> -->
+                                                    <span><button type="button" id= "{{ patternImage | asset_url }}" class="btn btn-default btn-xs setRectButton" data-toggle="tooltip" title="{{ settings[patternName] | remove: ".jpg" }}"><img src="{{ patternImage | asset_url }}" width="99" /></button></span>
+                                                </label>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                            <div id="room_5" class="patterns" style="display:none;">
+                                                {% capture RoomEnable %}Room_5_enabled{% endcapture %}
+                                                {% if settings[RoomEnable] %}
+                                                {% for j in (1..50) %}
+                                                {% capture patternImageEnable %}Pattern5_{{ j }}_enabled{% endcapture %}
+                                                {% capture patternImage %}Pattern5_{{ j }}.jpg{% endcapture %}
+                                                {% capture patternName %}Pattern5_{{ j }}_text{% endcapture %}
+                                                {% if settings[patternImageEnable] %}
+                                                <label class="imgsWrap">
+<!--                                                     <input type="radio" name="radioName" value='{{ patternImage | asset_url }}' data-patternName="{{ settings[patternName] }}" /> -->
+                                                    <span><button type="button" id= "{{ patternImage | asset_url }}" class="btn btn-default btn-xs setRectButton" data-toggle="tooltip" title="{{ settings[patternName] | remove: ".jpg" }}"><img src="{{ patternImage | asset_url }}" width="99" /></button></span>
+                                                </label>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                            <div id="room_6" class="patterns" style="display:none;">
+                                                {% capture RoomEnable %}Room_6_enabled{% endcapture %}
+                                                {% if settings[RoomEnable] %}
+                                                {% for j in (1..50) %}
+                                                {% capture patternImageEnable %}Pattern6_{{ j }}_enabled{% endcapture %}
+                                                {% capture patternImage %}Pattern6_{{ j }}.jpg{% endcapture %}
+                                                {% capture patternName %}Pattern6_{{ j }}_text{% endcapture %}
+                                                {% if settings[patternImageEnable] %}
+                                                <label class="imgsWrap">
+<!--                                                     <input type="radio" name="radioName" value='{{ patternImage | asset_url }}' data-patternName="{{ settings[patternName] }}" /> -->
+                                                    <span><button type="button" id= "{{ patternImage | asset_url }}" class="btn btn-default btn-xs setRectButton" data-toggle="tooltip" title="{{ settings[patternName] | remove: ".jpg" }}"><img src="{{ patternImage | asset_url }}" width="99" /></button></span>
+                                                </label>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-------------Patterns ends here--------------->
+                                    <!-------------Solid color starts here--------------->
+                      				<div class="solidColor-wrapper patterns" style="display:none;">
+                                      <button type="button" class="btn btn-block btn-default btn-xl" data-toggle="collapse" data-target="#solid"><img id = "solidButton" src="buttons/solid/solid1.png" width="44" /> Change solid</button>
+                                      <div id="solid" class="collapse">
+                                    {% for i in (1..16) %}
+                                    {% capture SolidColorEnable %}solidColor_{{ i }}_enabled{% endcapture %}
+                                    {% capture SolidColorName %}solidColor_{{ i }}{% endcapture %}
+                                    {% capture SolidColorImage %}solidColor_{{ i }}.jpg{% endcapture %}
+                                    {% if settings[SolidColorEnable] %}
+                                    <label class="imgsWrap">
+<!--                                         <input type="radio" name="solidColorName" value='{{ SolidColorImage | asset_url }}' data-solidColorName="{{ settings[SolidColorName] }}" /> -->
+                                        <span><button type="button" id= "{{ SolidColorImage | asset_url }}" class="btn btn-default btn-xs setRectButton" data-toggle="tooltip" title="{{ settings[SolidColorName] | remove: ".jpg" }}"><img src="{{ SolidColorImage | asset_url }}" width="99" /></button></span>
+                                    </label>
+                                    {% endif %}
+                                    {% endfor %}
+                                     </div>
+                      				</div>
+                                    <!-------------Solid color ends here--------------->
+                      
+                      				<!-------------Categories starts here--------------->
+                      
+                      
+                        <button type="button" class="btn btn-block btn-default btn-xl" data-toggle="collapse" data-target="#cat"><img id = "catdButton" src="buttons/solid/solid1.png" width="44" /> Change category</button>
+                    <div id="cat" class="collapse">
+                        <button id ="small" type="button" class="btn btn-default">Small</button>
+                        <button id = "big" type="button" class="btn btn-default">Big</button>
+                        <button id = "set" type="button" class="btn btn-default">Set</button>
+                    </div>
+                      
+                                    <!-------------Categories ends here--------------->
+                      
+                      <input type="button" value="Add To Cart" class="AddToCart">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+ 		    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.0.1.js"></script>
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<!-- Include all compiled plugins (below), or include individual files as needed -->
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            
+            <script>
+              // --------------------- CONFIGURATOR JS CODE -----------------------------------
+              
+              
+              
+                var iframe = document.getElementById( 'api-frame' );
+                var version = '1.0.0';
+                var urlid = '78cb139c1cbe4d6f8b31b5720f4e4f36';
+                var client = null;
+              	var materialHash = {};
+                var geometries  = [];
+
+                function loadmodel(){
+                    
+                    document.addEventListener('load', () => console.log('viewerready'))
+                    var client = new Sketchfab( version, iframe );
+                    client.init( urlid, {
+                        success: function onSuccess( api ){
+                            console.log( 'Success' );
+                            api.load();
+                            api.start();
+
+                            api.addEventListener( 'viewerready', function() {
+                                console.log( 'Viewer is ready');
+
+                                api.getNodeMap(function (err, nodes) {
+                                  if (!err) {
+                                      nrGeometries = Object.keys(nodes).length;
+                                      var index;
+                                      for (var key in Object.keys(nodes)) {
+                                          index = Object.keys(nodes)[key];
+                                          if (nodes[index].type == "Geometry") {
+                                              geometryName = nodes[index].name.split("_")[1];
+                                              geometries[geometryName] = {id: nodes[index].instanceID};
+                                          }
+                                      }
+                                  }
+                              });
+                              
+                                    api.getMaterialList(function (err, materials) {                                   
+                                    for (var i = 0; i < materials.length; i++) {
+                                        materialHash[materials[i].name] = materials[i];
+                                    }
+                                });
+
+
+                                $('#pattern :button').on('click', function (event) {
+                                    event.preventDefault();                                   
+                                    currentFabricId = this.id;
+                                  	$('#patternButton').attr('src',currentFabricId);
+                                  console.log('pattern file: ', currentFabricId + ".jpg");
+                                    changeTex(currentFabricId + ".jpg", 'pattern');
+                                    changeTex(currentFabricId + ".jpg", 'spattern');
+                                });
+
+                                $('#solid :button').on('click', function (event) {
+                                    event.preventDefault();                                   
+                                    currentFabricId = this.id;  
+                                  	$('#solidButton').attr('src',currentFabricId);
+                                    console.log('solid color file: ', currentFabricId + ".jpg");
+                                    changeTex(currentFabricId + ".jpg", 'base');
+                                    changeTex(currentFabricId + ".jpg", 'sbase');
+                                });
+                              
+                              
+                                $('#cat :button').on('click', function (event) {
+                                    event.preventDefault();
+                                    var currentCat = this.id;
+                                    console.log(currentCat);
+                                    switch(currentCat) {
+                                        case 'small':
+                                            for (var key in geometries) {
+                                                api.hide(geometries[key].id);
+                                            }
+                                            for (var key in geometries) {
+                                                if ((key == "sbase") || (key == "spattern")) {
+                                                    api.show(geometries[key].id);
+                                                }
+                                            }
+                                            break;
+                                        case 'big':
+                                            for (var key in geometries) {
+                                                api.hide(geometries[key].id);
+                                            }
+                                            for (var key in geometries) {
+                                                if ((key == "base") || (key == "pattern") || (key == "edge")) {
+                                                    api.show(geometries[key].id);
+                                                }
+                                            }
+                                            break;
+                                        case 'set':
+                                            for (var key in geometries) {
+                                                api.show(geometries[key].id);
+                                            }
+                                            break;
+                                    }
+                                });
+                              
+                                function changeTex(file1, part) {
+                                api.addTexture(
+                                    file1,
+                                    function (err, textureUid1) {
+                                        materialToUpdate1 = materialHash[part];
+                                        materialToUpdate1.channels.DiffuseColor.texture.uid = textureUid1;
+                                        api.setMaterial(materialToUpdate1, function () {
+                                            console.log("Material updated");
+                                        });
+                                    });
+                            };
+
+                            } );
+                        },
+                        error: function onError(callback){
+                            console.log(this.error);
+                        },
+                            annotations_visible: 0,
+                            camera: 0,
+                            autostart: 1,
+                            preload: 1,
+                            transparent: 0,
+                            scrollwheel: 1,
+                            ui_stop: 0,
+                            ui_hint: 0
+                    } );
+                };
+          
+              
+              
+              
+              
+              // --------------------- END CONFIGURATOR JS CODE -----------------------------------
+               
+
+					
+				$(document).on('ready', function() {
+
+             
+                    (function () {
+                        var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+                        if (window.ShopifyBuy) {
+                            if (window.ShopifyBuy.UI) {
+                                ShopifyBuyInit();
+                            } else {
+                                loadScript();
+                            }
+                        } else {
+                            loadScript();
+                        }
+
+                        function loadScript() {
+                            var script = document.createElement('script');
+                            script.async = true;
+                            script.src = scriptURL;
+                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+                            script.onload = ShopifyBuyInit;
+                        }
+
+
+                    })();
+                });
+</script>
+
+
+<style>
+    /*3d viewer style */
+  
+        .hidelogoup{
+            position: absolute;
+            width: 100%;
+            height: 52px;
+            background: #ffffff;
+            left: 0;
+            top: 0;
+            z-index:999;
+            display: block;
+            color: #fff;
+        }
+        .hidelogodown{
+            position: absolute;
+            width: 100%;
+            height: 41px;
+            background: #ffffff;
+            left: 0;
+            bottom: -1px;
+            z-index:999;
+            display: block;
+            color: #fff;
+        }
+  
+ 		/* #3dframe{
+     		min-width: 400px;
+    		min-height: 300px;
+            max-width: 800px;
+    		max-height: 600px;
+  		}*/
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .product-form-submit-wrap {
+        display: inline-block;
+        position: relative;
+        z-index: 0;
+    }
+</style>
+<script type="text/javascript">
+//     var modal = document.getElementById('welcomePop-up');
+//     var btn = document.getElementById("open-popup");
+
+//     var span = document.getElementsByClassName("close")[0];
+
+//     btn.onclick = function() {
+//         modal.style.display = "block";
+//       	loadmodel();
+//     }
+
+//     span.onclick = function() {
+//         modal.style.display = "none";
+//     }
+
+//     window.onclick = function(event) {
+//         if (event.target == modal) {
+//             modal.style.display = "none";
+//         }
+//     }
+</script>
+<script>
+//   	 $("#room_1 input:radio[name=radioName]:first").attr('checked', true);
+//      $("#room_1 input:radio[name=radioName]:first").addClass('selectedRadio');
+//   	 var selectedRadio = $(".selectedRadio").val();
+//      $('#patternButton').attr('src', selectedRadio);
+  
+    $('input[type=radio][name=selectRoom]').change(function() {
+        var room_image = $(this).val();
+        var room_name = $(this).attr('data-room-Name');
+        var show = $(this).attr('data-show');
+        $('[id^=room]').hide();
+        $('.patterns-wrapper').css('display','block');
+        $('#'+show).css('display','block');
+//       	$('#pattern').slideDown();
+      
+//         $("[id^=room] input:radio[name=radioName]").removeAttr('checked', false);
+//         $('#'+show+" input:radio[name=radioName]:first").attr('checked', true);
+//         $("[id^=room] input:radio[name=radioName]").removeClass('selectedRadio');
+//         $('#'+show+" input:radio[name=radioName]:first").addClass('selectedRadio');
+//         var imgValue = $('.selectedRadio').val();
+//       	$('#patternButton').attr('src', imgValue);
+        $('.solidColor-wrapper').css('display','block');
+    });
+
+//   	$('input[type=radio][name=radioName]').change(function() {
+//       $("input:radio[name=radioName]:first").removeAttr('checked', false);
+    
+//       $("input:radio[name=radioName]:first").removeAttr('checked', false);
+//       $("input:radio[name=radioName]:first").removeClass('selectedRadio');
+//         var patternSelected = $(this).val();
+//       	$('#patternButton').attr('src', patternSelected);   
+//       	$('.solidColor-wrapper').css('display','block');
+		
+//     });
+</script>
