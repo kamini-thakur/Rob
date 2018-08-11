@@ -1,0 +1,42 @@
+<style>
+body, table, p, span, tr, td {direction: rtl; text-align: right;}
+.subtotal-line td {width: 50%;}
+</style>
+
+<p>שלום  {{ shop_name }},</p>
+<p></p>
+<p>{% if customer.name %}{{ customer.name }}{% else %}מישהו{% endif %} ביצע הזמנה חדשה בחנותך, {{ date | date: "%b %d %I:%M%p" }}:</p>
+<p></p>
+<ul>  {% for line in line_items %} <li> <img src="{{ line | img_url: 'thumb' }}" /> {{ line.quantity }}x {{ line.title }} {% if line.sku != "" %}(SKU: {{line.sku}}){% endif %} for {{ line.price | money }} each </li> {% endfor %} </ul>
+<a href="https://{{ shop.permanent_domain }}/admin/orders/{{ id }}">לצפיה בהזמנה {{order_name}} </a>
+{% if fulfillment_aborted %}
+<p>The above order was not automatically fulfilled because it was flagged as suspicious.</p>{% endif %}
+<p></p><br>
+{% if has_high_risks? %}<p><b>Security check:</b></p>
+<p>להזמנה זו יש חדש להונאה. אנא עברו על ההזמנה שנמצאת תחת ההזמנות שלך וצרו קשר עם הלקוח לוודא את הנתונים שהוקשו.</p>
+<p></p>{% endif %}
+<p><b>אמצעי תשלום:</b></p>
+<p>{{ gateway }}</p>
+{% if gateway contains "העברה בנקאית" %}
+<b>לאחר העברת הכסף עבור:</b>
+<p><strong>המוטב:</strong> dream dhanger בנק דיסקונט, סניף 107 חשבון 22385</p>
+<p>יש להשיב למייל זה אישור ביצוע כדי שמקומך בסדנה ישמר.</p>
+<p>כאמור, לאחר התשלום תועבר חשבונית קבלה, פרטי הגעה ומה להביא לסדנה.</p>
+{% endif %}
+<p></p>
+{% if requires_shipping and shipping_address %}
+<p><b>שיטת משלוח:</b></p>
+{% for shipping_method in shipping_methods %}<p>{{ shipping_method.title }}</p>{% endfor %}
+<p></p>
+<p><b>כתובת למשלוח:</b></p>
+<p>{{ shipping_address.name }}</p>
+<p>{{ shipping_address.street }}</p>
+<p>{{ shipping_address.city }}, {{ shipping_address.province }}  {{ shipping_address.zip }}</p>
+<p>{{ shipping_address.country }}</p>
+<p>{{ shipping_address.phone }}{% endif %}</p>
+<p></p>
+
+{% if shopify_shipping_enabled %}
+<p>חסכו זמן וכסף <a href="{{ fulfillment_url }}">אשרו את ביצוע ההזמנה</a></p>
+<p></p>
+{% endif %}

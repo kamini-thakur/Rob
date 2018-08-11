@@ -1,0 +1,646 @@
+{
+  "current": {
+    "color_primary": "#0087a6",
+    "color_secondary": "#9bcd68",
+    "color_accent": "#4898d7",
+    "color_body_bg": "rgba(0,0,0,0)",
+    "color_borders": "#0087a6",
+    "product_reviews_star_color": "#9bcd68",
+    "color_header_background": "#0f2240",
+    "color_header_text": "#ffffff",
+    "color_header_cart_search": "#0087a6",
+    "color_nav_bg": "#0087a6",
+    "color_nav_text": "#ffffff",
+    "color_body_text": "#0b0000",
+    "color_heading_text": "#2f2f2f",
+    "color_footer_bg": "#112b4c",
+    "color_footer_text": "#ffffff",
+    "color_footer_social_link": "#545454",
+    "type_base_family": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+    "type_base_size": "16px",
+    "type_header_family": "'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    "type_header_transform": false,
+    "type_accent_family": "'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    "type_navigation_size": "16px",
+    "type_navigation_transform": true,
+    "type_button_size": "14px",
+    "type_button_transform": true,
+    "favicon": "shopify:\/\/shop_images\/favicon-01.png",
+    "cart_notes_enable": true,
+    "ajax_cart_method": "page",
+    "share_image": "",
+    "social_twitter_link": "https:\/\/twitter.com\/PanaxiaPharm",
+    "social_facebook_link": "https:\/\/www.facebook.com\/PanaxiaPharma\/",
+    "social_pinterest_link": "",
+    "social_google_plus_link": "",
+    "social_instagram_link": "",
+    "social_snapchat_link": "",
+    "social_tumblr_link": "",
+    "social_youtube_link": "",
+    "social_vimeo_link": "",
+    "social_fancy_link": "",
+    "social_sharing_style": "is-normal",
+    "share_facebook": false,
+    "share_twitter": false,
+    "share_pinterest": false,
+    "superscript_decimals": true,
+    "checkout_header_image": "",
+    "checkout_logo_image": "shopify:\/\/shop_images\/logo_white.png",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_body_font": "Helvetica Neue",
+    "checkout_accent_color": "#1990c6",
+    "checkout_button_color": "#1990c6",
+    "checkout_error_color": "#ff6d6d",
+    "collection_sidebar_filters": "tags",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu",
+          "logo": "shopify:\/\/shop_images\/logo_ff9d5fe7-3e53-49f2-9340-9a2b564d37f1.png",
+          "logo_max_width": "400",
+          "show_announcement": true,
+          "announcement_text": "הזמנות יאושרו לאחר בדיקת הרשיון",
+          "announcement_link": ""
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "text": {
+            "type": "text",
+            "settings": {
+              "title": "צור קשר",
+              "richtext": "<ul class=\"address-list\">\n<li class=\"address\"><a href=\"\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/2936\/2986\/files\/location.png?14661273622845883217\" alt=\"\">רחוב בת שבע 1, לוד<\/a><\/li>\n<li class=\"call\"><a href=\"tel:*5329\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/2936\/2986\/files\/call.png?14661273622845883217\" alt=\"\">5329*<\/a><\/li>\n<li class=\"whatsapp\"><a href=\"https:\/\/api.whatsapp.com\/send?phone=972546180222\"><img src=\"\/\/cdn.shopify.com\/s\/files\/1\/2936\/2986\/t\/7\/assets\/phone-call.png\" alt=\"\">972546180222+<\/a><\/li>\n<li class=\"email\"><a href=\"mailto:service@panaxia.co.il\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/2936\/2986\/files\/at.png?14661273622845883217\" alt=\"\">service@panaxia.co.il<\/a><\/li>\n<\/ul>",
+              "width": "33%"
+            }
+          },
+          "1527749807469": {
+            "type": "menu",
+            "settings": {
+              "title": "מידע נוסף",
+              "menu": "footer",
+              "width": "33%"
+            }
+          },
+          "1528116601419": {
+            "type": "text",
+            "settings": {
+              "title": "קישורים נוספים",
+              "richtext": "<ul class=\"address-list\">\n<li class=\"facebook\"><a href=\"\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/2936\/2986\/files\/fb.png?12373880714290721225\" alt=\"\">Facebook<\/a><\/li>\n<li class=\"twitter\"><a href=\"\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/2936\/2986\/files\/tw.png?2029246985054548725\" alt=\"\">Twitter<\/a><\/li>\n<li class=\"linked-in\"><a href=\"\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/2936\/2986\/files\/1.png?12614898589869484150\" alt=\"\">Linked In<\/a><\/li>\n<li class=\"website\"><a href=\"http:\/\/panaxia.co.il\/\"><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/2936\/2986\/files\/arrow.png?14661273622845883217\" alt=\"\">http:\/\/panaxia.co.il\/<\/a><\/li>\n<\/ul>",
+              "width": "33%"
+            }
+          }
+        },
+        "block_order": [
+          "text",
+          "1527749807469",
+          "1528116601419"
+        ],
+        "settings": {
+          "social_enabled": false,
+          "legal_menu": ""
+        }
+      },
+      "slideshow": {
+        "type": "slideshow",
+        "disabled": true,
+        "blocks": {
+          "slide-0": {
+            "type": "image",
+            "settings": {
+              "slide": "",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "slide-0"
+        ],
+        "settings": {
+          "slider_home_auto": false,
+          "slider_home_rate": "5000"
+        }
+      },
+      "collection-list": {
+        "type": "collection-list",
+        "disabled": true,
+        "blocks": {
+          "collection-list-0": {
+            "type": "collection",
+            "settings": {
+              "collection": ""
+            }
+          },
+          "collection-list-1": {
+            "type": "collection",
+            "settings": {
+              "collection": ""
+            }
+          }
+        },
+        "block_order": [
+          "collection-list-0",
+          "collection-list-1"
+        ],
+        "settings": {}
+      },
+      "collection-row-1": {
+        "type": "collection-rows",
+        "disabled": true,
+        "settings": {
+          "title": "סיגריות",
+          "home_featured_row": "cigarettes",
+          "grid": 5,
+          "rows": 1,
+          "product_show_saved_amount": true,
+          "product_show_compare_at_price": false
+        }
+      },
+      "collection-row-2": {
+        "type": "collection-rows",
+        "disabled": true,
+        "settings": {
+          "title": "שמנים",
+          "home_featured_row": "oil",
+          "grid": 5,
+          "rows": 2,
+          "product_show_saved_amount": true,
+          "product_show_compare_at_price": true
+        }
+      },
+      "collection-row-3": {
+        "type": "collection-rows",
+        "disabled": true,
+        "settings": {
+          "title": "תפרחות",
+          "home_featured_row": "inflorescence",
+          "grid": 5,
+          "rows": 3,
+          "product_show_saved_amount": true,
+          "product_show_compare_at_price": false
+        }
+      },
+      "featured-content": {
+        "type": "featured-content",
+        "settings": {
+          "section_title": "ברוכים הבאים לחנות המקוונת של חברת פנאקסיה",
+          "text": "<p>החנות מציעה אפשרות רכישה ממגוון מוצרי החברה (תפרחות, שמנים וסיגריות), עבור מטופלי קנאביס רפואי מורשים, ומאפשרת הזמנה מהירה לקראת תיאום המשלוח עד לבית הלקוח\/ה.<\/p>\n<p><\/p>\n<p><strong>אז איך זה עובד?<\/strong><\/p>\n<p>1. לחצו על המוצרים המבוקשים והוסיפו אותם לסל הקניות. ודאו שהמוצרים שבחרתם מופיעים ברישיון.&nbsp;<\/p>\n<p>2. הכניסו את פרטי אמצעי התשלום.<\/p>\n<p>3. רק לאחר בדיקת ההזמנה ווידוא התאמה לרישיון בתוקף, נציגת חברת פנאקסיה תיצור קשר לטובת תיאום המשלוח וחיוב&nbsp;אמצעי התשלום.<\/p>",
+          "text_size": "large"
+        }
+      },
+      "slideshow-2": {
+        "type": "slideshow",
+        "disabled": true,
+        "blocks": {
+          "slideshow-2-0": {
+            "type": "image",
+            "settings": {
+              "slide": "",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "slideshow-2-0"
+        ],
+        "settings": {
+          "slider_home_auto": false,
+          "slider_home_rate": "5000"
+        }
+      },
+      "password-header": {
+        "type": "password-header",
+        "settings": {
+          "logo": "",
+          "logo_max_width": "100"
+        }
+      },
+      "password-content": {
+        "type": "password-content",
+        "settings": {
+          "header": "Coming Soon",
+          "newsletter_enable": true,
+          "newsletter_form_heading": "Find out when we open",
+          "newsletter_placeholder": "Your email",
+          "newsletter_button_text": "Submit",
+          "show_share_buttons": true
+        }
+      },
+      "product-template": {
+        "type": "product-template",
+        "settings": {
+          "product_image_zoom_enable": false,
+          "product_quantity_enable": true,
+          "product_quantity_message": false,
+          "product_incoming_message": false,
+          "product_vendor_enable": true,
+          "product_show_saved_amount": false,
+          "product_show_compare_at_price": false,
+          "related_products_enable": false,
+          "social_sharing_products": false,
+          "product_reviews_enable": false,
+          "add_to_cart_button_size": "small"
+        }
+      },
+      "collection-template": {
+        "type": "collection-template",
+        "settings": {
+          "grid": "5",
+          "rows": "8",
+          "collection_sidebar_filters": "tags",
+          "product_show_compare_at_price": false,
+          "product_show_saved_amount": false,
+          "product_reviews_enable": false,
+          "enable_sidebar": true
+        }
+      },
+      "list-collections-template": {
+        "type": "list-collections-template",
+        "settings": {
+          "display_type": "all",
+          "layout": "grid",
+          "sort": "alphabetical",
+          "grid": "3"
+        }
+      }
+    },
+    "content_for_index": [
+      "slideshow",
+      "collection-list",
+      "featured-content",
+      "collection-row-3",
+      "collection-row-2",
+      "collection-row-1",
+      "slideshow-2"
+    ]
+  },
+  "presets": {
+    "Blue": {
+      "ajax_cart_method": "modal",
+      "cart_notes_enable": false,
+      "collection_sidebar_filters": "tags",
+      "color_accent": "#dd2525",
+      "color_body_bg": "#fff",
+      "color_body_text": "#585858",
+      "color_borders": "#ececec",
+      "color_footer_bg": "#f2f2f2",
+      "color_footer_social_link": "#bbbbbb",
+      "color_footer_text": "#636363",
+      "color_header_background": "#182e49",
+      "color_header_cart_search": "#0f243d",
+      "color_header_text": "#fff",
+      "color_heading_text": "#000",
+      "color_nav_bg": "#182e49",
+      "color_nav_text": "#fff",
+      "color_primary": "#528ec1",
+      "color_secondary": "#dcdcdc",
+      "share_facebook": true,
+      "share_pinterest": true,
+      "share_twitter": true,
+      "social_facebook_link": "",
+      "social_fancy_link": "",
+      "social_google_plus_link": "",
+      "social_instagram_link": "",
+      "social_pinterest_link": "",
+      "social_sharing_style": "is-normal",
+      "social_snapchat_link": "",
+      "social_tumblr_link": "",
+      "social_twitter_link": "",
+      "social_vimeo_link": "",
+      "social_youtube_link": "",
+      "type_accent_family": "Google_Montserrat_400_sans",
+      "type_base_family": "Google_Montserrat_400,700_sans",
+      "type_base_size": "13px",
+      "type_button_size": "14px",
+      "type_button_transform": true,
+      "type_header_family": "Google_Montserrat_700_sans",
+      "type_header_transform": true,
+      "type_navigation_size": "14px",
+      "type_navigation_transform": true,
+      "superscript_decimals": true,
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "logo": "",
+            "logo_max_width": "305"
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "menu": {
+              "type": "menu",
+              "settings": {
+                "title": "Quick links",
+                "menu": "",
+                "width": "16%"
+              }
+            },
+            "text": {
+              "type": "text",
+              "settings": {
+                "title": "Get in touch",
+                "richtext": "<p>Use this text to share information about your brand with your customers.<\/p>",
+                "width": "50%"
+              }
+            },
+            "newsletter": {
+              "type": "newsletter",
+              "settings": {
+                "title": "Newsletter",
+                "width": "33%"
+              }
+            }
+          },
+          "block_order": [
+            "menu",
+            "text",
+            "newsletter"
+          ],
+          "settings": {
+            "social_enabled": false,
+            "legal_menu": ""
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slide-0": {
+              "type": "image",
+              "settings": {
+                "slide": "",
+                "link": ""
+              }
+            },
+            "slide-1": {
+              "type": "image",
+              "settings": {
+                "slide": "",
+                "link": ""
+              }
+            },
+            "slide-2": {
+              "type": "image",
+              "settings": {
+                "slide": "",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "slide-0",
+            "slide-1",
+            "slide-2"
+          ],
+          "settings": {
+            "slider_home_auto": false,
+            "slider_home_rate": "5000"
+          }
+        },
+        "collection-list": {
+          "type": "collection-list",
+          "blocks": {
+            "collection-list-0": {
+              "type": "collection",
+              "settings": {
+                "collection": ""
+              }
+            },
+            "collection-list-1": {
+              "type": "collection",
+              "settings": {
+                "collection": ""
+              }
+            }
+          },
+          "block_order": [
+            "collection-list-0",
+            "collection-list-1"
+          ],
+          "settings": {}
+        },
+        "collection-row-1": {
+          "type": "collection-rows",
+          "settings": {
+            "home_featured_row": "",
+            "grid": 4,
+            "rows": 1
+          }
+        },
+        "collection-row-2": {
+          "type": "collection-rows",
+          "settings": {
+            "home_featured_row": "",
+            "grid": 4,
+            "rows": 1
+          }
+        },
+        "collection-row-3": {
+          "type": "collection-rows",
+          "settings": {
+            "home_featured_row": "",
+            "grid": 4,
+            "rows": 1
+          }
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "collection-list",
+        "collection-row-1",
+        "collection-row-2",
+        "collection-row-3"
+      ]
+    },
+    "Light": {
+      "ajax_cart_method": "modal",
+      "cart_notes_enable": false,
+      "collection_sidebar_filters": "tags",
+      "color_accent": "#545454",
+      "color_body_bg": "#f3f3f3",
+      "color_body_text": "#858585",
+      "color_borders": "#dedede",
+      "color_footer_bg": "#ffffff",
+      "color_footer_social_link": "#545454",
+      "color_footer_text": "#545454",
+      "color_header_background": "#ffffff",
+      "color_header_cart_search": "#f3f3f3",
+      "color_header_text": "#545454",
+      "color_heading_text": "#2f2f2f",
+      "color_nav_bg": "#9c756f",
+      "color_nav_text": "#ffffff",
+      "color_primary": "#9c756f",
+      "color_secondary": "#f3f3f3",
+      "share_facebook": true,
+      "share_pinterest": true,
+      "share_twitter": true,
+      "social_facebook_link": "",
+      "social_google_plus_link": "",
+      "social_instagram_link": "",
+      "social_sharing_style": "is-normal",
+      "social_twitter_link": "",
+      "type_accent_family": "Google_Lato_700_sans",
+      "type_base_family": "Google_Roboto_400,700_sans",
+      "type_base_size": "14px",
+      "type_button_size": "14px",
+      "type_button_transform": true,
+      "type_header_family": "TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif",
+      "type_header_transform": false,
+      "type_navigation_size": "14px",
+      "type_navigation_transform": true,
+      "superscript_decimals": true,
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "logo": "",
+            "logo_max_width": "305"
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "menu": {
+              "type": "menu",
+              "settings": {
+                "title": "Quick links",
+                "menu": "",
+                "width": "16%"
+              }
+            },
+            "text": {
+              "type": "text",
+              "settings": {
+                "title": "Get in touch",
+                "richtext": "<p>Use this text to share information about your brand with your customers.<\/p>",
+                "width": "50%"
+              }
+            },
+            "newsletter": {
+              "type": "newsletter",
+              "settings": {
+                "title": "Newsletter",
+                "width": "33%"
+              }
+            }
+          },
+          "block_order": [
+            "menu",
+            "text",
+            "newsletter"
+          ],
+          "settings": {
+            "social_enabled": false,
+            "legal_menu": ""
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slide-0": {
+              "type": "image",
+              "settings": {
+                "slide": "",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "slide-0"
+          ],
+          "settings": {
+            "slider_home_auto": false,
+            "slider_home_rate": "5000"
+          }
+        },
+        "collection-list": {
+          "type": "collection-list",
+          "blocks": {
+            "collection-list-0": {
+              "type": "collection",
+              "settings": {
+                "collection": ""
+              }
+            },
+            "collection-list-1": {
+              "type": "collection",
+              "settings": {
+                "collection": ""
+              }
+            }
+          },
+          "block_order": [
+            "collection-list-0",
+            "collection-list-1"
+          ],
+          "settings": {}
+        },
+        "collection-row-1": {
+          "type": "collection-rows",
+          "settings": {
+            "home_featured_row": "",
+            "grid": 4,
+            "rows": 1
+          }
+        },
+        "collection-row-2": {
+          "type": "collection-rows",
+          "settings": {
+            "home_featured_row": "",
+            "grid": 4,
+            "rows": 1
+          }
+        },
+        "collection-row-3": {
+          "type": "collection-rows",
+          "settings": {
+            "home_featured_row": "",
+            "grid": 4,
+            "rows": 1
+          }
+        },
+        "featured-content": {
+          "type": "featured-content",
+          "settings": {}
+        },
+        "slideshow-2": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-2-0": {
+              "type": "image",
+              "settings": {
+                "slide": "",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-2-0"
+          ],
+          "settings": {
+            "slider_home_auto": false,
+            "slider_home_rate": "5000"
+          }
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "collection-list",
+        "collection-row-1",
+        "collection-row-2",
+        "collection-row-3",
+        "slideshow-2",
+        "featured-content"
+      ]
+    }
+  }
+}

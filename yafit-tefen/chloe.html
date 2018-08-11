@@ -1,0 +1,214 @@
+{% assign total_products = collection.products_count %}
+
+{% paginate collection.products by 50 %}
+<div id="CollectionSection" data-section-id="{{ section.id }}" data-section-type="collection-template" data-sort-enabled="{{ section.settings.sort_enable }}" data-tags-enabled="{{ section.settings.tags_enable }}">
+  <div class="section-header section-header--breadcrumb">
+    {% include 'breadcrumb' %}
+  </div>
+
+  <header class="section-header section-header--large">
+    <h1 class="section-header__title{% if section.settings.tags_enable or section.settings.sort_enable %} section-header__title--left{% endif %}">{{ collection.title }}</h1>
+    {% if section.settings.tags_enable or section.settings.sort_enable %}
+    <div class="section-header__link--right">
+      {% if section.settings.tags_enable %}
+        {% include 'collection-tags' %}
+      {% endif %}
+      {% if section.settings.sort_enable %}
+        {% include 'collection-sorting' %}
+      {% endif %}
+    </div>
+    {% endif %}
+  </header>
+
+  {% if collection.description != blank %}
+    <div class="rte rte--header">
+      {{ collection.description }}
+    </div>
+    <hr class="hr--clear hr--small">
+  {% endif %}
+
+  <div class="grid-uniform grid-link__container datamatrix">
+    {% assign grid_item_width = 'wide--one-fifth large--one-quarter medium-down--one-half' %}
+    {%- assign product_width = 335 -%}
+
+    {% for product in collection.products %}
+      {% assign featured = product %}
+      <div class="product grid__item {{grid_item_width}}" id="product-{{ forloop.index | plus:paginate.current_offset }}">
+        {% include 'product-grid-item' %}
+      </div>
+    {% else %}
+
+      {% if shop.products_count == 0 %}
+        <div class="grid__item">
+          <div class="helper-section">
+            <div class="grid-uniform helper-content{% if section.settings.center_grid_link %} text-center{% endif %}">
+              {% for i in (1..8) %}
+                <div class="grid__item one-half post-large--one-quarter">
+                  <a href="/admin/products" class="grid-link">
+                    <span class="grid-link__image grid-link__image--product">
+                      <span class="grid-link__image-centered">
+                        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                        {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                      </span>
+                    </span>
+                    <p class="grid-link__title">{{ 'home_page.onboarding.product_title' | t }}</p>
+                    <p class="grid-link__meta">
+                      <strong>$19.99</strong>
+                    </p>
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="grid__item">
+          <p><em>{{ 'collections.general.no_matches' | t }}</em></p>
+        </div>
+      {% endif %}
+
+    {% endfor %}
+    
+    {% if paginate.next %}
+    <div class="more"><p><a href="{{ paginate.next.url }}" class="nextPage"></a></p></div></div>        
+    {% endif %}
+
+	<div id="product-list-foot"></div>
+  </div>
+
+ {% endpaginate %}
+{{ 'doTimeout.js' | asset_url | script_tag }}
+<script type="text/javascript">
+     
+      var pInfScrLoading = false;
+      var pInfScrDelay = 200;
+      var i=1;
+      var totalProducts= '{{ total_products }}';
+      var totalPages =  Math.ceil(totalProducts/50);
+//   alert('product='+totalProducts);
+  
+         function ScrollExecute() {
+           
+           if($(document).height() - 800 < ($(document).scrollTop() + $(window).height())) {
+               scrollNode = $('.more').last();    
+               console.log('scrollNode='+scrollNode);
+         	   scrollURL = $('.datamatrix a.nextPage').last().attr("href");
+            
+               if( !pInfScrLoading && $('.more').last().css('display') != 'none' && scrollNode.length > 0 && i < totalPages ) {
+//        				sendRequest(scrollNode,scrollURL);
+                 $.ajax({
+                       type: 'GET',
+                       url: scrollURL,
+                       beforeSend: function() {
+                          pInfScrLoading = true;
+                          loadingImage = scrollNode.clone().empty().append('<img id="hideme_'+i+'" align="center" style="height:60px; width:60px; text-align:center;" src="{{ 'ajax-big-big-loader.gif' | asset_url }}" />');
+                          loadingImage.insertAfter(scrollNode);
+                          scrollNode.hide();
+                       },
+                    
+                       success: function(data) {
+                           // remove loading feedback
+                           scrollNode.next().remove();
+                           var filteredData = $(data).find(".datamatrix");
+                           filteredData.insertBefore( $("#product-list-foot") ); 
+                           pInfScrLoading = false;
+                           $('#hideme_'+i).hide();
+//                            alert('request_sent'+i);
+                           i=i+1;
+                           console.log('#hideme_'+i);
+                       },
+                       dataType: "html"
+           		});
+               }
+           }
+         }
+ 
+//   		function sendRequest(scrollNode,scrollURL)
+//         {
+//           $.ajax({
+//                        type: 'GET',
+//                        url: scrollURL,
+//                        beforeSend: function() {
+//                           pInfScrLoading = true;
+//                           loadingImage = scrollNode.clone().empty().append('<img id="hideme_'+i+'" align="center" style="height:60px; width:60px; text-align:center;" src="{{ 'ajax-big-big-loader.gif' | asset_url }}" />');
+//                           loadingImage.insertAfter(scrollNode);
+//                           scrollNode.hide();
+//                        },
+                    
+//                        success: function(data) {
+//                            // remove loading feedback
+//                            scrollNode.next().remove();
+//                            var filteredData = $(data).find(".datamatrix");
+//                            filteredData.insertBefore( $("#product-list-foot") ); 
+//                            pInfScrLoading = false;
+//                            $('#hideme_'+i).hide();
+// //                            alert('request_sent'+i);
+//                            i=i+1;
+//                            console.log('#hideme_'+i);
+//                        },
+//                        dataType: "html"
+//            });
+//         }
+  		function sendRequest(scrollNode,scrollURL)
+        {
+          $.ajax({
+                       type: 'GET',
+                       url: scrollURL,
+//                        beforeSend: function() {
+//                           pInfScrLoading = true;
+//                           loadingImage = scrollNode.clone().empty().append('<img id="hideme_'+i+'" align="center" style="height:60px; width:60px; text-align:center;" src="{{ 'ajax-big-big-loader.gif' | asset_url }}" />');
+//                           loadingImage.insertAfter(scrollNode);
+//                           scrollNode.hide();
+//                        },
+                    
+                       success: function(data) {
+                           // remove loading feedback
+                           scrollNode.next().remove();
+                           var filteredData = $(data).find(".datamatrix");
+                           filteredData.insertBefore( $("#product-list-foot") ); 
+                           pInfScrLoading = false;
+                           $('#hideme_'+i).hide();
+//                            alert('request_sent'+i);
+                           i=i+1;
+                           console.log('#hideme_'+i);
+                       },
+                       dataType: "html"
+           });
+        }
+  
+  $(document).ready(function () {
+    	var ShowingTotalProducts = false;
+    
+    	$('.showAll').click(function(e){
+    
+          var ShowingTotalProducts = true;
+          var current_url = window.location.href;
+          var pageNo = current_url.split('?page=');
+          var current_page = pageNo[1];
+          console.log(pageNo[1]);
+          
+          if(current_page>1)
+          { 
+            for(var i=current_page; i<=1; i--)
+            {
+              var current_coll = window.location.pathname;
+              var scrollURL = current_coll+'?page='+i;
+              var scrollNode = $('.more').last(); 
+              sendRequest(scrollNode,scrollURL);
+            }
+          }
+//           alert(pathName);
+      //     window.location = "https://planinsekart.com.au"+pathName;
+          $('.collection-withoutNavs').css('display','block');
+          $('.collection-with-pages').remove();
+
+        });
+    
+        $(window).scroll(function(){
+            $.doTimeout( 'scroll', pInfScrDelay, ScrollExecute);
+            if( $(document).height() - 800 > $(document).scrollTop() + $(window).height() ) {
+              pInfScrDelay = 200;
+            }
+        });
+  });  
+</script>
