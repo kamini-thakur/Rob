@@ -1,0 +1,52 @@
+{% include 'bold-product' with product, hide_action: 'break' %}
+<div class="value-propositions">
+  <div class="freesectionsdiv">
+    <ul>
+      <li>
+        <a href="#shipping-modal" class="fancybox">
+
+          <img style="vertical-align:middle" src="{{'Icons-New-Shipping.png' | asset_url}}">
+          <font size="1"> - FREE UK SHIPPING</font>
+
+        </a>
+
+<br>
+        <a href="#warranty-modal" class="fancybox">
+
+            <img style="vertical-align:middle"  src="{{'Icons-New-3year.png' | asset_url}}">
+
+          <font size="1">- 3 YEAR WARRANTY</font>
+
+        </a>
+<br>
+        <a href="#returns-modal" class="fancybox">
+
+            <img style="vertical-align:middle"  src="{{'Icons-New-Engrave.png' | asset_url}}">
+
+          <font size="1">- CASEBACK ENGRAVING</font>
+
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+  <div style="display: none;" id="warranty-modal">
+    <div class="shipping-popup">
+      <span style="font-size: 30px;">3 YEAR WARRANTY</span><br><br>
+      <p>We’re so confident in our watches we’ll give you an unprecedented 3 year warranty. </p>
+      <p>A full 12 months longer than our competitors.</p>
+    </div>
+  </div>
+
+  <div style="display: none;" id="returns-modal">
+    <div class="shipping-popup">
+      <span style="font-size: 30px;">ENGRAVING</span><br><br>
+      <p>All watch purchased from Kartel.co.uk come with a caseback engraving. Make a great gift an amazing one with a meaningful message.</p>
+      <p>Just click the 'Add Engraving' button on any product page to launch our engraving pop up. Enter your own message or choose from our image of designs and messages.</p>
+    </div>
+  </div>
+ 
+</div>
+
+                    {% include 'dispatch-time' %}

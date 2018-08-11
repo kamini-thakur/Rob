@@ -1,0 +1,143 @@
+{% include 'bold-product' with product, hide_action: 'break' %}
+<!-- Bold D&H //product -->
+{% if product.metafields.inventory.ShappifyHidden == "true" %}
+Product is not available
+{% break %}{% endif %}
+<!-- // end product D&H -->
+
+{% if product.available %}
+
+  <form action="/cart/add"
+      method="post"
+      class="clearfix product_form init {% if product.variants.size > 1 or product.options.size > 1 %}product_form_options{% endif %}"
+      id="product-form-{{ product.id }}"
+      data-money-format="{{ shop.money_format }}"
+      data-shop-currency="{{ shop.currency }}"
+      data-select-id="product-select-{{ product.id }}{{ product-form }}"
+      data-enable-state="{% if template contains 'product' %}true{% else %}false{% endif %}"
+      data-product="{{ product | json | escape }}"
+      data-product-id="{{ product.id }}" enctype="multipart/form-data">
+    
+    <span class="mw-product-options"></span>
+      
+    {% if settings.display_inventory_left %}
+      <div class="items_left">
+        {% if product.variants.first.inventory_management == "shopify" and product.variants.first.inventory_quantity > 0 %}
+          {% capture items_left_text %}
+            {% if product.variants.first.inventory_quantity == 1 %}
+              {{ 'products.product.items_left_count.one' | t }}
+            {% else %}
+              {{ 'products.product.items_left_count.other' | t }}
+            {% endif %}
+          {% endcapture %}
+
+          <p><em>{{ product.variants.first.inventory_quantity }} {{ items_left_text }}</em></p>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    <div class="product-varaints" {% if template.suffix contains 'sunglasses' %}style="display:none;"{% else %}style="display:block;"{% endif %}>
+    {% if product.options.size > 1 %}
+      <div class="select" >
+        <select id="product-select-{{ product.id }}" name="id" class="multi_select">
+          {% for v in product.variants %}
+            <option {% if v == variant %}selected="selected"{% endif %} value="{{ v.id }}" data-sku="{{ v.sku }}">{{ v.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    {% elsif product.options.size == 1 and product.variants.size > 1 and product.options[0] != "Title" %}
+      <div class="select">
+        <label>{{ product.options[0] }}</label>
+        <select id="product-select-{{ product.id }}" name="id">
+          {% for v in product.variants %}
+            <option {% if v == variant %}selected="selected"{% endif %} value="{{ v.id }}" data-sku="{{ v.sku }}">{{ v.title }}</option>
+          {% endfor %}
+        </select> 
+      </div>
+      
+    {% else %}
+      <input type="hidden" name="id" value="{{ variant.id }}" />
+    {% endif %}
+    </div>
+    
+    {% if settings.display_product_quantity %} 
+
+      <div class="left">
+        <label for="quantity">{{ 'products.product.quantity' | t }}:</label>
+        <input type="number" min="1" size="2" class="quantity" name="quantity" id="quantity" value="1" />
+      </div>
+    {% endif %}
+    <div class="purchase clearfix {% if settings.display_product_quantity %}inline_purchase{% endif %}">
+      {% if settings.cart_return == 'back' %}
+        <input type="hidden" name="return_to" value="back" />
+      {% endif %}
+      
+      
+      {% capture productCollections %}
+      {% for collection in product.collections %}
+        	{{ collection.handle }}
+      		{% if forloop.last %},{% endif %}
+      {% endfor %}
+      {% endcapture %}
+     
+      {% comment %}
+      {% if productCollections contains 'lewis-34mm' or productCollections contains 'watch-straps' %}
+      	{% unless productCollections contains 'lewis-34mm-40mm' %}	
+      		{% assign lewisCollection = false %}
+      	{% endunless %}
+      {% else %}
+       		{% assign lewisCollection = true %}
+      {% endif %}
+      {% endcomment %}
+      
+      
+      {% if productCollections contains 'watch-straps' %}
+      		{% assign lewisCollection = false %}
+      {% else %}
+       		{% assign lewisCollection = true %}
+      {% endif %}
+      
+      {% unless template.suffix contains 'sunglasses' %}
+      {% if lewisCollection %}
+    		{% include 'personalize_pop' %}
+      {% endif %}
+      {% endunless %}
+      
+    {% unless template.suffix contains 'sunglasses' or productCollections contains 'watch-straps' %}
+      {% if product.handle contains 'build-your-kartel-watch' %}
+      <input type="submit" data_variant_id="{{ product.variants.first.id }}" name="add" id="AddToCart" value="{{ 'products.product.add_to_cart' | t }}" class="action_button add_to_cart btn-block kartel-customiser" />
+      {% else %}
+      <a href="https://www.kartel.co.uk/products/build-your-kartel-watch"><input  type="button" class="btn action_button mr-0" name="customise_button" value="CUSTOMISE THIS WATCH >"  /></a>
+      {% endif %}
+    {% endunless %}
+    </div>
+    {% unless product.handle contains 'build-your-kartel-watch' %}
+    <div class="purchase clearfix add-to-cart-btn">
+    	<input type="submit" data_variant_id="{{ product.variants.first.id }}" name="add" id="AddToCart" value="{{ 'products.product.add_to_cart' | t }}" class="action_button add_to_cart btn-block" />
+	</div>    
+	{% endunless %}
+    
+    <div class="try-before purchase clearfix"><img src="{{ 'try-before.png' | asset_url }}" alt="try-before-banner"></div>
+
+  </form>
+
+{% if product.variants.size > 1 or product.options.size > 1 %}
+
+    <script type="text/javascript">
+        $(function() {    
+          var product = $('#product-' + {{ product.id }}); 
+          new Shopify.OptionSelectors("product-select-{{ product.id }}", { product: {{ product | json }}, onVariantSelected: selectCallback{% if product-form == 'product' %}, enableHistoryState: true{% endif %} });                     
+        });  
+  
+      {% if product.options.size == 1 %}
+        {% for variant in product.variants %}
+          {% unless variant.available %}
+          jQuery('.single-option-selector option').filter(function() { return jQuery(this).html() === {{ variant.title | json }}; }).remove();
+          {% endunless %}
+        {% endfor %}
+  		jQuery('.single-option-selector').trigger('change');
+	  {% endif %}
+    </script>
+  {% endif %}
+
+{% endif %}

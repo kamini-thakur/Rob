@@ -1,0 +1,23 @@
+{% include 'bold-product' with product, hide_action: 'break' %}
+{% assign dispatch_time_display = true %}
+{% if dispatch_time_display %}
+<style>
+  #dispatch-time-message {
+    
+    background-color: #FFFFFF;
+    color: #A2A2A2;
+    border: 0.15em solid #A2A2A2;
+    padding: 1em;
+    margin: 0px 0 0px;
+    text-align: center;
+    line-height: 1.4em;
+  }
+  #dispatch-time-message p {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+<div id="dispatch-time-message" style="display: none;">
+  Order in the next  for next-day delivery, includes engraved watches. * UK orders only.
+</div>
+{% endif %}

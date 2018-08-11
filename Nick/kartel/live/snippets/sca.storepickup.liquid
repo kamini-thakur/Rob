@@ -1,0 +1,190 @@
+{% if template contains 'cart' %}
+
+{% assign scasp_disable_pickup = false %}
+{% include 'sca.storepickup.extend' %}
+
+{% if scasp_disable_products != '' %}
+  {% for item in cart.items %}
+    {% assign disable_products = scasp_disable_products | downcase | split: ',' %}
+    {% for disable_product in disable_products %}
+      {% if item.product.handle contains disable_product %}
+      	{% capture scasp_disable_pickup %}true{% endcapture %}
+      	{% break %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+{% if scasp_disable_collections != '' and scasp_disable_pickup == false %}
+  {% assign disable_collections = scasp_disable_collections | downcase | split: ',' %}
+  {% for item in cart.items %}
+    {% for collection in item.product.collections %}
+      {% for disable_collection in disable_collections %}
+        {% if collection.handle contains disable_collection %}
+          {% capture scasp_disable_pickup %}true{% endcapture %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+<div class='scasp-wrapper'>
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+<script id='scasp-init'>
+  var SCASPDisablePickup = {{ scasp_disable_pickup }};
+  var SCASPLocale = '{{ shop.locale }}';
+  if("undefined"==typeof Handlebars&&"function"==typeof define&&define.amd){var scasp_tempamd=define.amd;define.amd=void 0;var scasp_fileref=document.createElement("script");scasp_fileref.setAttribute("type","text/javascript"),scasp_fileref.setAttribute("src","//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"),document.getElementsByTagName("head")[0].appendChild(scasp_fileref),setTimeout(function(){define.amd=scasp_tempamd},1e3)}
+</script>
+<link rel="stylesheet" type="text/css" href='{{ "sca.storepickup.css" | asset_url }}' />
+
+<!-- TEMPLATES -->
+<script id="scasp-container-template" type="text">
+{%raw%}
+<div id="sca-storepickup-container" style="display: none">
+  <ul id="sca-storepickup-methods">
+    <li class="sca-storepickup-shipping-tab active">
+      <img src="{% endraw %}{{ 'scasp-shipping-icon.png' | asset_url }}{% raw %}" />
+      <p>{{ st_shipping_tab }}</p>
+    </li>
+    <li class="sca-storepickup-delivery-tab">
+      <img src="{% endraw %}{{ 'scasp-delivery-icon.png' | asset_url }}{% raw %}" />
+      <p>{{ st_local_delivery_tab }}</p>
+    </li>
+    <li class="sca-storepickup-pickup-tab">
+      <img src="{% endraw %}{{ 'scasp-pickup-icon.png' | asset_url }}{% raw %}" />
+      <p>{{ st_store_pickup_tab }}</p>
+    </li>
+  </ul>
+
+  <div id="sca-storepickup-desc">
+    <p class="sca-storepickup-shipping-desc">{{ st_shipping_text_content }}</p>
+    <p class="sca-storepickup-delivery-desc" style="display: none">{{ st_local_delivery_text_content }}</p>
+    <p class="sca-storepickup-pickup-desc" style="display: none">{{ st_store_pickup_text_content }}</p>
+
+    <div class="bh-sl-container" style="display: none">
+      <div class="bh-sl-form-container">
+        <input type="text" id="bh-sl-address" name="bh-sl-address" placeholder="{{ st_search_box_placeholder }}" {{#if sg_search_box}}{{else}}style="display: none"{{/if}} />
+        <a href="#" id="scasp-geocode-btn" title="{{ st_find_my_location }}" {{#if sg_search_box}}{{else}}style="display: none"{{/if}}>
+        	<img src="{% endraw %}{{ 'scasp-find-location.png' | asset_url }}{% raw %}" />
+        </a>
+        <span class="scasp-address-required scasp-error-msg">{{ st_delivery_address_is_required }}</span>
+      </div>
+
+      <div id="bh-sl-map-container" class="bh-sl-map-container">
+        <div id="bh-sl-map" class="bh-sl-map"></div>
+        <div class="bh-sl-loc-list">
+          <ul class="list"></ul>
+        </div>
+      </div>
+      <div class="bh-sl-pagination-container">
+        <ol class="bh-sl-pagination"></ol>
+      </div>
+      <span class="scasp-store-required scasp-error-msg">{{ st_non_select_store_validate_text }}</span>
+      <span class="scasp-delivery-validate scasp-error-msg" style="display: none">{{ st_delivery_address_is_not_valid }}</span>
+      <span class="scasp-delivery-success" style="display: none">{{ st_delivery_address_validate_success }}</span>
+    </div>
+
+    <span class="scasp-delivery-no-validate" style="display: none">{{ st_delivery_no_validate }}</span>
+
+    <input type="text" id="date-pickup" placeholder="{{ st_datetime_pickup_placeholder }}" style="display: none" onfocus="blur();" />
+    <input type="text" id="date-delivery" placeholder="{{ st_datetime_pickup_placeholder }}" style="display: none" onfocus="blur();" />
+    <input type="text" id="scasp-date" style="display:none;" />
+    <input type="text" id="scasp-time" style="display:none;" />
+    <input type="text" id="scasp-delivery-date" style="display:none;" />
+    <input type="text" id="scasp-delivery-time" style="display:none;" />
+    <span class="scasp-datetime-required scasp-error-msg">{{ st_non_select_datetime_validate_text }}</span>
+
+    <input type="hidden" name="attributes[Checkout-Method]" />
+    <input type="hidden" name="attributes[Pickup-Location-Id]" />
+    <input type="hidden" name="attributes[Pickup-Date]" />
+    <input type="hidden" name="attributes[Pickup-Time]" />
+    <input type="hidden" name="attributes[Pickup-Location-Company]" />
+    <input type="hidden" name="attributes[Pickup-Location-Address-Line-1]" />
+    <input type="hidden" name="attributes[Pickup-Location-Address-Line-2]" />
+    <input type="hidden" name="attributes[Pickup-Location-City]" />
+    <input type="hidden" name="attributes[Pickup-Location-Region]" />
+    <input type="hidden" name="attributes[Pickup-Location-Postal-Code]" />
+    <input type="hidden" name="attributes[Pickup-Location-Country]" />
+    <input type="hidden" name="attributes[Delivery-Location-Id]" />
+    <input type="hidden" name="attributes[Delivery-Date]" />
+    <input type="hidden" name="attributes[Delivery-Time]" />
+
+    <div class="scasp-popup-template" style="display: none"></div>
+  </div>
+</div>
+{% endraw %}
+
+<script id="scasp-infowindow-template" type="text"></script>
+
+<script id="scasp-list-template" type="text">
+{%raw%}
+{{#location}}
+<li class="scasp-list-container" data-markerid="{{markerid}}">
+	<div class="list-details scasp-list-details" {{#if store_image}} style="width:70%" {{/if}}>
+    	<input type="radio" class="location_id" name="location_id" value="{{id}}" />
+		<div class="list-content scasp-list-content">
+			<div class="scasp-field scasp-title" >{{name}}</div>
+            <div class="scasp-field scasp-address">{{address}}</div>
+            <div class="scasp-field scasp-address2">{{address2}}</div>
+            <div><span class="scasp-field scasp-city">{{city}}{{#if city}},{{/if}}</span> {{#if state}}<span class="scasp-field scasp-state">{{state}}</span> <span class="scasp-field scasp-zipcode">{{postal}}</span>,{{/if}} <span class="scasp-field scasp-country"> {{#if country}}{{country}}{{/if}}</span></div>
+            <input type="hidden" name="distance-value" class="distance-value" value="{{distance}}" />
+            {{#if distance}}
+            	<div id="scasp-distance" class="scasp-field">{{distance}} {{length}}</div>
+            	<div id="scasp-direction" class="scasp-field"><a href="https://maps.google.com/maps?saddr={{origin}}&amp;daddr={{address}} {{address2}} {{city}}, {{state}} {{postal}}" target="_blank">Directions</a></div>
+            {{/if}}
+            <div id="scasp-more-info" class="scasp-field"><a data-fancybox data-src="#scasp-opening{{id}}" href="javascript:;" class="scasp-more-information">{{ st_more_information_text }}</a></div>
+		</div>
+        <div class="list-label"><span>{{marker}}</span></div>
+	</div>
+
+	{{#if store_image}}
+	<div id="scasp-store_image" class="list-image scasp-list-image scasp-field">
+		<img src="{{store_image}}" />
+	</div>
+    {{/if}}
+</li>
+{{/location}}
+{%endraw%}
+</script>
+
+<script id="scasp-popup-template" type="text">
+{% raw %}
+{{#location}}
+<div class="scasp-location-popup" id="scasp-opening{{id}}">
+    <h1>{{name}}</h1>
+    <div>{{address}}</div>
+    {{#if address2}}<div>{{address2}}</div>{{/if}}
+    <div><span class="scasp-field">{{city}}{{#if city}},{{/if}}</span> {{#if state}}<span class="scasp-field">{{state}}</span> <span class="scasp-field">{{postal}}</span>,{{/if}} <span class="scasp-field"> {{#if country}}{{country}}{{/if}}</span></div>
+
+    <h3>{{ st_opening_hours_text }}</h3>
+    <table>
+        {{#each opening_hours}}
+          {{#if (eq status "1")}}
+          <tr>
+          	  <td>{{name}}</td>
+              <td>{{from}} - {{to}}</td>
+          </tr>
+          {{/if}}
+        {{/each}}
+    </table>
+</div>
+{{/location}}
+{% endraw %}
+</script>
+<!-- END TEMPLATES -->
+
+
+</div>
+<script>
+  try {
+    if (typeof $ !== 'undefined') {
+      	$(document).ready(function () {
+      		$('form[action*="cart"][method="post"]').attr('action','/cart?locale={{shop.locale}}');
+  		});
+    }
+  } catch (e) {
+  }
+</script>
+{{ 'sca.storepickup_scripttag.js' | asset_url  | script_tag }} 
+
+{% endif %}

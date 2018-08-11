@@ -1,0 +1,78 @@
+{% for c in product.collections %}
+  {% case c.handle %}
+    {% when 'watches-with-20mm-width-leather-straps' %}
+       {% assign collection = collections['20mm-width-leather-watch-straps'] %}
+    {% when 'watches-with-20mm-width-metal-straps' %}
+       {% assign collection = collections['20mm-width-metal-watch-straps'] %}
+    {% when 'watches-with-20mm-width-fabric-straps' %}
+       {% assign collection = collections['20mm-width-fabric-watch-straps'] %}
+	{% when 'watches-with-16mm-width-fabric-straps' %}
+       {% assign collection = collections['16mm-width-fabric-watch-straps'] %}
+    {% when 'watches-with-16mm-width-leather-straps' %}
+       {% assign collection = collections['16mm-width-leather-watch-straps'] %}
+    {% when 'watches-with-16mm-width-metal-straps' %}
+       {% assign collection = collections['16mm-width-metal-watch-straps'] %}
+  {% endcase %}
+{% endfor %}
+
+<div id="upsell_product_straps" class="straps-upsell-section left" data-straps="true">
+	<div class="upsell-title">
+		<div class="strap-upsell-offer" data-prod-orig-price="{{ wsprice | money_without_currency }}">
+			<span class="strap-upsell-message">Add a second strap</span>
+		</div>
+	</div>
+	<div class="mobile-strap-slider strap_products" style="">
+      {% for product in collection.products %}
+      {% if product.available %}
+      <div class="strap-upsell js-add-upsell-item">
+        
+        <div class="product-info">
+           <input type="checkbox" name="add_strap" class="add_watch_strap" data-variant-id="{{ product.variants.first.id }}" data-prod-price="{{ product.price | money_without_currency }}" value="{{ product.handle }}">
+
+           <img class="strap-upsell__image" src="{{ product.featured_image | product_img_url: 'small' }}">
+           <p class="strap-upsell__price">+ {{ product.price | money }}</p>
+           <p class="strap-upsell__description">{{ product.title }}</p>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script>
+  $('.strap_products').slick({
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: false,
+        dots:false,
+    	arrows:true,
+    	navs: false,
+    	autoplay:false,
+        speed: 300,
+        responsive: [
+        {
+          breakpoint: 991,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1
+          }
+        }
+      ]
+  });
+</script>
+
+				
+
+
+

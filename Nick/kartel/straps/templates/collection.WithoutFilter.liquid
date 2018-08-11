@@ -1,0 +1,56 @@
+{% include 'shogun-products', content: collection %}
+{{collection.metafields.shogun.above}}
+{% assign mobileImg = collection.handle | append : '_mobile.jpeg' %}    
+
+{% paginate collection.products by settings.pagination_limit %}
+
+  <div class="sixteen columns breadcrumb clearfix">
+    <div class="eight columns breadcrumb_text alpha">
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span> 
+      &nbsp; / &nbsp;
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ collection.url }}" title="{{ collection.title | escape }}" itemprop="url"><span itemprop="title">{{ collection.title }}</span></a></span>       
+      {% if current_tags %}
+        {% for tag in current_tags %}
+          &nbsp; / &nbsp;
+          <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}" title="{{ tag | escape }}" itemprop="url"><span itemprop="title">{{ tag }}</span></a></span>       
+        {% endfor %}
+      {% endif %}
+    
+      {% if paginate.pages != 0 %}      
+        &nbsp; / &nbsp; {{ 'general.breadcrumbs.page' | t: current_page: paginate.current_page, pages: paginate.pages }}
+      {% endif %}
+    </div>
+  </div>
+
+    <div class="sixteen columns">
+
+      <h1>{{ collection.title }}</h1>
+
+    {% if collection.description != blank %}
+      <div class="section clearfix collection_description" id="collectionImg">    
+        {{ collection.description }}
+        <img src="{{ mobileImg | asset_url }}" class="mobile" style="display:none;" > 
+      </div>
+    {% endif %}
+
+    {% if collection.products.size == 0 %}
+      <div class="section clearfix">     
+        <p class="quote">{{ 'collections.general.no_matches' | t }}</p>
+      </div>
+    {% else %}
+      {% assign products = collection.products %}
+      {% assign products_per_row = settings.products_per_row %}
+      
+      {% include 'product-loop' %}
+    {% endif %}
+
+    {% include 'pagination' with settings.collection_sidebar %}
+  </div>
+{% endpaginate %}
+      
+  
+  
+
+
+{{collection.metafields.shogun.below}}
+

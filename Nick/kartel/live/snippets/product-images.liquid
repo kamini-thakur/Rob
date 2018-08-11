@@ -1,0 +1,36 @@
+{% include 'bold-product' with product, hide_action: 'break' %}
+{% assign featured_image = product.featured_image %}
+
+<div class="flexslider product_gallery {% if product-images == blank %}product_slider{% endif %}" id="product-{{ product.id }}-gallery">
+  <ul class="slides {% if product.handle == 'customise-your-kartel' %}CustomiserProduct{% endif %}">
+    {% for image in product.images %}
+          <li {{ image.attached_to_variant? }} {% if image.attached_to_variant? == true %}class="HasvariantImage" data-variant="{{image.variants.first.option2}}" {% endif %} data-thumb="{{ image | product_img_url: 'master' }}" data-title="{% if image.alt contains 'youtube' or image.alt contains 'vimeo' %}{{ product.title }}{% else %}{{ image.alt | escape }}{% endif %}">
+        {% if image.alt contains 'youtube' or image.alt contains 'vimeo' %}
+           {% comment %}
+          {% assign src = image.alt | split: 'src="' %}
+          {% assign src = src[1] | split: '"' | first %}
+
+          {% if src contains '?' %} 
+            {% assign src = src | append: '&amp;autoplay=1' %}
+          {% else %}
+            {% assign src = src | append: '?autoplay=1' %}
+          {% endif %}
+
+          <div class="video-container {% if image.alt contains 'vimeo' %}vimeo{% else %}youtube{% endif %}">
+            <div>
+              <a href="{{ src }}" class="fancybox fancybox.iframe" data-fancybox-group="{{ product.id }}" title="{{ product.title | escape }}">
+                {{ image.alt }}
+              </a>
+            </div>
+          </div>{% endcomment %}
+        {% else %}
+         <a>
+
+            <img src="{{ 'loader.gif' | asset_url }}" data-src="{{ image | product_img_url: 'master' }}" data-src-retina="{{ image | product_img_url: 'master' }}" alt="{{ image.alt | escape }}" data-index="{{ forloop.index0 }}" data-image-id="{{ image.id }}" data-cloudzoom="zoomImage: '{{ image | product_img_url: 'master' }}', tintColor: '{{ settings.shop_bg_color }}', zoomPosition: 'inside', zoomOffsetX: 0, hoverIntentDelay: 100, touchStartDelay: 250" class="{% unless product.handle == 'customise-your-kartel' %}cloudzoom{% endunless %} {% if featured_image.id == image.id %}featured_image{% endif %}" />
+            </a>
+        {% endif %}
+      </li>
+   
+    {% endfor %}
+  </ul>
+</div>

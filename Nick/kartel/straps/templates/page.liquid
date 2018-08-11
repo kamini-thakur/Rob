@@ -1,0 +1,23 @@
+{% include 'shogun-products', content: page %}
+<div class="sixteen columns clearfix collection_nav">
+  <h1 class="collection_title">
+    {% unless page.handle == 'upload-a-photo' %}
+    {{ page.title }}
+    {% endunless %}
+  </h1>
+</div>
+
+<div class="sixteen columns page">
+    {{ page.content }}
+</div>
+
+{% if page.handle == 'wedding-services-sign-up' %}
+    </div>
+{% endif %}
+
+<style>
+div.formFooter {
+  visibility: hidden;
+}
+</style>
+  

@@ -1,0 +1,41 @@
+<div class="popup_watch_main">
+	<div class="popup_watch_outer">
+		<div class="popup_inner">
+			<div class="popup_left">
+				<img src="{{ 'imgpsh_fullsize.png' | asset_url }}" alt="" />
+				<div class="popup_table_absolute">
+					<div class="popup_table">
+						<div class="popup_table_cell">
+							<span class="popup_type_text">
+								Message
+							</span>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="pop_up_right">
+				<h1>ENGRAVING</h1>
+				<h6>Enter your message below</h6>
+				<div class="popup_right_field">
+					<div class="popup_field_inner">
+						<input type="text" placeholder="MESSAGE" id="msg1" name="properties[msg1]"> 
+						<span class="message_num">0/15</span>
+					</div>
+					<div class="popup_field_inner">
+						<input type="text" placeholder="MESSAGE" id="msg2" name="properties[msg2]"> 
+						<span class="message_num">0/15</span>
+					</div>
+					<div class="popup_field_inner">
+						<input type="text" placeholder="MESSAGE" id="msg3" name="properties[msg3]"> 
+						<span class="message_num">0/15</span>
+					</div>
+				</div>
+				<div class="popup_submit">
+                  <input id="hello-{{ product.id }}" type="submit" value="SUBMIT">
+				</div>
+			</div>
+			<a href="#" class="close_pop"><img src="{{ 'imgpsh_fullsize_close.png' | asset_url }}" alt="" /></a>
+		</div>
+	</div>
+</div>
+

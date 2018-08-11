@@ -1,0 +1,4 @@
+<?php if (get_theme_mod( 'empty_pro_header', 'Edit or remove this section under Appearance > Theme Customizer' )) : ?><div class="address-phone-pro"><?php echo get_theme_mod('empty_pro_header', 'Edit or remove this section under Appearance > Theme Customizer'); ?></div><?php endif; ?>
+<?php if (get_theme_mod( 'address_pro_header')) : ?><div class="address-phone-pro"><i class="fa fa-map-marker"></i><?php echo get_theme_mod('address_pro_header'); ?></div><?php endif; ?>
+<?php if (get_theme_mod( 'phone_pro_header' )) : ?><div class="address-phone-pro"><i class="fa fa-phone"></i><?php echo get_theme_mod('phone_pro_header'); ?></div><?php endif; ?>
+<?php if (get_theme_mod( 'eeemail_pro_header' )) : ?><div class="address-phone-pro"><a href="mailto:<?php echo get_theme_mod('eeemail_pro_header'); ?>"><i class="fa fa-envelope"></i><?php echo get_theme_mod('eeemail_pro_header'); ?></a></div><?php endif; ?>

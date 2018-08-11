@@ -1,0 +1,107 @@
+{% assign mobileImg = collection.handle | append : '_mobile.jpeg' %}    
+{% assign collections_per_row =  settings.products_per_row | strip %}
+
+<!-- <div class="sixteen columns clearfix collection_nav">
+  <h1 class="collection_title">{{ 'collections.general.title' | t }}</h1>
+</div> -->
+
+{% comment %}
+{% capture new_row %}
+    <br class="clear product_clear" />
+{% endcapture %}
+{% endcomment %}
+
+{% if collection.description != blank %}
+      <div class="section clearfix collection_description" id="collectionImg">    
+        {{ collection.description }}
+        <img src="{{ mobileImg | asset_url }}" style="display:none;" > 
+      </div>
+{% comment %}
+      {% if collection.handle contains 'mens-watches' or collection.handle contains 'womans-watches' or collection.handle contains 'watch-straps' %}
+        <h1>{{ collection.title }}</h1>
+        <hr style="border-color:#000000">
+    {% endif %}
+{% endcomment %}
+{% endif %}
+
+{% assign collectionName = collection.handle %}
+{% assign c = linklists[collectionName].links %}
+    
+{% for link in c %}
+    <div class="sixteen columns new_colls">
+    
+    {% assign collection = link.object %} 
+    <h2>{{ link.title }} </h2> 
+      <hr style="border-color:#000000">
+{% for product in collection.products %}   
+       
+{% include 'bold-product' with product, hide_action: 'skip' %}
+{% include 'bold-product' with product, hide_action: 'skip' %}
+       
+
+  {% unless collection.handle == 'frontpage' %}
+    {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+    
+    <div class="{% if collections_per_row == "2" %}eight columns {% cycle 'alpha', 'omega' %}{% elsif collections_per_row == "3" %}one-third column {% cycle 'alpha', '', 'omega' %}{% else %}four columns {% cycle 'alpha', '', '', 'omega' %}{% endif %} thumbnail {% cycle 'even', 'odd' %}">
+        
+    <a href="{{ product.url }}" title="{{ collection_title }}">
+     
+        <img {% if settings.align_height %}style="max-height:{{ settings.collection_height }}px"{% endif %} src="{{ product.images[0].src | product_img_url: 'master' }}" alt="{{ collection.image.alt }}" />
+
+        <div class="info">                                              
+          <span class="title">{{ product.title }}</span>
+          {% capture wsprice %}{% include 'ws-product-price-calculator', product: product, collections: product.collections, variantId: product.variants.first.id %}{% endcapture %}{% assign wsprice = wsprice | plus: 0 %}
+          <!-- <span class="variant">{{ product.variants.first.option1 }}</span> -->
+          <span class="price {% if product.compare_at_price_max > wsprice %}sale{% endif %}">
+            {% if product.available %}
+
+              {{ wsprice | money }}
+            {% else %}
+              <span class="sold_out">{{ 'products.product.sold_out' | t }} - </span>{{ wsprice | money }}
+            {% endif %}
+            {% if product.compare_at_price_max > wsprice %}
+              <span class="was_price">{{ product.compare_at_price_max | money }}</span>
+            {% endif %}
+          </span>
+        </div>
+      	{% if settings.sale_banner_enabled and product.compare_at_price_max > wsprice %}
+          <div class="sale_banner">{{ 'collections.general.sale' | t }}</div>
+        {% endif %}
+      	{% for col in product.collections %}
+      {% if col.handle == 'watches-with-harris-tweed-straps' %}
+    	{% if settings.harris_tweed_enabled %}
+    	{% for tag in product.tags %}
+            {% if tag contains 'harris tweed Strap' %}
+    		<div class="allProductHarris harris-cashmere harris_tweed_banner">
+              <img src="{{ 'harris_tweed.jpeg' | file_url }}">
+    		</div>
+    		{% endif %}
+        {% endfor %}
+    	{% endif %}
+      {% elsif col.handle == 'cashmere-collection' %}
+    	{% if settings.cashmere_banner_enabled %}
+    	{% for tag in product.tags %}
+            {% if tag contains 'cashmere strap' %}
+    		<div class="allProductHarris harris-cashmere cashmere_banner"><img src="{{ 'cashmere.jpeg' | file_url }}"></div>
+    		{% endif %}
+        {% endfor %}
+    	{% endif %}
+      {% endif %}
+    {% endfor %}
+      </a>
+    </div>
+  
+    {% if collections_per_row == "2" %}
+      {% cycle '', new_row %}
+    {% elsif collections_per_row == "3" %}
+      {% cycle '', '', new_row %}    
+    {% elsif collections_per_row == "4" %}  
+      {% cycle '', '', '', new_row %}
+    {% endif %}  
+  {% endunless %}  
+{% endfor %}
+          
+</div>
+        {% endfor %}
+
+

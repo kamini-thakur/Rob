@@ -1,0 +1,155 @@
+{{ "insta.css" | asset_url | stylesheet_tag }}
+<div class="full_width">
+<div id="sec_evmpopup0"></div>
+
+<div id="allinstaimg"></div><div class="sec_evmbox"><div id="sec_evmpopupbox"></div>
+               <style>
+                .loadmore { cursor: pointer;}
+				#evm-shop-by-instagram{display:none;}
+                .loadmore button{ color: white; border:none; padding: 10px; background-color:#333;margin-left:auto;margin-right:auto;display:block;margin-top:22%;margin-bottom:0%}
+                .loadmore button:hover {background-color:black; }
+				.full_width{float:left;width:100%;}
+                </style>
+                <p align="center" class="loadmore" style="display: none;"><button id="evm_more">Load More..</button></p>
+
+<script type="text/html" id="evmtemplate">
+    <div class="sec_evmoverlay" id="sec_evmpopup0" style="z-index:9999;">
+        <div class="sec_evmpopup" style="margin:6% auto 0;">
+            <div class="sec_evmcontent">
+                <!-- <img src="https://scontent.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/14596760_1164302286972628_1688619946369613824_n.jpg?ig_cache_key=MTM2OTE2NDkzMzA1MjM0Mjg4NA%3D%3D.2"
+                     style="float: left;">
+                 -->
+                <div class="evm_slide_prev">
+                    <i class="fa fa-angle-left evm_prev"></i>
+                </div>
+
+
+                <div class="evm_left_popup" style="position: relative">
+                    <img class="evm_left_image" src="<%=image_src%>">
+                    <img style="display:none" class="evm_left_image" src="https://scontent.cdninstagram.com/t51.2885-15/s320x320/e35/14693670_333511313679745_4467876692152549376_n.jpg?ig_cache_key=MTM3NDk3ODM2OTE0OTc2NzAyMw==.2">
+                    <div class="evm_points">
+                        <% for ( var i = 0; i < points.length; i++ ) { %>
+                        <a title="<%=points[i].title%>" href="/products/<%=points[i].url%>" id="view_<%=i%>"class="evm_product_point" style="top:<%=points[i].pic_y%>%; left:<%=points[i].pic_x%>%;" target="_blank"><%=i+1%></a>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="evm_right_popup">
+                    <!--
+                    <div class="evm_right_manage" >
+                        <div class="evm_slide">
+                            <i class="fa fa-chevron-circle-left evm_prev"></i>
+                            <i class="fa fa-chevron-circle-right evm_next"></i>
+                        </div>
+                        <div class="evm_close">
+                            <i class="fa fa-close "></i>
+                        </div>
+                    </div>
+
+                    <div style="clear:both"></div>
+                    -->
+                
+                    <div class="evmsocialshare">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=<%=image_src%>" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="https://twitter.com/home?status=<%=image_src%>" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="https://plus.google.com/share?url=<%=image_src%>" target="_blank"><i class="fa fa-google-plus"></i></a>
+                        <a href="https://pinterest.com/pin/create/button/?url=&amp;media=&amp;description=<%=image_src%>" target="_blank"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                  
+
+                    <div class="evm_right_header_h"><div class="evm_right_header">
+                        <div class="evminstagramlink">
+<!--                            <a href="https://www.instagram.com/<%=instagram_name%>" target="_blank" id=""> -->
+                            <a href="<%=insta_post_url%>" target="_blank" id="">
+                                <i class="fa fa-instagram" style="font-size: 17px"></i>
+                            </a>
+                        </div>
+                        <div class="evmpopupcontentlikes">
+                            <span><b><i class="fa fa-heart" style="font-size: 17px"></i></b><%=likes%></span>
+                        </div>
+                        <div class="evmpopupcontentcomments">
+                            <span style="padding:0px;"><b><i class="fa fa-comments" style="font-size: 17px"></i></b><%=comment_cnt%></span>
+                        </div>
+                        <span class="evminstagramdate"><%=insta_created%></span>
+                    </div>
+                    </div>
+                    <div style="clear:both"></div>
+
+                    <% if (points.length > 4) { %>
+                    <div class="evm_product_list">
+                        <ul class="evm_product_list_content">
+
+                            <% for ( var i = 0; i < points.length; i++ ) { %>
+                            <li rel="<%=i%>" class="evm_product_list_item">
+                                <a href="/products/<%=points[i].url%>" class="evm_product_link" target="_blank">
+                                    <span class="evm_product_link_text"><%=i+1%></span>
+                                    <div><%=points[i].title%></div>
+                                </a>
+                            </li>
+                            <% } %>
+
+                        </ul>
+                    </div>
+                    <% } else { %>
+
+
+                    <div id="evm_products" class="evm_products">
+                        <div class="evm_column">
+                            <% for ( var i = 0; i < images_list1.length; i++ ) { %>
+                            <a href="/products/<%=images_list1[i].url%>">
+                                <img class="evm_product_img" src="<%=images_list1[i].picture_src%>">
+                            </a>
+                            <div class="evm_product_data" rel="<%=images_list1[i].orig_id%>">
+                                <div>
+                                    <a href="/products/<%=images_list1[i].url%>">
+                                        <div><%=currency%><%=images_list1[i].price%></div>
+                                        <span><%=images_list1[i].title%></span>
+                                    </a>
+                                </div>
+                                <div class="evm_shop">
+                                    <a class="evm_btn" href="/products/<%=images_list1[i].url%>" >Shop Now</a>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+
+                        <div class="evm_column">
+                            <% for ( var i = 0; i < images_list2.length; i++ ) { %>
+                            <a href="/products/<%=images_list2[i].url%>">
+                                <img class="evm_product_img" src="<%=images_list2[i].picture_src%>">
+                            </a>
+                            <div class="evm_product_data" rel="<%=images_list2[i].orig_id%>">
+                                <div>
+                                    <a href="/products/<%=images_list2[i].url%>">
+                                        <div><%=currency%><%=images_list2[i].price%></div>
+                                        <span><%=images_list2[i].title%></span>
+                                    </a>
+                                </div>
+                                <div class="evm_shop">
+                                    <a class="evm_btn" href="/products/<%=images_list2[i].url%>" >Shop Now</a>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                    <% } %>
+
+
+                    <div class="evmpopuptext"><%=insta_post%></div>
+
+
+                </div>
+                <div class="evm_slide_next">
+                    <i class="fa fa-angle-right evm_next"></i>
+                </div>
+
+
+
+                <a class="sec_close evm_close" href="#0" style="border:none; color:#333; opacity:1;">×</a></div>
+                 <div class="evm_signature" style="float:right;"><a href="http://apps.expertvillagemedia.com/shopbyinstagram/" target="_blank"><img src="https://www.expertvillagemedia.com//shopbyinstagram_with_tag/images/evm_signature.png"/></a></div>
+        </div>
+    </div></div>
+</script>
+</div>
+<script>console.log("evm-shop-by-instagram.liquid started 222");</script>

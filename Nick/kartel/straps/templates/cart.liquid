@@ -1,0 +1,258 @@
+{% assign cart_total = 0 %}
+
+<div class="container content ">
+
+<div class="sixteen columns clearfix collection_nav">
+  <h1 class="collection_title">{{ 'cart.general.title' | t }}</h1>
+
+  {% if cart.item_count > 0 %}
+  <div class="continue_shopping">
+    <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}/collections/all{% endif %}">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
+  </div>
+  {% endif %}
+</div>
+
+{% if cart.item_count == 0 %}
+<div class="sixteen columns">
+  <div class="section clearfix">
+    <p class="quote">{{ 'cart.general.continue_browsing_html' | t }}</p>    
+    <br class="clear" />
+
+    {% assign collection = '' %}
+    {% assign products = collections[settings.frontpage_collection].products %}
+    {% assign products_per_row = settings.frontpage_products_per_row %}
+    {% include 'product-loop' %}
+  </div>
+</div>
+{% else %}
+
+<form action="/cart" method="post" id="cart_form">      
+  <div class="section check_outer clearfix">  
+    <div class="thirteen columns cart_items">
+
+      <h4 class="title">{{ 'cart.general.products' | t }}</h4>
+
+
+      {% for item in cart.items %}
+      
+      
+
+<div class="cart__row clearfix {% include 'mw_PO_cart', code: 'class' %}" {% include 'mw_PO_cart' with item, code: 'style' %}>      
+        {% include 'mw_PO_cart' with item, code: 'relation' %}
+        <div class="five columns alpha">
+          <a href="{{ item.url }}" title="{{ item.title | escape }}" class="cart_page_image">  
+            {% if item.properties['_replaced_image'] %}
+            <img src="{{ item.properties['_replaced_image'] }}" data-src="{{ item.properties['_replaced_image'] }}" data-src-retina="{{ item.properties['_replaced_image'] }}" alt="{{ item.title | escape }}" />
+            {% else %}
+            <img src="{{ 'loader.gif' | asset_url }}" data-src="{{ item | img_url: 'medium' }}" data-src-retina="{{ item | img_url: 'grande' }}" alt="{{ item.title | escape }}" />
+            {% endif %}
+          </a>
+        </div>
+
+        <div class="seven columns cart_item_title omega">
+          <div class="cart_item_inner">
+            <h2>
+              <a href="{{ item.url }}" title="{{ item.title | escape }}">{{ item.product.title }}</a>
+            </h2> 
+            
+            {% comment %}
+            {% unless item.variant.title contains 'Default Title' %}
+            <h4>{{ item.product.variants.first.options.first }}</h4>
+            {% endunless %}
+             {% endcomment %}
+            
+            {% if item.variant.title contains 'Default Title' %}
+            	<h4>{{ item.product.variants.first.options.first }}</h4>
+            {% else %}            	
+            	<h4>{{ item.variant.title }}</h4>
+            {% endif %}
+			
+            {% comment %}
+            
+                {% if item.variant.title contains 'Default Title' %}
+            	<h4>{{ item.product.variants.first.options.first }}</h4>
+            {% else %}
+            	{% assign counter = 0 %}
+				{% for option in item.product.options %}
+            		{% assign counter = counter | plus: 1 %}
+                {% endfor %}
+            	{% if counter > 1 %}
+            			<h4 class="{{ forloop.index }}">{{ item.product.variants.first.options.first }}</h4> 
+            		{% else %}
+            			<h4 class="{{ forloop.index }}">{{ item.variant.title }}</h4>
+            	{% endif %}
+            {% endif %}
+            
+            {% unless item.variant.title contains "Title" %}             
+                {% for option in item.product.options %}
+            		<h4>{{ item.variant.options[forloop.index0] }}</h4>
+                {% endfor %}
+            {% endunless %}
+            {% endcomment %}
+            
+            {% comment %}
+			{% if item.properties %}
+            <p>
+             
+              {% for p in item.properties %}
+				{% if p.first.first == '_' %}{% continue %}{% endif %}
+              {% unless p.last == blank %}
+              {% if p.last contains '/uploads/' %}
+              <span class="cartImage">{{ p.first }}:</span> <a class="lightbox" href="{{ p.last }}"><span id="cartUploadedImg" ><img src="{{ p.last }}" ></span></a><br />
+              {% else %}
+              {{ p.first }}: {{ p.last }}<br />
+              {% endif %}
+              {% endunless %}
+              {% endfor %}
+                                
+            </p>
+            {% endif %}
+            {% endcomment %}
+            {% include 'mw_PO_cart' with item, code: 'properties' %}
+
+            <ul class="price_text_box">
+              <li id="quantity_{{ forloop.index }}">
+                <label for="updates_{{ item.id }}" class="quantity_label">{{ 'cart.general.quantity' | t }}:</label>
+                <input type="number" min="0" size="3" maxlength="3" class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}"/>
+              </li>
+
+              <li class="remove_item">
+                <a href="/cart/change?line={{ forloop.index }}&quantity=0" title="{{ 'cart.general.remove' | t }}">{{ 'cart.general.remove' | t }}</a>
+              </li>
+			
+              <span style="display: none">{% include 'mw_PO_cart' with item, code: 'price' %}</span>
+              <li class="price_total">{% include 'mw_PO_cart' with item, code: 'line_price' %}
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+    <div class="three columns check_out_box">
+      <div class="check_out_box_inner">
+        <h4 class="subtotal">
+          {{ 'cart.general.subtotal' | t }}
+        </h4>
+
+        <p class="subtotal_amount">
+          <strong>{{ cart.total_price | money }}</strong> 
+          {% comment %}
+          <small id="estimated-shipping" style="display:none">+ <em>{{ 0 | money }} {{ 'cart.shipping_calculator.estimated_shipping' | t }}</em></small>
+          {% endcomment %}
+
+          {% unless settings.tax_included %}
+          <small class="excluding_tax"><em>{{ 'cart.general.excluding_tax_shipping' | t }}</em></small>
+          {% endunless %}
+        </p>
+        
+        <div class="discount-msg">
+          <div class="tabarnapp_discount_applied" style="display:none;"> A discount of ${ discount.amount }</em> from <em>${ discount.code }</em> coupon will be applied at checkout. </div>
+        </div>
+
+        {% if settings.show_multiple_currencies %}
+        <p>
+          <small>
+            {{ 'cart.general.orders_processed_in_currency_html' | t: currency: shop.currency }}
+          </small>
+        </p>
+        {% endif %}
+
+        {% if settings.display_special_instructions %} 
+        <label for="note">{{ 'cart.general.note' | t: shop_name: shop.name }}:</label>
+        <textarea id="note" name="note" rows="2">{{ cart.note }}</textarea>        
+        {% endif %}
+
+        <p>
+			<input type="submit" class="action_button add_to_cart" id="checkout" name="checkout" value="{{ 'cart.general.checkout' | t }}" />
+        </p>
+
+        {% if settings.display_additional_checkout and additional_checkout_buttons %}
+        <p class="center">
+          {{ content_for_additional_checkout_buttons | google_button_options: 'transparent' }}
+        </p>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</form>
+
+
+  
+
+
+<hr>
+  
+  <ul class="feat-in">
+
+
+    <ul class="feat-in top-feat-in">
+     
+         <li>
+<span class="icon-info"><p style="border:2px; border-style:solid; border-color:#ececec; padding: 1em; border-radius: 2px;"><a href="/pages/engraving-watch">Make it Special,</br> Add An Engraved Message</a></p></span>
+         </li>
+
+         <li>
+            
+<span class="icon-info"><p style="border:2px; border-style:solid; border-color:#ececec; padding: 1em; border-radius: 2px;"><a href="/collections/watch-straps">Add A Second Strap,</br> With Easy Swap Mechanism</a></p></span>
+         </li>
+
+
+     </ul>
+  
+  
+<br>
+  </div>
+
+
+
+
+
+
+<div class="reviewSecWrap">
+  <h4 class="title center">Customer Reviews</h4>     
+                 {% include 'trustpilot' %}
+<br>
+
+<!--   Related products start here -->
+{% assign col= "cart-related" %}
+ <div class="container main content" style="padding:0px;">
+   <div class="sixteen columns" itemscope="" itemtype="http://data-vocabulary.org/Product">
+{% if col and collections[col].all_products_count > 0 %}
+      <br class="clear" />
+      <br class="clear" />
+      <h4 class="title center">{{ 'products.product.related_items' | t }}</h4>
+   
+      {% assign products = collections[col].products %}
+      {% assign products_per_row = 4 %}
+      {% include 'product-loop' with settings.product_sidebar %}
+{% endif %}
+   </div></div>
+<!--   Related products closed here -->
+  
+{% include 'cart-shipping-calculator' %}
+<br class="clear" />
+<br class="clear" />
+{% endif %}
+<!--<p class="mlvedaCartNote" style="display:none">
+{{ shop.name }} process all orders in {{ shop.currency }}.
+While the content of your cart is currently displayed in
+<span class="selected-currency"></span>,
+you will checkout using {{ shop.currency }} at the most current exchange rate.
+</p>-->
+
+
+
+<script>
+  $(document).ready(function(e){
+
+    $('#paypal-express-button').html('<img src="//cdn.shopify.com/s/assets/checkout/easy-checkout-btn-paypal-597f94328d305d2429c94deea94249f6fd255c5dab5bc5781f49bb1dd937c846.png" alt="PayPal"><span>Checkout</span>');
+
+  });
+
+</script>

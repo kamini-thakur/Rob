@@ -1,0 +1,473 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+
+.evmsocialshare > a {color: #bbb; margin-right: 25px;font-size: 20px;}
+.evmsocialshare {position: absolute; bottom: 10px;}
+#allinstaimg{float:left; width:100%;}
+#allinstaimg .sec_evmbutton{float:left; width:19.8%; list-style:none; margin:0.1%;}
+#allinstaimg .sec_evmbutton > div {bottom:-10%;}
+.evmbutton:hover > div {opacity: 1;bottom:0px;}
+#allinstaimg .sec_evmbutton > div, #evm-content-slider .evmbutton > div {
+    background: rgba(0, 0, 0, 0.75) none repeat scroll 0 0;
+    float: left;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+#evm-content-slider .evmbutton:hover > div, #allinstaimg .sec_evmbutton:hover > div {opacity:0;  /* make things invisible upon start */
+  -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:0.3s;
+  -moz-animation-duration:0.3s;
+  animation-duration:0.3s;
+
+  -webkit-animation-delay:0.1s;
+  -moz-animation-delay:0.1s;
+  animation-delay: 0.1s;}
+#allinstaimg .sec_evmbutton > div a{ padding:3px 0px;    position: relative;     top: 33%;}
+#evm-slider-container{margin:30px 0px;}
+.evmbutton:hover > div, .sec_evmbutton:hover > div {opacity: 1;bottom:0px;}
+
+.instagram-box #evm-slider-container {float: left;overflow-x: scroll;width: 100%;}
+#evm-content-slider li a { float: left;  position: relative; width: 100%;} 
+.evmbutton > div > span, .sec_evmbutton > div > span{    float: left;height:100%;
+  max-width: 100%;     width: 100%; background: rgba(0, 0, 0, 0) url("https://www.expertvillagemedia.com/shopbyinstagram/images/evm-instagram.png") no-repeat scroll 98% 98%;}
+.evmbutton div #shopthelook, .sec_evmbutton div #shopthelook {
+    position: relative;
+    border-radius: 1px;
+    color: #fff;
+    float: left; width:100%;
+    font-size: 14px;
+    padding: 5px 0;
+    text-align: center;
+    top: 32%;
+    font-family: 'Open Sans',serif;}
+#shopthelook > span {
+    float: left;
+    width: 100%; margin-bottom:15px;
+}
+#shopthelook > span.shopnowbtn {
+    width: auto;
+    float: none;
+    background: #fff;
+    padding: 5px 8px;
+    color: #000;
+}
+@media screen and (max-width:1440px){
+  .evmpopup,  .sec_evmpopup{margin:4% auto 0;}
+}
+span.hoverlike:before {
+    content: url("https://www.expertvillagemedia.com/shopbyinstagram/images/evm-hover-heart.png");
+    padding-right: 4px;
+    font-size: 15px;    position: relative;
+    top: 3px;
+    font-weight: bold;
+}
+@media all and (-webkit-min-device-pixel-ratio:0){
+  span.hoverlike:before{font-size:19px;}
+}
+.evm-instagram-heading{float:left; width:100%;}
+.evm-insta-left-heading{float:left;}
+.evm-insta-right-heading{float:right;}
+.lSSlideOuter {overflow: hidden;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none;-moz-user-select: none;
+-ms-user-select: none;user-select: none; }
+.lightSlider:before, .lightSlider:after {content: " ";display: table;}
+.lightSlider { overflow: hidden;margin: 0;}
+.lSSlideOuter{float:left; width:100%;}
+.lSSlideWrapper { max-width: 100%; overflow: hidden; position: relative;}
+.lSSlideWrapper > .lightSlider:after {clear: both;}
+.lSSlideWrapper .lSSlide {-webkit-transform: translate(0px, 0px);-ms-transform: translate(0px, 0px); transform: translate(0px, 0px);-webkit-transition: all 1s;-webkit-transition-property: -webkit-transform,height; -moz-transition-property: -moz-transform,height;transition-property: transform,height; -webkit-transition-duration: inherit !important; transition-duration: inherit !important; -webkit-transition-timing-function: inherit !important; transition-timing-function: inherit !important;}
+.lSSlideWrapper .lSFade {position: relative;}
+.lSSlideWrapper .lSFade > * { position: absolute !important;top: 0;left: 0;z-index: 9;margin-right: 0; width: 100%;}
+.lSSlideWrapper.usingCss .lSFade > * {opacity: 0; -webkit-transition-delay: 0s;transition-delay: 0s;-webkit-transition-duration: inherit !important;transition-duration: inherit !important;-webkit-transition-property: opacity; transition-property: opacity;-webkit-transition-timing-function: inherit !important; transition-timing-function: inherit !important;}
+.lSSlideWrapper .lSFade > *.active { z-index: 10;}
+.lSSlideWrapper.usingCss .lSFade > *.active {opacity: 1;}
+.lSSlideOuter .media { opacity: 0.8;}
+.lSSlideOuter .media.active {opacity: 1;}
+.lSSlideOuter .lSPager.lSpg {margin: 10px 0 0;padding: 0;text-align: center;}
+.lSSlideOuter .lSPager.lSpg > li { cursor: pointer;display: inline-block; padding: 0 5px;}
+.lSSlideOuter .lSPager.lSpg > li a { background-color: #222222; border-radius: 30px;display: inline-block;  height: 8px; overflow: hidden;text-indent: -999em; width: 8px; position: relative; z-index: 99; -webkit-transition: all 0.5s linear 0s;transition: all 0.5s linear 0s;}
+.lSSlideOuter .lSPager.lSpg > li:hover a, .lSSlideOuter .lSPager.lSpg > li.active a {background-color: #428bca;}
+.lSSlideOuter .media {opacity: 0.8;}
+.lSSlideOuter .media.active {  opacity: 1;}
+.lSSlideOuter .lSPager.lSGallery {list-style: none outside none; padding-left: 0;margin: 0;overflow: hidden;transform: translate3d(0px, 0px, 0px);-moz-transform: translate3d(0px, 0px, 0px);-ms-transform: translate3d(0px, 0px, 0px);-webkit-transform: translate3d(0px, 0px, 0px);-o-transform: translate3d(0px, 0px, 0px);-webkit-transition-property: -webkit-transform;-moz-transition-property: -moz-transform; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none;-ms-user-select: none;user-select: none;}
+.lSSlideOuter .lSPager.lSGallery li {overflow: hidden; -webkit-transition: border-radius 0.12s linear 0s 0.35s linear 0s; transition: border-radius 0.12s linear 0s 0.35s linear 0s;}
+.lSSlideOuter .lSPager.lSGallery li.active, .lSSlideOuter .lSPager.lSGallery li:hover { border-radius: 5px;}
+.lSSlideOuter .lSPager.lSGallery img {display: block;height: auto; max-width: 100%;}
+.lSSlideOuter .lSPager.lSGallery:before, .lSSlideOuter .lSPager.lSGallery:after {content: " "; display: table;}
+.lSSlideOuter .lSPager.lSGallery:after {clear: both;}
+.lSAction > a {width: 32px; display: block;top: 50%; height: 32px;cursor: pointer;position: absolute; z-index: 99; margin-top: -16px;  opacity: 0.88; -webkit-transition: opacity 0.35s linear 0s;transition: opacity 0.35s linear 0s;}
+.lSAction > a:hover { opacity: 1;}
+.lSAction > .lSPrev { background-image: url('https://www.expertvillagemedia.com/shopbyinstagram/images/evm-prev.png');background-position: 0 0;left: 10px;}
+.lSAction > .lSNext {background-position: -32px 0;right: 10px;background-image: url('https://www.expertvillagemedia.com/shopbyinstagram/images/evm-next.png');}
+.lSAction > a.disabled { pointer-events: none;}
+.cS-hidden {height: 1px; opacity: 0; filter: alpha(opacity=0);    overflow: hidden;}
+.lSSlideOuter.vertical {position: relative;}
+.lSSlideOuter.vertical.noPager {padding-right: 0px !important;}
+.lSSlideOuter.vertical .lSGallery {position: absolute !important; right: 0; top: 0;}
+.lSSlideOuter.vertical .lightSlider > * {width: 100% !important; max-width: none !important;}
+.lSSlideOuter.vertical .lSAction > a { left: 50%; margin-left: -14px; margin-top: 0;}
+.lSSlideOuter.vertical .lSAction > .lSNext {background-position: 31px -31px; bottom: 10px; top: auto;}
+.lSSlideOuter.vertical .lSAction > .lSPrev { background-position: 0 -31px;bottom: auto; top: 10px;}
+.lSSlideOuter.lSrtl {direction: rtl;}
+.lSSlideOuter .lightSlider, .lSSlideOuter .lSPager {padding-left: 0; list-style: none outside none;}
+.lSSlideOuter.lSrtl .lightSlider, .lSSlideOuter.lSrtl .lSPager { padding-right: 0;}
+.lSSlideOuter .lightSlider > *,  .lSSlideOuter .lSGallery li {float: left;}
+.lSSlideOuter.lSrtl .lightSlider > *,  .lSSlideOuter.lSrtl .lSGallery li {   float: right !important;}
+.lSSlideOuter .rightEnd { -webkit-animation: rightEnd 0.3s; animation: rightEnd 0.3s; position: relative;}
+.lSSlideOuter .leftEnd {-webkit-animation: leftEnd 0.3s;animation: leftEnd 0.3s;position: relative;}
+.lSSlideOuter.vertical .rightEnd { -webkit-animation: topEnd 0.3s; animation: topEnd 0.3s; position: relative;}
+.lSSlideOuter.vertical .leftEnd { -webkit-animation: bottomEnd 0.3s; animation: bottomEnd 0.3s;   position: relative;}
+.lSSlideOuter.lSrtl .rightEnd { -webkit-animation: leftEnd 0.3s;animation: leftEnd 0.3s; position: relative;}
+.lSSlideOuter.lSrtl .leftEnd {-webkit-animation: rightEnd 0.3s;animation: rightEnd 0.3s;position: relative;}
+.lightSlider.lsGrab > * {cursor: -webkit-grab; cursor: -moz-grab;cursor: -o-grab; cursor: -ms-grab;cursor: grab;}
+.lightSlider.lsGrabbing > * {cursor: move; cursor: -webkit-grabbing;cursor: -moz-grabbing; cursor: -o-grabbing;cursor: -ms-grabbing;cursor: grabbing;}
+
+
+
+
+/* ------------------------------------------------------ */
+
+
+ .evmbox {
+    margin: 0 auto;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+}
+
+
+  .evmbutton {
+    color: #fff; position:relative;
+    cursor: pointer;
+    font-size: 1em; z-index:999999999;
+    text-decoration: none;
+    transition: all 0.3s ease-out 0s;
+}
+.evmbutton:hover {
+  cursor: pointer;
+}
+
+.evmoverlay {
+  position: fixed;
+  top: 0;
+  bottom: 0; z-index:99;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+display:none;
+  opacity: 0;
+}
+.evmoverlay:target {
+display:block;
+  opacity: 1;
+}
+
+.evmpopup {
+  margin:10% auto 0;
+  background: #fff;    font-family: 'Open Sans',serif;
+  border-radius: 5px; max-width:100%;
+  width: 1000px;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.evmpopup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.evmpopup .close {
+  position: absolute; */
+    top: 0;
+    right: 0;
+    transition: all 200ms;
+    font-weight: normal;
+    text-decoration: none;
+    color: #ddd;
+    line-height: 18px;
+    background: #fff;
+    border: 1px solid #ddd;
+    font-size: 26px;
+    padding:7px;
+}
+.evmpopup .close:hover {
+  color: #0b48a3;
+}
+.evmpopup .evmcontent {
+ position:relative;
+  overflow: auto;
+  background:url("https://www.expertvillagemedia.com/evminstagram/images/evm-logo.png") no-repeat 99% 100%;
+  background-size:100px 100px;
+}
+
+@media screen and (max-width: 700px){
+  .evmbox{
+    width: 70%;
+  }
+  .evmpopup{
+    width: 70%;
+  }
+}
+
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;z-index:9;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  color: #333;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 5px;
+    text-decoration: none;
+    top: 3px;
+    transition: all 200ms ease 0s;
+}
+.popup .close:hover {
+  color: #2ca3f8;
+}
+.popup .content {
+
+  overflow: auto;
+}
+.evmpopupcontentshop a{font-family: 'Open Sans',serif;     font-size: 14px!important;     float: left;     padding: 4px 13px;     margin: 10px 0px;     color: #fff;     background: #0b48a3;     font-weight: 600;}
+/* --------------sec popup box----------------------- */
+ .sec_evmbox {
+
+    margin: 0 auto;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+}
+
+
+  .sec_evmbutton {
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 0px; position:relative;
+    text-decoration: none;
+    transition: all 0.3s ease-out 0s;
+}
+.sec_evmbutton:hover {
+  cursor: pointer;
+}
+
+.sec_evmoverlay {
+  position: fixed;
+  top: 0;
+  bottom: 0; z-index:99;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+display:none;
+  opacity: 0;
+}
+.sec_evmoverlay:target {
+display:block;
+  opacity: 1;
+}
+
+.sec_evmpopup {
+  margin:10% auto 0;    font-family: 'Open Sans',serif;
+  background: #fff;z-index:9;
+  border-radius: 5px; max-width:100%;
+  width:1000px;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.sec_evmpopup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.sec_evmpopup .sec_close {
+position: absolute; */
+    top: 0;
+    right: 0;
+    transition: all 200ms;
+    font-weight: normal;
+    text-decoration: none;
+    color: #ddd;
+    line-height: 18px;
+    background: #fff;
+    border: 1px solid #ddd;
+    font-size:26px;
+    padding:7px;
+}
+.sec_evmpopup .sec_close:hover {
+  color: #0b48a3;
+}
+.sec_evmpopup .sec_evmcontent {
+
+  overflow: auto;
+  background:url("https://www.expertvillagemedia.com/evminstagram/images/evm-logo.png") no-repeat 99% 100%;
+  background-size:100px 100px;position:relative;
+
+}
+
+@media screen and (max-width: 700px){
+  .sec_evmbox{
+    width: 70%;
+  }
+  .sec_evmpopup{
+    width: 70%;
+  }
+}
+
+.evmpopupcontentlikes {
+    float: left;
+    background: url("https://www.expertvillagemedia.com/evminstagram/images/evm-heart.png") 0% 48% no-repeat;
+    padding: 0 10px 0 30px;
+    margin-right: 10px;padding-bottom:10px; background-size:20px;
+    border-right: 1px solid #ddd; line-height:14px;
+}
+
+.evmpopupcontentcomments {
+    float: left;
+    background: url("https://www.expertvillagemedia.com/evminstagram/images/evm-comments.png") 0% 48% no-repeat;
+    padding-left: 30px;
+    margin-right: 10px;padding-bottom:10px;
+    border-right: 1px solid #ddd;line-height:14px; background-size:20px;
+    padding-right: 10px;
+}
+
+.evmpopupcontentlikes span, .evmpopupcontentcomments span{float:left; padding-top:7px;}
+.evmcontent > img, .sec_evmcontent > img {
+    float: left;
+    width: 60%; margin:0!important;
+}
+
+.evmpopupcontent {
+    float: right;    text-align: left;
+    width: 39%;padding:40px 2%; box-sizing:border-box;
+}
+
+.evmpopuptext {float: left; width: 100%;    font-size: 13px;
+    line-height: 24px;}
+.evmpopupcontentshop{float: left; width: 100%;}
+.evminstagramlink{float:left;}
+.evminstagramdate {   float: left;padding-top: 4px;
+    text-transform: uppercase;
+    color: #0b48a3;}
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.evmpopupcontentheader{float:left;width:100%;    border-bottom: 1px solid #ddd;padding-bottom: 0px;    font-size: 12px; margin-bottom: 10px;}
+.evminstagramlink img {
+
+    width: auto;
+    height: auto;
+    padding-bottom: 7px;
+    margin-right: 10px;
+    float: left;
+    border-right: 1px solid #ddd;
+    padding-right: 10px;
+    padding-top: 3px;
+
+}
+
+.evmonlyimg ul{margin-left:0px;}
+
+@media only screen and (max-width: 768px)
+{
+#allinstaimg .sec_evmbutton{width:33.11%;} 
+#evm-content-slider a { width: 180px !important;}
+#evm-content-slider{height:180px!important;}
+  #allinstaimg .sec_evmbutton > div a{top:35%;}
+
+}
+@media only screen and (max-width: 720px)
+{
+    .sec_evmoverlay, .evmoverlay{position:absolute;}
+  .sec_evmpopup, .evmpopup{width:100%; margin:100px auto;}
+  .evmcontent > img, .sec_evmcontent > img{width:100%;}
+  .evmpopupcontent{width:100%; padding-bottom:150px;}
+}
+
+@media only screen and (max-width: 414px)
+{
+  #allinstaimg .sec_evmbutton{width:49.6%; margin:0.2%;} 
+  #btncls div a {padding:5px 10px; font-size:12px;}
+}
+.evmonlyimg {
+    float: left;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.evmonlyimg #evm-content-slider > .evmbutton { float: left; list-style: none; margin: 0.1%;}
+.evmonlyimg .evmbutton{float:left;}
+.evmonlyimg{float:left;}
+.evmonlyimg ul{margin:0px;}
+
+
+.evmproductinfo {
+    float: left;
+    width: 48%;
+    margin-right: 1%;
+    padding: 15px 0px;
+}
+.evmproductimg img {
+    width: 60%;
+}
+.evmproductimg {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+span.evmproductname {
+    width: 100%;
+    text-align: center;
+    float: left;
+}
+.evmshopnow{margin:0 auto;width:100px;}
+

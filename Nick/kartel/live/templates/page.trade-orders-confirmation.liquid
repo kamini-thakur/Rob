@@ -1,0 +1,160 @@
+{% layout none %}
+
+<!doctype html>
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300italic,300,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//trade-orders.appira.com/css/thankyou-page-styles.css?3"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+</head>
+<body class="ordira-thankyou">
+
+<div id="container" class="slim">
+    <div class="header-wrap">
+        <div id="header">
+            <div class="header-logo"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo" onError="style.display='none';"></div>
+        </div>
+    </div>
+
+    <div id="main">
+        <div id="overview" >
+            <div class="info">
+                <h2>Order details</h2>
+                <div>
+                    <p>
+                        {% if page.content > "" %}
+                            {{ page.content }}
+                        {% else %}
+                            After reviewing the order details please click "Place Order" below to create your order.
+                        {% endif %}
+                    </p>
+                    <br/>
+                    <a href="/checkout" class="btn trade-orders-checkout-btn">Place Order</a>
+                </div>
+                <hr>
+                <h3>Shipping address</h3>
+
+                {% assign found_address = false %}
+                {% if
+                    customer.default_address.address1 > '' and
+                    customer.default_address.city > '' and
+                    customer.default_address.country > '' and
+                    customer.default_address.first_name > '' and
+                    customer.default_address.last_name > '' and
+                    customer.default_address.zip > ''
+                %}
+                    {% assign found_address = true %}
+                    <div class="default-address">
+                        <p>
+                            {{ customer.default_address.name }}<br />
+
+                            {{ customer.default_address.address1 }},
+
+                            {% if customer.default_address.address2 > "" %}
+                            {{ customer.default_address.address2 }},
+                            {% endif %}
+
+                            {% if customer.default_address.company > "" %}
+                            <br />{{ customer.default_address.company }},
+                            {% endif %}
+
+                            <br />{{ customer.default_address.city }},
+
+                            {% if customer.default_address.province > "" %}
+                            <br />{{ customer.default_address.province }},
+                            {% endif %}
+
+                            {{ customer.default_address.zip | upcase }},
+
+                            <br />{{ customer.default_address.country }},
+
+                            {% if customer.default_address.phone > "" %}
+                            <br />{{ customer.default_address.phone }}
+                            {% endif %}
+                        </p>
+
+                        <a href="#" class="btn" data-toggleaddress>Change Address</a>
+                    </div>
+                {% endif %}
+
+                <form id="address-form" {% if found_address == true %}style="display:none;"{% else %}class="submit-address"{% endif %}>
+                    {% unless customer %}
+                    <input type="text" name="address[email]" value="" placeholder="Email" required>
+                    {% endunless %}
+                    <input type="text" name="address[first_name]" value="{{ customer.default_address.first_name }}" placeholder="First Name" required>
+                    <input type="text" name="address[last_name]" value="{{ customer.default_address.last_name }}" placeholder="Surname" required>
+                    <input type="text" name="address[company]" value="{{ customer.default_address.company }}" placeholder="Company" >
+                    <input type="text" name="address[address1]" value="{{ customer.default_address.address1 }}" placeholder="Address Line 1" required>
+                    <input type="text" name="address[address2]" value="{{ customer.default_address.address2 }}" placeholder="Address Line 2" >
+                    <input type="text" name="address[city]" value="{{ customer.default_address.city }}" placeholder="City" required>
+
+                    <select id="AddressCountry" name="address[country]" data-default="{{ customer.default_address.country }}">{{ country_option_tags }}</select>
+                    <div id="AddressProvinceContainer" style="display:none">
+                        <select id="AddressProvince" name="address[province]" data-default="{{ form.province }}"></select>
+                    </div>
+
+                    <input type="text" name="address[zip]" value="{{ customer.default_address.zip }}" placeholder="Postcode" autocapitalize="characters" required>
+                    <input type="tel" name="address[phone]" value="{{ customer.default_address.phone }}" placeholder="Phone" >
+
+                    {% unless found_address == false %}<a href="#" class="btn" data-toggleaddress>Use Default Address</a>{% endunless %}
+                </form>
+
+            </div>
+            <table id="thumbs" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                    <th colspan="3">Order Summary</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in cart.items %}
+                <tr>
+                    <td><img class="images" src="{{ item | img_url: 'medium' }}"></td>
+                    <td class="line-item-title">
+                        {{ item.product.title }} &nbsp;x{{ item.quantity }}<br />
+                        {% unless item.variant.title contains 'Default' %}<small>{{ item.variant.title }}</small>{% endunless %}
+                    </td>
+                    <td>{{ item.line_price | money }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2">Discounts</td>
+                    <td>-{{ 0 | money | remove: '0' | remove: '.' | remove: ',' | strip_html }}<span id="trade-orders-discount" data-currency="{{ 0 | money | remove: '0' | remove: '.' | remove: ',' | strip_html }}" data-total="{{ cart.total_price | money_without_currency | replace: ',', '.' }}" data-value="discount">0.00</span></td>
+                </tr>
+                <tr id="trade-orders-shipping" style="display:none;">
+                    <td colspan="2">Shipping (<span id="trade-orders-shipping-name"></span>)</td>
+                    <td>{{ 0 | money | remove: '0' | remove: '.' | remove: ',' | strip_html }}<span id="trade-orders-shipping-price" data-currency="{{ 0 | money | remove: '0' | remove: '.' | remove: ',' | strip_html }}" data-total="{{ cart.total_price | money_without_currency | replace: ',', '.' }}" data-value="shipping_price">0.00</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Tax</td>
+                    <td>{{ 0 | money | remove: '0' | remove: '.' | remove: ',' | strip_html }}<span id="trade-orders-tax-price" data-currency="{{ 0 | money | remove: '0' | remove: '.' | remove: ',' | strip_html }}" data-total="{{ cart.total_price | money_without_currency | replace: ',', '.' }}" data-value="tax">0.00</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Total</td>
+                    <td><span data-value="total">{{ cart.total_price | money }}</span></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div id="footer" class="footer">
+        <div id="shop-policies" style="text-align:center; font-size: 11px;"></div>
+        <p> All rights reserved. © {{shop.name}}.</p>
+    </div>
+</div>
+
+<script>
+    new Shopify.CountryProvinceSelector(
+        'AddressCountry',
+        'AddressProvince',
+        { hideElement: 'AddressProvinceContainer' }
+    );
+</script>
+    {% include "trade-orders-code" %}
+</body>
+</html>

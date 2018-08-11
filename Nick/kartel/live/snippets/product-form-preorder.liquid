@@ -1,0 +1,114 @@
+{% include 'bold-product' with product, hide_action: 'break' %}
+<!-- Bold D&H //product -->
+{% if product.metafields.inventory.ShappifyHidden == "true" %}
+Product is not available
+{% break %}{% endif %}
+<!-- // end product D&H -->
+
+{% if product.available %}
+  <form action="/cart/add" method="post" class="clearfix product_form" data-money-format="{{ shop.money_format }}" data-product-id="{{ product.id }}" data-shop-currency="{{ shop.currency }}" id="product-form-{{ product.id }}" enctype="multipart/form-data">
+   
+    {% if settings.display_inventory_left %}
+      <div class="items_left">
+        {% if product.variants.first.inventory_management == "shopify" and product.variants.first.inventory_quantity > 0 %}
+          {% capture items_left_text %}
+            {% if product.variants.first.inventory_quantity == 1 %}
+              {{ 'products.product.items_left_count.one' | t }}
+            {% else %}
+              {{ 'products.product.items_left_count.other' | t }}
+            {% endif %}
+          {% endcapture %}
+
+          <p><em>{{ product.variants.first.inventory_quantity }} {{ items_left_text }}</em></p>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    
+    {% if product.variants.size > 1 %}
+  
+      <div class="select"><h5 class="StrapMobileH1"> Strap option: </h5>
+        <select id="product-select-{{ product.id }}" name='id'>
+
+          {% for variant in product.variants %}
+            <option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %} value="{{ variant.id }}" data-price="{{variant.price}}">{{ variant.option2 }}</option>
+
+          {% endfor %}
+        </select>
+      </div>
+     
+    {% comment %}
+    {% elsif product.options.size == 1 and (product.variants.size > 1 or product.options[0] != "Title") %}
+    
+      <div class="select">
+        <label>{{ product.options[0] }}:</label>
+        <select id="product-select-{{ product.id }}" name='id'>
+          {% for variant in product.variants %}
+            <option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %} value="{{ variant.id }}">{{ variant.title }}</option>
+          {% endfor %}
+        </select>
+       
+      </div>
+    {% endcomment %}
+
+    {% else %}
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+
+    {% endif %}
+    
+    <span class="mw-product-options"></span>
+    
+              <!-- Bold: Options 3-2 -->
+    {% comment %}
+    {% comment %} BOLD Options V1 Automatically Removed {% include 'shappify-options' %} {% endcomment %}
+{% endcomment %}
+    <!-- // end Options 3-2 -->
+    
+    {% if settings.display_product_quantity %} 
+
+      <div class="left">
+        <label for="quantity">{{ 'products.product.quantity' | t }}:</label>
+        <input type="number" min="1" size="2" class="quantity" name="quantity" id="quantity" value="1" />
+      </div>
+    {% endif %}
+    <div class="purchase clearfix {% if settings.display_product_quantity %}inline_purchase{% endif %}">
+      {% if settings.cart_return == 'back' %}
+        <input type="hidden" name="return_to" value="back" />
+      {% endif %}
+      
+      {% if collection.handle != 'watch-straps' %}
+         {% include 'personalize_pop' %}
+      {% endif %}
+      <input type="submit" data_variant_id="{{ product.variants.first.id }}" name="add" id="AddToCart" value="Pre-order" class="action_button add_to_cart" />
+      
+    </div>  
+    
+  </form>
+
+{% comment %}{% if product.variants.size > 1 or product.options.size > 1 %}
+    <script type="text/javascript">
+      // <![CDATA[  
+        $(function() {    
+          $product = $('#product-' + {{ product.id }});
+          new Shopify.OptionSelectors("product-select-{{ product.id }}", { product: {{ product | json }}, onVariantSelected: selectCallback{% if product-form == 'product' %}, enableHistoryState: true{% endif %} }); 
+                              
+        });
+ 
+      {% if product.options.size == 1 %}
+  {% for variant in product.variants %}
+    {% unless variant.available %}
+    jQuery('.single-option-selector option').filter(function() { return jQuery(this).html() === {{ variant.title | json }}; }).remove();
+    {% endunless %}
+  {% endfor %}
+  jQuery('.single-option-selector').trigger('change');
+{% endif %}
+
+      // ]]>
+    </script>
+  {% endif %}{% endcomment %}
+
+{% endif %}
+
+
+
+

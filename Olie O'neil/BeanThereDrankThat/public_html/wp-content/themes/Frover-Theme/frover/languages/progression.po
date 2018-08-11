@@ -1,0 +1,867 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Text in function
+#: frover/inc/template-tags.php:110
+msgid "%1$s %2$s"
+msgstr ""
+
+#. Text in function
+#: frover/comments.php:57
+msgid "&larr; Older Comments"
+msgstr ""
+
+#. Text in function
+#: frover/inc/template-tags.php:1
+msgid "&lsaquo; Previous"
+msgstr ""
+
+#. Text in function
+#: frover/inc/template-tags.php:73
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr ""
+
+#. Text in function
+#: frover/image.php:44
+msgid "<span class=\"meta-nav\">&larr;</span> Previous"
+msgstr ""
+
+#. Text in function
+#: frover/inc/template-tags.php:64
+msgid "<span>&larr;</span> Previous Article"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:267
+#: frover/widgets/latest-portfolio-posts.php:203
+#: frover/widgets/footer-highlight.php:183
+#: frover/widgets/two-column-home.php:154
+#: frover/widgets/two-column-home.php:207
+msgid "Add Image"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/social-widget.php:127
+msgid "Additional Text Field"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Address field in header"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/two-column-home.php:236
+msgid "Adjust text higher or lower"
+msgstr ""
+
+#. Text in function
+#: frover/tgm-plugin-activation/class-tgm-plugin-activation.php:1
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#. Text in echo
+#: frover/archive.php:17
+msgid "Archives"
+msgstr ""
+
+#. Text in echo
+#: frover/archive.php:17
+msgid "Asides"
+msgstr ""
+
+#. Text in function
+#: frover/archive.php:17
+msgid "Author: %s"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Background Colors"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Body Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Body Font Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Button Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Button Font Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Button Hover Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Button Hover Font Color"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:247
+#: frover/widgets/latest-portfolio-posts.php:186
+#: frover/widgets/footer-highlight.php:149
+#: frover/widgets/two-column-home.php:189
+msgid "Button Icon"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:242
+#: frover/widgets/latest-portfolio-posts.php:181
+#: frover/widgets/footer-highlight.php:144
+#: frover/widgets/two-column-home.php:183
+msgid "Button Link"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:237
+#: frover/widgets/latest-portfolio-posts.php:176
+#: frover/widgets/footer-highlight.php:139
+#: frover/widgets/two-column-home.php:178
+msgid "Button Text"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:159
+#: frover/content.php:66
+#: frover/content-single.php:61
+msgid "By"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:286
+#: frover/widgets/latest-portfolio-posts.php:223
+msgid "Check box for light text"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/footer-highlight.php:202
+#: frover/widgets/two-column-home.php:229
+msgid "Check box for light text color"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/two-column-home.php:242
+msgid "Check box to switch columns"
+msgstr ""
+
+#. Text in echo
+#: frover/cart-header.php:37
+msgid "Checkout"
+msgstr ""
+
+#. Text in echo
+#: frover/comments.php:56
+msgid "Comment navigation"
+msgstr ""
+
+#. Text in echo
+#: frover/comments.php:68
+msgid "Comments are closed."
+msgstr ""
+
+#. Text in function
+#: frover/content.php:75
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Copyright Text"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Default"
+msgstr ""
+
+#. Text in function
+#: frover/tgm-plugin-activation/class-tgm-plugin-activation.php:1
+msgid "Dismiss this notice"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Display comments for pages?"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Dribbble Icon Link"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "DropBox Icon Link"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/social-widget.php:175
+msgid "E-mail Address"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "E-mail field in header"
+msgstr ""
+
+#. Text in function
+#: frover/image.php:27
+#: frover/inc/template-tags.php:100
+#: frover/inc/template-tags.php:128
+#: frover/content.php:84
+#: frover/content-page.php:19
+#: frover/content-single.php:74
+msgid "Edit"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Extra text in header"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Facebook Icon Link"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:218
+msgid "Filter by Category"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/flickr-widget.php:105
+msgid "Flickr ID: (Find from"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Flickr Icon Link"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Font Colors"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Footer Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Footer Column Count (1-4)"
+msgstr ""
+
+#. Text in function
+#: frover/functions.php:1
+msgid "Footer Menu"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Footer Widget Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/functions.php:130
+msgid "Footer Widgets"
+msgstr ""
+
+#. Text in function
+#: frover/functions.php:130
+msgid "Footer widgets"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Google Plus Icon Link"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Header Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Header Contact/Social Icons"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Header Top Font Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Header Top Hover Font Color"
+msgstr ""
+
+#. Text in function
+#: frover/functions.php:1
+msgid "Header Top Menu"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Heading Font Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Home Child Page Column Count (2-4)"
+msgstr ""
+
+#. Text in function
+#: frover/functions.php:130
+msgid "Home v2 Widgets"
+msgstr ""
+
+#. Text in function
+#: frover/functions.php:130
+msgid "Home: Widgets on all Pages"
+msgstr ""
+
+#. Text in function
+#: frover/functions.php:130
+msgid "Homepage Widgets"
+msgstr ""
+
+#. Text in echo
+#: frover/archive.php:17
+msgid "Images"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Instagram Icon Link"
+msgstr ""
+
+#. Text in function
+#: frover/tgm-plugin-activation/class-tgm-plugin-activation.php:1
+msgid "Install Plugins"
+msgstr ""
+
+#. Text in function
+#: frover/tgm-plugin-activation/class-tgm-plugin-activation.php:1
+msgid "Install Required Plugins"
+msgstr ""
+
+#. Text in function
+#: frover/tgm-plugin-activation/class-tgm-plugin-activation.php:1
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#. Text in echo
+#: frover/404.php:23
+msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
+msgstr ""
+
+#. Text in echo
+#: frover/no-results.php:38
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/social-widget.php:135
+#: frover/widgets/social-widget.php:140
+#: frover/widgets/social-widget.php:145
+#: frover/widgets/social-widget.php:150
+#: frover/widgets/social-widget.php:155
+#: frover/widgets/social-widget.php:160
+#: frover/widgets/social-widget.php:165
+#: frover/widgets/social-widget.php:170
+msgid "Link"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "LinkedIn Icon Link"
+msgstr ""
+
+#. Text in echo
+#: frover/archive.php:17
+msgid "Links"
+msgstr ""
+
+#. Text in echo
+#: frover/cart-header.php:8
+msgid "Login/Register"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/social-widget.php:112
+msgid "Logo Image"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Logo Width"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/social-widget.php:117
+msgid "Logo Width (EX:  180px )"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Main Hover Link Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Main Link Color"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/two-column-home.php:173
+msgid "Main Text"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Main Theme Settings"
+msgstr ""
+
+#. Text in function
+#: frover/related-posts.php:1
+msgid "More Posts"
+msgstr ""
+
+#. Text in echo
+#: frover/functions.php:334
+msgid "Navigate to..."
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Navigation Link Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Navigation Margin Top (Logo Height)"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Navigation Selected/Hover Color"
+msgstr ""
+
+#. Text in function
+#: frover/comments.php:58
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#. Text in function
+#: frover/inc/template-tags.php:77
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#. Text in function
+#: frover/inc/template-tags.php:1
+msgid "Next &rsaquo;"
+msgstr ""
+
+#. Text in function
+#: frover/image.php:45
+msgid "Next <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#. Text in function
+#: frover/inc/template-tags.php:65
+msgid "Next Article <span>&rarr;</span>"
+msgstr ""
+
+#. Text in function
+#: frover/content.php:66
+#: frover/content-single.php:61
+msgid "No Comments"
+msgstr ""
+
+#. Text in echo
+#: frover/no-results.php:12
+msgid "Nothing Found"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-portfolio-posts.php:163
+msgid "Number of Posts"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:232
+msgid "Number of columns (1-4)"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-portfolio-posts.php:167
+msgid "Number of columns (2-4)"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/flickr-widget.php:110
+msgid "Number of flickr image to show"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:228
+msgid "Number of posts"
+msgstr ""
+
+#. Text in echo
+#: frover/404.php:13
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/two-column-home.php:147
+msgid "Optional Image in Left Column"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Page Title Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Page Title Font Color"
+msgstr ""
+
+#. Text in function
+#: frover/image.php:62
+#: frover/content.php:76
+#: frover/content-page.php:20
+#: frover/content-single.php:68
+msgid "Pages:"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Phone field in header"
+msgstr ""
+
+#. Text in echo
+#: frover/inc/template-tags.php:100
+msgid "Pingback:"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Pinterest Icon Link"
+msgstr ""
+
+#. Text in function
+#: frover/tgm-plugin-activation/class-tgm-plugin-activation.php:1
+msgid "Plugin activated successfully."
+msgstr ""
+
+#. Text in echo
+#: frover/archive-portfolio.php:17
+msgid "Portfolio"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-portfolio-posts.php:171
+msgid "Portfolio Category Slug"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Portfolio Index Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Portfolio posts per column (2-4)"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Portfolio posts per page"
+msgstr ""
+
+#. Text in echo
+#: frover/inc/template-tags.php:60
+msgid "Post navigation"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Price Filter Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Price Filter Second Background Colo"
+msgstr ""
+
+#. Text in function
+#: frover/functions.php:1
+msgid "Primary Menu"
+msgstr ""
+
+#. Text in function
+#: frover/image.php:27
+msgid "Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\">%2$s</time></span> at <a href=\"%3$s\">%4$s &times; %5$s</a> in <a href=\"%6$s\" rel=\"gallery\">%7$s</a>"
+msgstr ""
+
+#. Text in echo
+#: frover/archive.php:17
+msgid "Quotes"
+msgstr ""
+
+#. Text in function
+#: frover/no-results.php:29
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#. Text in function
+#: frover/tgm-plugin-activation/class-tgm-plugin-activation.php:1
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#. Text in function
+#: frover/tgm-plugin-activation/class-tgm-plugin-activation.php:1
+msgid "Return to the dashboard"
+msgstr ""
+
+#. Text in function
+#: frover/search.php:14
+msgid "Search Results for: %s"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Second Button Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Second Button Border Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Second Button Font Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Second Button Hover Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Second Button Hover Font Color"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/footer-highlight.php:164
+msgid "Secondary Button Icon"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/footer-highlight.php:159
+msgid "Secondary Button Link"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/footer-highlight.php:154
+msgid "Secondary Button Text"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Set Header Fixed?"
+msgstr ""
+
+#. Text in function
+#: frover/functions.php:130
+msgid "Shop Sidebar"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Shop posts per column (2-4)"
+msgstr ""
+
+#. Text in function
+#: frover/functions.php:130
+msgid "Sidebar"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Sidebar Hover Link Font Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Sidebar Link Font Color"
+msgstr ""
+
+#. Text in echo
+#: frover/cart-header.php:17
+msgid "Sign out"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Slider Blue Text Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Slider Default Button Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Slider Default Button Border Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Slider Default Button Hover Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Slider Default Button Hover Border Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Slider Default Button Text Color"
+msgstr ""
+
+#. Text in function
+#: frover/tgm-plugin-activation/class-tgm-plugin-activation.php:1
+msgid "Something went wrong."
+msgstr ""
+
+#. Text in echo
+#: frover/no-results.php:33
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Sub-Navigation Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Sub-Navigation Hover Link Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Sub-Navigation Link Color"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/footer-highlight.php:132
+msgid "Summary Text"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/social-widget.php:122
+msgid "Text Field"
+msgstr ""
+
+#. Text in function
+#: frover/tgm-plugin-activation/class-tgm-plugin-activation.php:1
+msgid "The following plugin was activated successfully:"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Theme Logo"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Theme Settings"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:213
+#: frover/widgets/latest-portfolio-posts.php:156
+#: frover/widgets/flickr-widget.php:100
+#: frover/widgets/footer-highlight.php:126
+#: frover/widgets/two-column-home.php:142
+msgid "Title"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/social-widget.php:106
+msgid "Title:"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Top Header Background Color"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Tumblr Icon Link"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "Twitter Icon Link"
+msgstr ""
+
+#. Text in echo
+#: frover/archive.php:17
+msgid "Videos"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:252
+#: frover/widgets/latest-portfolio-posts.php:191
+#: frover/widgets/footer-highlight.php:169
+#: frover/widgets/two-column-home.php:194
+msgid "Widget Background Color"
+msgstr ""
+
+#. Text in echo
+#: frover/widgets/latest-blog-posts.php:260
+#: frover/widgets/latest-portfolio-posts.php:197
+#: frover/widgets/footer-highlight.php:177
+#: frover/widgets/two-column-home.php:201
+msgid "Widget Background Image"
+msgstr ""
+
+#. Text in function
+#: frover/inc/customizer.php:1
+msgid "YouTube Icon Link"
+msgstr ""
+
+#. Text in echo
+#: frover/inc/template-tags.php:132
+msgid "Your comment is awaiting moderation."
+msgstr ""

@@ -1,0 +1,88 @@
+{% assign dial_imgURL = product.variants.first.sku | append : '-box2-case.png' | file_url %}
+{% for c in product.collections %}
+  {% case c.handle %}
+	{% when 'isla' %}
+	   {% assign firstImage= c.handle | append: '-productImg-1.jpeg' | file_url %}
+	   {% assign secondImage= c.handle | append: '-productImg-2.jpeg' | file_url %}
+	   {% assign secondText = 'FINEST CASHMERE, TWEED & WOOL STRAPS' %}
+	   {% assign collectionName = c.handle %}
+	   {% break %}
+    {% when 'cashmere-collection' %}
+       {% assign firstImage= c.handle | append: '-productImg-1.jpg' | file_url %}
+	   {% assign secondImage= c.handle | append: '-productImg-2.jpg' | file_url %}
+	   {% assign secondText = 'A NEW CONCEPT IN CASHMERE' %}
+		{% assign collectionName = c.handle %}
+	    {% break %}
+    {% when 'watches-with-harris-tweed-straps' %}
+       {% assign firstImage= c.handle | append: '-productImg-1.jpg' | file_url %}
+	   {% assign secondImage= c.handle | append: '-productImg-2.jpg' | file_url %}
+	   {% assign secondText = 'FOM THE LAND COMES THE CLOTH' %}
+		{% assign collectionName = c.handle %}
+		{% break %}
+    {% when 'watches-with-chain-mesh-straps' %}
+       {% assign firstImage= c.handle | append: '-productImg-1.jpg' | file_url %}
+	   {% assign secondImage= c.handle | append: '-productImg-2.jpg' | file_url %}
+	   {% assign secondText = 'DURABLE & STYLISH STAINLESS STEEL' %}
+		{% assign collectionName = c.handle %}
+		{% break %}
+	{% when 'watches-with-leather-straps' %}
+       {% assign firstImage= c.handle | append: '-productImg-1.jpg' | file_url %}
+	   {% assign secondImage= c.handle | append: '-productImg-2.jpg' | file_url %}
+	   {% assign secondText = 'PREMIUM SCOTTISH SOURCED LEATHERS' %}
+		{% assign collectionName = c.handle %}
+		{% break %}
+	{% when 'watches-with-stainless-steel-metal-straps' %}
+	   {% assign firstImage= c.handle | append: '-productImg-1.jpg' | file_url %}
+	   {% assign secondImage= c.handle | append: '-productImg-2.jpg' | file_url %}
+	   {% assign secondText = 'DURABLE & STYLISH STAINLESS STEEL' %}
+		{% assign collectionName = c.handle %}
+		{% break %}
+  {% endcase %}
+{% endfor %}
+
+<div class="signatureCasing-prod-section">
+  <div class="first-section">
+      <div class="section-description">
+        <p>{{ productDesc[1] }}</p>  
+      </div>
+      <div class="section-image">
+         <img src="{{ product.variants.first.sku | append : '-box1-case.png' | file_url }}" >
+      </div>
+  </div>
+  <div class="second-section">
+      <div class="section-image second-dial-BGimg">
+         <img class="second-dial-img" src="{{ product.variants.first.sku | append : '-box2-case.png' | file_url }}" >
+      </div>
+      <div class="section-description">
+        <p>{{ productDesc[2] }}</p>  
+      </div>
+  </div>
+  <div class="watches-straps {{ collectionName }}">
+    <div class="first-strap">
+    	<img src="{{ firstImage }}" >
+    </div>
+    <div class="second-strap">
+      <img src="{{ secondImage }}" >
+      <span class="collection-feature">{{ secondText }}</span>
+    </div>
+  </div>
+  <div class="third-section">
+      <div class="section-image">
+         <div class="section-description third-section-desc">
+          <p>{{ productDesc[3] }}</p>  
+         </div>
+         <img src="{{ product.variants.first.sku | append : '-box3-case.png' | file_url }}" >
+      </div>
+  </div>
+</div>
+
+<script>
+  var windowWidth = $(window).width();
+ 
+  if(windowWidth >= 767 && windowWidth <= 1024)
+  {
+    var imageURL = "{{ dial_imgURL }}";
+   	$('.second-dial-BGimg').css('background-image','url(' + imageURL + ')'); 
+    $('.second-dial-img').css('');
+  }
+</script>

@@ -1,0 +1,371 @@
+<script type="text/javascript">
+  window.wsVariantsPrice = {};
+  {% assign prodCollections = product.collections %}
+  {% for variant in product.variants %}
+  	{% capture wsprice %}{% include 'ws-product-price-calculator', product: variant, collections: prodCollections, variantId: variant.id %}{% endcapture %}
+  	window.wsVariantsPrice[{{variant.id}}] = {{ wsprice }};
+  {% endfor %}
+</script>
+
+<div class="">
+  <div class="container main content "> 
+  <div class="clearfix breadcrumb">
+    <div class="right mobile_hidden">
+      {% if collection.previous_product %}
+        {% capture prev_url %}{{ collection.previous_product }}{% endcapture %}
+        {{ 'products.general.previous_product_html' | t | link_to: prev_url }}
+        {% if collection.next_product %}&nbsp; | &nbsp;{% endif %}
+      {% endif %}
+
+      {% if collection.next_product %}
+        {% capture next_url %}{{ collection.next_product }}{% endcapture %}
+        {{ 'products.general.next_product_html' | t | link_to: next_url }}
+      {% endif %}
+    </div>
+
+    <div class="breadcrumb_text">
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span> 
+      &nbsp; / &nbsp;
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        {% if collection %}
+          <a href="{{ collection.url }}" title="{{ collection.title | escape }}">{{ collection.title }}</a>
+        {% else %}
+          <a href="/collections/all" title="{{ collections.all.title }}">{{ collections.all.title }}</a>     
+        {% endif %}
+      </span>
+      &nbsp; / &nbsp; 
+      {{ product.title }}
+    </div>
+  </div>
+</div>
+</div>
+
+{% if settings.product_sidebar %}
+  {% include 'sidebar' %}
+  <div class="twelve columns" itemscope itemtype="http://data-vocabulary.org/Product">
+    <div id="product-{{ product.id }}">
+{% else %}
+       <div class="container main content "> 
+  <div class="sixteen columns" itemscope itemtype="http://data-vocabulary.org/Product">
+    <div id="product-{{ product.id }}">
+{% endif %}
+
+
+	<div class="section product_section clearfix">
+	  
+  	 {% if settings.product_images_position == 'left' %}             
+       <div class="{% if settings.product_sidebar %}seven{% else %}nine{% endif %} columns {% if product-images == blank %}{% if settings.product_images_position == 'left' %}alpha{% else %}omega{% endif %}{% endif %}">
+         {% include 'product-images' %}
+        </div>
+     {% endif %}
+
+     <div class="{% if settings.product_sidebar %}five{% else %}seven{% endif %} columns {%if settings.product_images_position == 'left' %}omega{% else %}alpha{% endif %}">
+       <h1 class="product_name" itemprop="name">{{ product.title }}</h1>
+    
+       {% if settings.display_vendor %}
+          <p class="vendor">
+            <span itemprop="brand">{{ product.vendor | link_to_vendor }}</span>
+            
+          </p>
+       {% endif %}
+
+      {% assign variant = product.selected_or_first_available_variant %}
+             {% assign variantTitle = variant.title | split: '/' %}
+      <h4 class="variant_title">{{ variantTitle | first }}</h4>
+      {% capture wsprice %}{% include 'ws-product-price-calculator', product: variant, variantId: variant.id %}{% endcapture %}{% assign wsprice = wsprice | plus: 0 %}
+      <p class="modal_price" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+         <meta itemprop="currency" content="{{ shop.currency }}" />
+         <meta itemprop="seller" content="{{ shop.name | escape }}" />
+         <meta itemprop="availability" content="{% if product.available %}in_stock{% else %}out_of_stock{% endif %}" />
+         
+         <span class="sold_out">{% if variant.available == false %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+         <span itemprop="price" content="{{ wsprice | money_without_currency }}" class="{% if variant.compare_at_price > wsprice %}sale{% endif %}">
+            <span class="current_price">
+              {% if variant.available %}
+                {{ wsprice | money }} 
+              {% endif %}
+            </span>
+         </span>
+         <span class="was_price">
+          {% if wsprice < variant.compare_at_price %}
+            {{ variant.compare_at_price | money }}
+          {% endif %}
+         </span>
+
+      </p>
+        {% comment %}
+       	   {% include 'propositions' %}
+       {% endcomment %}
+      {% include 'product-notify-me' %}
+      
+      {% assign productDesc =  product.description | split: '<!-- split -->' %}
+       {% if settings.product_description_position == "top" %}
+         {% if product.description != blank %}
+          <div class="description" itemprop="description">
+            {{ productDesc[0] }}
+          </div>
+         {% endif %} 
+       {% endif %}
+
+       
+       {% include 'product-form-swatch' with 'product' %}
+
+       {% if settings.product_description_position == "bottom" %}
+         {% if product.description != blank %}
+          <div class="description" itemprop="description">
+           {{ productDesc[0] }}
+          </div>
+         {% endif %}
+       {% endif %}
+
+      {% if settings.display_collections or settings.display_tags or settings.display_type %}
+       <hr />
+      {% endif %}
+       
+       
+       <div class="meta">
+         {% if settings.display_collections %}
+           <p>
+             <span class="label">{{ 'products.product.collections' | t }}:</span> 
+             <span>
+              {% for col in product.collections %}
+                <a href="{{ col.url }}" title="{{ col.title }}">{{ col.title }}</a>{% unless forloop.last %},{% endunless %} 
+              {% endfor %}
+            </span>
+          </p>
+         {% endif %}
+       
+         {% if settings.display_tags %}
+            <p>
+              {% for tag in product.tags %}
+                {% if forloop.first %}
+                  <span class="label">{{ 'products.product.tags' | t }}:</span> 
+                {% endif %}
+
+                {% unless tag contains 'meta-related-collection-' %}
+                  <span>
+                    <a href="/collections/{% if collection %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handle }}" title="{{ 'products.product.products_tagged' | t: tag: tag }}">{{ tag }}</a>{% unless forloop.last %},{% endunless %}
+                  </span>
+                {% endunless %} 
+              {% endfor %}
+            </p>
+         {% endif %}
+       
+        {% if settings.display_type %}
+           <p>
+             <span class="label">{{ 'products.product.product_types' | t }}:</span> 
+             <span itemprop="category">{{ product.type | link_to_type }}</span>
+           </p>
+        {% endif %}
+       </div>
+
+      {% include "social-buttons" with "product" %}     
+    </div>
+    
+    {% if settings.product_images_position == 'right' %}   
+      <div class="{% if settings.product_sidebar %}six{% else %}eight{% endif %} columns {% if product-images == blank %}{% if settings.product_images_position == 'left' %}alpha{% else %}omega{% endif %}{% endif %}">          
+        {% include 'product-images' %}
+        {% include "social-buttons" with "product" %}
+      </div>
+    {% endif %}
+  </div>
+      
+<!--     <ul class="feat-in top-feat-in">
+         <li>
+            <img src="{{ 'areoplane-small.jpg' | asset_url }}">
+            <span class="icon-info">Free worldwide shipping</span>
+         </li>
+
+         <li>
+            <img src="{{ 'engraving-small.jpg' | asset_url }}">
+            <span class="icon-info">Free caseback engraving</span>
+         </li>
+
+         <li>
+            <img src="{{ 'warranty-small.jpg' | asset_url }}">
+            <span class="icon-info">36 month warranty</span>
+         </li>
+
+         <li>
+            <img src="{{ 'customise-small.jpg' | asset_url }}">
+            <span class="icon-info">Customise any watch</span>
+         </li>
+     </ul> -->
+    </div></div></div>
+      
+    <div class="feature-large-icons">
+   	<ul class="feat-in">
+         <li>
+            <img src="{{ 'areoplane-large-trans.png' | asset_url }}">
+            <span class="icon-info">Free next day <br> delivery in the UK</span>
+         </li>
+         <li>
+            <img src="{{ 'engraving-large-trans.png' | asset_url }}">
+            <span class="icon-info">Caseback engraving <br> available in 4 fonts</span>
+         </li>
+         <li>
+            <img src="{{ 'warranty-large-trans.png' | asset_url }}">
+            <span class="icon-info">36 month warranty<br>on all watches</span>
+         </li>
+         <li>
+            <img src="{{ 'customise-large-trans.png' | asset_url }}">
+            <span class="icon-info">Same day dispatch<br>Order by 3pm</span>
+         </li>
+     </ul>
+     </div>
+   
+     {% include 'new-SigCasing-product-section' %}
+     
+    <span class="pp-elements">
+      <br>
+        <h4 class="title center">Customer Reviews</h4>
+                 {% include 'trustpilot' %}
+      
+      {% if settings.display_related_products %}
+        <div class="container main content " style="padding:0px;"> 
+        <div class="sixteen columns" itemscope itemtype="http://data-vocabulary.org/Product">
+	  	<hr>
+      {% endif %}    
+    </span>
+     
+  {% if settings.display_related_products %}
+    {% capture limit %}{{ settings.products_per_row | plus: 1 }}{% endcapture %}
+
+    {% if collection and collection.all_products_count > 1 %}
+      {% assign col = collection.handle %}
+    {% else %}
+      {% assign col = product.collections.last.handle %}
+    {% endif %}
+
+    {% for tag in product.tags %}
+      {% if tag contains 'meta-related-collection-' %}
+        {% assign col = tag | remove: 'meta-related-collection-' %}
+        {% assign collection = collections[col] %}
+        {% capture limit %}{{ collection.products_count | plus: 1 }}{% endcapture %}
+      {% endif %}
+    {% endfor %}
+      
+    {% if col and collections[col].all_products_count > 0 %}
+      <br class="clear" />
+      <br class="clear" />
+      <h4 class="title center">{{ 'products.product.related_items' | t }}</h4>
+
+      {% assign skip_product = product %}
+      {% assign products = collections[col].products %}
+      {% assign products_per_row = settings.products_per_row %}
+      {% include 'product-loop' with settings.product_sidebar %}
+    {% endif %}
+  {% endif %}
+</div>
+{% include 'evm-shop-by-instagram' %}
+         </div> </div></div>
+  
+
+<script>
+  $(document).ready(function() {
+    var dd = $('.single-option-selector');
+    customizer();
+    dd.on('change', function(e) {
+      customizer();
+    });
+  });
+  
+  function customizer() {
+    var dd = $('.single-option-selector'),
+        c = $('.product-customizer-options');
+    if (dd.length == 0) return;
+    
+    if(dd.val() == "Yes") {
+      c.fadeIn(500);
+    } else {
+      c.hide();
+    }
+  }
+</script>
+      
+      <script>
+//          $(document).ready(function()
+//                            {
+// 				$('.flex-control-nav').append('<li><iframe src="https://player.vimeo.com/video/180143914" width="105" height="104" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></li>');
+//          });
+        
+                 $(document).ready(function()
+                           {
+// 				$('.product_gallery').append('<ul class="list"><li class="videothumb"><a class="fancybox-media" href="https://vimeo.com/180143911"><img src="https://cdn.shopify.com/s/files/1/0675/4411/files/haig.png?18020379557474773016"></a></li></ul>');
+         });
+             
+      </script>
+
+      <script>
+$(document).ready(function() {
+	$('.fancybox-media').fancybox({
+		openEffect  : 'none',
+		closeEffect : 'none',
+		helpers : {
+			media : {}
+		}
+	});
+});
+
+</script>
+<script>
+jQuery(function() {  
+  jQuery('.swatch :radio').change(function() { 
+    var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+    var optionValue = jQuery(this).val(); 
+    $('.variant_title').text(optionValue);
+    jQuery(this)
+      .closest('form')
+      .find('.single-option-selector')
+      .eq(optionIndex)
+      .val(optionValue)
+      .trigger('change');
+  });
+});
+</script>
+
+
+<style>
+  .new-product {
+    padding-top: 30px;
+}
+.new-product .product-one-images {
+   padding:0px;
+    width: 100%;
+    max-width: 99.4%;
+}
+.new-product .clock-image {
+    width: 50%;
+    float: left;
+    padding-right: 7px;
+    margin: 0;
+    box-sizing: border-box;
+}
+.clock-image img, .signature-casing img {
+    width: 100%;
+    max-width: 100%;
+}
+.new-product .product-images, .new-product .product-one-images {
+    padding-top: 7px;
+}
+
+.new-product .signature-casing {
+    width: 50%;
+    float: left;
+    margin: 0;
+    padding-left: 7px;
+    padding-top: 0px;
+    box-sizing: border-box;
+}
+
+
+@media screen and (max-width: 768px) {
+.new-product .clock-image,
+  .new-product .signature-casing {
+      width: 100%;
+      padding: 0px;
+  } 
+
+}
+
+</style>

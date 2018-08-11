@@ -1,0 +1,57 @@
+{% include 'bold-product' with product, hide_action: 'break' %}
+{% for c in product.collections %}
+
+{% case c.handle %}
+  {% when 'haig' %}
+     {% assign colname= 'haig' %}
+  {% when 'hume' %}
+    {% assign colname= 'hume' %}
+  {% when 'kendrick' %}
+    {% assign colname= 'kendrick' %}
+  {% when 'lewis' %}
+      {% assign colname= 'lewis' %}
+  {% when 'tarbert' %}
+      {% assign colname= 'kendrick' %}
+  {% when 'lewis-34mm' %}
+      {% assign colname= 'lewis-34mm' %}
+  {% when 'kendrick-2017' %}
+      {% assign colname= 'kendrick-2017' %}
+  
+{% endcase %}
+{% endfor %}
+
+<div class="new-product new-signaturecasing-product">
+  <div class="product-one-images">
+      <div class="clock-image">
+        <img src="{{ product.variants.first.sku | append : '-2017-left.png' | asset_url }}" class="featuredPromotionHoverImg" data-hover-img="{{ product.variants.first.sku | append : '-2017-left-mouseover.png' | asset_url }}" data-without-hover-img="{{ product.variants.first.sku | append : '-2017-left.png' | asset_url }}">
+        
+      </div>
+    
+      <div class="signature-casing">
+         <img src="{{ '2017-collection-dial.png' | asset_url}}" class="featuredPromotionHoverImg" data-hover-img="{{ '2017-collection-dial-mouseover.png' | asset_url}}" data-without-hover-img="{{ '2017-collection-dial.png' | asset_url}}">
+      	 
+      </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="product-images">
+    <div class="product_new">
+        <div class="premium-leather">
+          <img src="{{ product.variants.first.sku | append : '-2017-1.png' | asset_url }}" class="featuredPromotionHoverImg" data-hover-img="{{ product.variants.first.sku | append : '-2017-1-mouseover.png' | asset_url }}" data-without-hover-img="{{ product.variants.first.sku | append : '-2017-1.png' | asset_url }}">
+          
+        </div>
+    </div>
+    <div class="product_new">
+      <div class="precision-movements">
+        <img src="{{ product.variants.first.sku | append : '-2017-2.png' | asset_url }}" class="featuredPromotionHoverImg" data-hover-img="{{ product.variants.first.sku | append : '-2017-2-mouseover.png' | asset_url }}" data-without-hover-img="{{ product.variants.first.sku | append : '-2017-2.png' | asset_url }}">
+      	
+      </div>
+    </div>
+    <div class="product_new">
+      <div class="elegant-dial-designs">
+        <img src="{{ product.variants.first.sku | append : '-2017-3.png' | asset_url }}" class="featuredPromotionHoverImg" data-hover-img="{{ product.variants.first.sku | append : '-2017-3-mouseover.png' | asset_url }}" data-without-hover-img="{{ product.variants.first.sku | append : '-2017-3.png' | asset_url }}">
+      	
+      </div>
+    </div>
+  </div>
+  
+</div>

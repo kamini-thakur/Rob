@@ -1,0 +1,441 @@
+  function showDiv() {
+    document.getElementById('welcomeDiv').style.display = "block";
+    var root = document.getElementsByTagName( 'html' )[0]; // '0' to assign the first (and only `HTML` tag)
+    root.setAttribute( 'class', 'mypopup' );  
+  }
+
+  function hidePopDiv() {
+    document.getElementById('welcomeDiv').style.display = "none";
+    $("html").removeClass("mypopup");
+
+    var cur_price = $("#cur_price").attr('content');
+    var add_price= parseFloat(cur_price)+10;
+    var currentCurrency=Currency.cookie.read();
+
+    switch(currentCurrency)
+    { 
+      case 'GBP':
+        $('#cur_price .current_price').html('<span class="money">&pound;'+add_price+'</span>');
+        break;
+      case 'USD': 
+        $('#cur_price .current_price').html('<span class="money">&dollar;'+add_price+'</span>');
+        break;
+      case 'EUR': 
+        $('#cur_price .current_price').html('<span class="money">&euro;'+add_price+'</span>');
+        break;
+    }
+
+  }
+
+  //   $('.popup_field_inner input').keyup(updateCount);
+  // $('.popup_field_inner input').keydown(updateCount);
+
+  // function updateCount() {
+  //     var cs = $(this).val().length;
+  //   $(this).closest('.popup_field_inner').find('.message_num').text(cs);
+
+  // }
+
+  var maxLen = 15;
+  $('.popup_field_inner input').keypress(function(event){
+    var Length = $(this).val().length;
+    $(this).closest('.popup_field_inner').find('.message_num').text(Length);
+    if(Length >= maxLen){
+      if (event.which != 8) {
+        return false;
+      }
+    }
+  });
+
+  $("#input_mess1").keyup(function(){
+    var newVideoName = $("#input_mess1").val();
+    $("#message1").text(newVideoName);
+
+  });
+  $("#input_mess2").keyup(function(){
+    var newVideoName = $("#input_mess2").val();
+    $("#message2").text(newVideoName);
+
+  });
+  $("#input_mess3").keyup(function(){
+    var newVideoName = $("#input_mess3").val();
+    $("#message3").text(newVideoName);
+  });
+  $("#input_mess4").keyup(function(){
+    var newVideoName = $("#input_mess4").val();
+    $("#message4").text(newVideoName);
+
+  });
+
+  /* Code for uploading logo image */
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+ 
+  $('#getImg input').on('change', function() {
+    var imgValue = $('input[name=radioName]:checked','#getImg').val();
+    $('.selectedRadio').next("span").removeClass('pickImg');
+    $("input:radio[name=radioName]:first").removeClass('selectedRadio');
+    
+  	$("#getLogoImg").html(imgValue);
+  });
+   
+  /* Upload image code */
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var image = '<img src="'+e.target.result+'">';
+              $('#UserUpload').html(image);
+          	var ImgType = document.getElementById('uploadImg').files[0];
+    		var type = ImgType.type;
+          	var IsImg =type.split('/')[0];
+          
+          	if(IsImg != 'image')
+            {
+              alert('Please upload an image');
+              $('#uploadImg').val('');
+              $('#selectFile').text('No image uploaded');
+              return false;
+            }
+              var filename = $('#uploadImg').val();
+        	  $('#selectFile').html(filename);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#uploadImg").change(function(){
+        readURL(this);
+  });  
+  
+  /* To hide and display tabs code */
+  $('#tab1').click(function(e){
+  	$('#textOnly').css('display','block');
+    $('#textImages').css('display','none');
+    $('#ImgUpload').css('display','none');
+  });
+  $('#tab2').click(function(e){
+  	$('#textOnly').css('display','none');
+    $('#textImages').css('display','block');
+    $('#ImgUpload').css('display','none');
+    $('.CasebackImage').css('display','none');
+    $('.CasebackNewImage').css('display','block');
+  });
+  $('#tab3').click(function(e){
+  	$('#textOnly').css('display','none');
+    $('#textImages').css('display','none');
+    $('#ImgUpload').css('display','block');
+  });
+  
+  /* To change the font of the text */
+  var font = $("#textFont option:selected").val();
+  console.log(font);
+  $('.changeFont').css('font-family',font);
+  $('.popup_table_cell span').css('font-family',font);
+  
+  $('#textFont').change(function(){
+  	var font = $( "#textFont option:selected" ).val();
+    if(font == 'JennaSue')
+    {
+      $('.showFont').addClass(font);
+    }
+    else
+    { 
+      $('.showFont').removeClass('JennaSue');
+    }
+   
+    $('.changeFont').css('font-family',font);
+   	$('.showFont').css('font-family',font);
+  });
+  
+  /* Image gallery code */
+  /* Selecting automatically first logo of each category on load */
+  var category = $( "#LogoCat option:selected" ).val();
+   $('[id^=cat]').hide();
+   $('#'+category).css('display','block');
+  
+    if(category == 'cat_1')
+    {
+      $('.popup_type_text4').addClass('TextAbove');
+       $('.hideCulture').css('display','block');
+       $('.popup_type_text4').css('display','block');
+    }
+    else
+    {
+       $('.hideCulture').css('display','none');
+      $('.popup_type_text4').css('display','none');
+      
+    }
+  $("[id^=cat] input:radio[name=radioName]").removeAttr('checked', false);
+  
+      $("[id^=cat] input:radio[name=radioName]").removeClass('selectedRadio');
+      $('#'+category+" input:radio[name=radioName]:first").addClass('selectedRadio');
+      var imgValue = $('.selectedRadio').val();
+      $("#getLogoImg").html(imgValue);
+      $('.selectedRadio').next("span").addClass('pickImg');
+  
+  
+  $('#LogoCat').change(function(){
+    var category = $( "#LogoCat option:selected" ).val();
+	console.log(category);
+    if(category == 'cat_1')
+    {
+      $('.popup_type_text4').addClass('TextAbove');
+       $('.hideCulture').css('display','block');
+       $('.popup_type_text4').css('display','block');
+    }
+    else
+    {
+      $('.hideCulture').css('display','none');
+      $('.popup_type_text4').css('display','none');
+    }
+    $('[id^=cat]').hide();
+    $('#'+category).css('display','block');
+    $("[id^=cat] input:radio[name=radioName]").removeAttr('checked', false);
+    $('#'+category+" input:radio[name=radioName]:first").attr('checked', true);
+    $("[id^=cat] input:radio[name=radioName]").removeClass('selectedRadio');
+    $('#'+category+" input:radio[name=radioName]:first").addClass('selectedRadio');
+    var imgValue = $('.selectedRadio').val();
+    $("#getLogoImg").html(imgValue);
+    $('.selectedRadio').next("span").addClass('pickImg');
+  });
+
+  var updatedPrice = parseFloat($('.strap-upsell-offer').attr('data-prod-orig-price')).toFixed(2);
+  $('.add_watch_strap').on('change',function(e){
+  		if (this.checked)
+        {
+          	$(this).parent('.product-info').addClass('selected');
+            var prodPrice = parseFloat($(this).attr('data-prod-price')).toFixed(2);
+          	updatedPrice = (parseFloat(updatedPrice)+parseFloat(prodPrice)).toFixed(2); 
+          	$('.current_price').html(Shopify.formatMoney(updatedPrice, $('form.product_form').data('money-format')));
+        	
+        }
+    	else
+        {	
+          	$(this).parent('.product-info').removeClass('selected');
+			var prodPrice = parseFloat($(this).attr('data-prod-price')).toFixed(2);
+          	updatedPrice = (parseFloat(updatedPrice)-parseFloat(prodPrice)).toFixed(2); 
+          	$('.current_price').html(Shopify.formatMoney(updatedPrice, $('form.product_form').data('money-format')));
+            
+        }
+  });
+
+  var $checkboxes = $('.add_watch_strap'); 
+  $('.add_watch_strap').change(function(){
+         var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+    	 var changeText;
+    	 switch(countCheckedCheckboxes) {
+            case 1:
+                changeText = "Add a third strap";
+                break;
+            case 2:
+                changeText = "Add a fourth strap";
+                break;
+            case 3:
+                changeText = "Add a fifth strap";
+                break;
+            case 4:
+                changeText = "Add a sixth strap";
+                break;
+            case 5:
+                changeText = "Add a seventh strap";
+                break;
+            case 6:
+                changeText = "Add a eighth strap";
+                break;
+            case 7:
+                changeText = "Add a ninth strap";
+                break;
+            case 8:
+                changeText = "Add a tenth strap";
+                break;
+            case 9:
+                changeText = "Add a eleventh strap";
+                break;
+            case 10:
+                changeText = "Add a twelveth strap";
+                break; 
+            case 11:
+                changeText = "Add a thirteenth strap";
+                break; 
+            case 12:
+                changeText = "Add a fourteenth strap";
+                break;
+            case 13:
+                changeText = "Add a fifteenth strap";
+                break; 
+            case 14:
+                changeText = "Add a sixteenth strap";
+                break;
+            default:
+                changeText = "Add a second strap";
+         }
+    	 $('.strap-upsell-message').text(changeText);
+  }); 
+
+  var lots_of_stuff_already_done = false;
+  function AddWatchStrap(callback){ 
+      lots_of_stuff_already_done = true;
+    
+      $('.loader-img').show();
+      var toAdd = new Array();
+      $('.add_watch_strap').each(function(){
+         var id = parseInt($(this).attr('data-variant-id'));
+         if(this.checked) 
+         {
+              toAdd.push({
+                   variant_id: id        
+              });
+         }
+      });               
+
+      function moveAlong(){ 
+         if (toAdd.length > 0) { 
+                          var productTitles;
+                          var request = toAdd.shift();
+                          var tempId= request.variant_id; 
+                          var params = {
+                              type: 'POST',
+                              url: '/cart/add.js',
+                              data: 'quantity=1&id='+tempId,
+                              dataType: 'json',
+                              success: function(line_item) { 
+                                  moveAlong();
+                              },
+                              error: function(XMLHttpRequest) {
+                                var fullResponse = eval('(' + XMLHttpRequest.responseText + ')');
+                                var response = fullResponse.description;
+                                moveAlong();
+                              }
+                          };
+                          $.ajax(params);
+         }
+         else
+         {
+              callback();
+         }
+      }
+      moveAlong();                                 
+  }
+
+  $('form.product_form').on('submit',function(e){
+    	if (lots_of_stuff_already_done) {
+          return true;
+    	}
+        else
+        {
+           e.preventDefault();
+           AddWatchStrap(function(){ 
+              $('form.product_form').submit();
+           });
+        }
+  });
+
+  function sendRequest(data){
+      $.ajax({
+          url: '/cart/add.js',
+          dataType: 'json',
+          type: 'post',
+          data: data,
+          success: function(itemData) {
+            var getcustomise = '{{ customise }}';
+            $('.loader-img').hide();
+            if(getcustomise)
+            {
+               $('#mwAddToCart').trigger('click');
+            }
+            else
+            {
+              $('#AddToCart').trigger('click');
+            }
+            return ;
+          }, 
+          error: function(XMLHttpRequest) {
+            var response = eval('(' + XMLHttpRequest.responseText + ')');
+            response = response.description;
+          }
+      });
+  }
+
+  function addTocart()
+  {
+      AddWatchStrap(function(){
+		  var getIt = '{{ customise }}';
+          var line1Msg = $("#input_mess1").val();
+          var line2Msg = $("#input_mess2").val();
+          var line3Msg = $("#input_mess3").val();
+          var FontStyle  = $('#textFont option:selected').text();
+          console.log(FontStyle);
+
+          var data={quantity: 1,id:'29611068867',
+                    properties: {
+                      'Line 1': line1Msg,
+                      'Line 2':line2Msg,
+                      'Line 3':line3Msg,
+                      'Font-style':FontStyle
+                    }
+                   };
+          if(data != '')
+          {
+              sendRequest(data);
+          }
+      });
+  }
+
+  /* Add to cart for image gallery goes here */
+
+  $('#AddImages').click(function(e){
+    	AddWatchStrap(function(){
+          var LogoCategory  = $('#LogoCat option:selected').text();
+
+          var selectedLogo = $('input[name=radioName]:checked','#getImg').attr('data-logoName');
+          if(selectedLogo == undefined)
+          {
+            var selectedLogo = $('.selectedRadio').attr('data-logoName');
+          }
+          var line4Msg = $("#input_mess4").val();
+
+          var data={quantity: 1,id:'29611068867',
+                    properties: {
+                      'Logo category': LogoCategory,
+                      'Selected logo': selectedLogo,
+                      'Message':line4Msg
+                    }
+                  };
+          if(data != '')
+          {
+            sendRequest(data);
+          }
+       });
+   });
+    /* Add to cart for image gallery ends here */
+      
+    /* Add to cart for uploaded image goes here */
+    $('#AddUploadedImages').click(function(e){
+      AddWatchStrap(function(){
+        var UploadedImg = $('#uploadImg').val();
+        //var line5Msg = $("#input_mess5").val();
+
+        var data={quantity: 1,id:'29611068867',
+                  properties: {
+                    'Uploaded image': UploadedImg
+                  }
+                 };
+        if(data != '')
+        {
+          sendRequest(data);
+        }
+        /* Add to cart for uploaded image ends here */
+      });
+    });
+    
+  /* To hide the "Free engraving" on mobile */  
+  var width = $(this).width();
+  //alert(width);
+  if(width <= 640)
+  {
+    $('#HideEng').css('display','none');
+  } 
+

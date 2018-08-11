@@ -1,0 +1,149 @@
+<!-- <div class="sixteen columns clearfix collection_nav">
+  <h1 class="collection_title">
+    {{ page.title }}
+  </h1>
+</div> -->
+
+<div class="sixteen columns page kartel-wedding-service">
+    {{ page.content }}
+
+<div class="new-product">
+  <div class="main-wedding-image">
+<!--     <img src="{{ 'mainWeddingImg.jpeg' | asset_url }}"> -->
+    <div class="information">
+      <p>
+          <h2>Kartel’s Wedding Service</h2>
+      <span>Sign up today and discover these exclusive offers:</span>
+          <ul>
+          <li>25% off your order*</li>
+          <li>Complimentary watch customisation consultation in Kartel’s St. Andrews store</li>
+          <li>Bespoke strap design service including your chosen wedding tartan</li>
+          <li>Complimentary all-inclusive engraving service</li>
+          <li>A chance to win 5 watches for your wedding party</li>
+          </ul>
+          <p>*minimum of 3 watches purchased</p>
+      </p>
+      <a href="https://www.kartel.co.uk/pages/wedding-services-sign-up" target="_blank"><button>Sign Up</button></a>
+  	</div>
+  </div>
+  <div class="product-one-images">
+      <div class="clock-image">
+        <img src="{{ 'bookAppointment.jpeg' | asset_url }}" class="">
+        <div class="information">
+        <div class="information-on">
+          <b>Book An Appointment</b>
+          <p>Come along with your partner to the customisation bar and build your own watch for the special day and enjoy complimentary drinks</p>
+          <a href="https://www.kartel.co.uk/apps/book-an-appointment/appointments/new" target="_blank"><button>Book Now</button></a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="signature-casing">
+        <img src="{{ 'customizeStrap.jpeg' | asset_url}}" class="">
+        <div class="information">
+        <div class="information-on">
+          <b>Customise the Strap</b>
+          <p>Match the strap of your watch to the Tartan choice of your wedding</p>
+          <a href="mailto:danielle@kartel.co.uk"><button>Enquire Now</button></a>
+        </div>
+        </div>
+      </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="product-images">
+    <div class="product_new">
+        <div class="premium-leather">
+          <img src="{{ 'specialDay.jpeg' | asset_url }}">
+          <div class="information">
+          <div class="information-on">
+            <b>Your Special Day</b>
+            <p>Share your Kartel wedding photos with us</p>
+            <a href="https://www.kartel.co.uk/pages/upload-a-photo" target="_blank"><button>Upload</button></a>
+          </div>
+          </div>
+        </div>
+    </div>
+    <div class="product_new">
+      <div class="precision-movements">
+        <img src="{{ 'gettingMarried.jpeg' | asset_url }}">
+        <div class="information">
+        <div class="information-on">
+          <b>Getting Married?</b>
+          <p>Share this idea with your partner or guests as gift inspiration</p>
+          <div class="tooltip"><a><button class="sharePage">Share</button></a>
+          	<span class="tooltiptext social-icons-sidebar">
+              <ul>         
+                <li><a href="javascript:void(0)" class="addthis_button_twitter addthis_button_preferred_3 at300b" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" title="Facebook"></i></a></li>
+                <li><a href="javascript:void(0)" class="addthis_button_facebook addthis_button_preferred_2 at300b" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="mailto:danielle@kartel.co.uk" title="Email"><i class="fa fa-envelope" aria-hidden="true" title="Email"></i></a></li>
+              </ul>
+            </span>
+          </div>
+        </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="product_new">
+      <div class="elegant-dial-designs">
+        <img src="{{ 'ideas.jpeg' | asset_url }}">
+        <div class="information">
+        <div class="information-on">
+          <b>Ideas</b>
+          <p>View previous wedding party ideas for inspiration </p>
+          <a href="https://www.kartel.co.uk/pages/wedding-order-inspiration" target="_blank"><button>View Gallery</button></a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+</div>
+
+<style>
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+</style>
+<script>
+  $('.sharePage').click(function(e){
+//     alert();
+  		$('.social-icons-sidebar').css('display','block');
+  })
+</script>

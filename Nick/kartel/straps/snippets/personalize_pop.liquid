@@ -1,0 +1,220 @@
+{% include 'bold-product' with product, hide_action: 'break' %}
+
+{% if product.handle == 'build-your-kartel-watch' %}
+{% assign customise = true %}
+{% endif %}
+
+{% unless product.handle == 'gift-card' %}
+
+<input  type="button" class="btn" name="answer" value="Add Engraving..." onclick="showDiv()" />
+{% endunless %}
+<div id="welcomeDiv" class="popup_watch_main" style="display:none;" >
+  <div class="popup_watch_outer">
+    <div class="popup_inner clearfix">
+      
+      <!-----------Text only---------->
+      <div class="popup_left" id="textOnly">
+        <img src="{{ 'caseback2.png' | asset_url }}" alt="" />
+       
+        <div class="popup_table_absolute">
+          <div class="popup_table">
+            <div class="popup_table_cell">
+              <span id="message1" class="popup_type_text1 showFont">
+
+              </span>
+              <span id="message2" class="popup_type_text2 showFont">
+
+              </span>
+              <span id="message3" class="popup_type_text3 showFont">
+
+              </span>
+            </div>
+          </div>
+        </div>	
+      </div>
+      
+       <!-----------Image Library---------->
+      <div class="popup_left" id="textImages" style="display:none;">
+        <img src="{{ 'caseback2.png' | asset_url }}" alt="" class="CasebackImage" />
+       	<img src="{{ 'Case1.png' | asset_url }}" alt="New caseback" style="display:none;" class="CasebackNewImage">
+        <div class="popup_table_absolute">
+          <div class="popup_table">
+            <div class="popup_table_cell">
+              <div class="printed-area">
+              <span id="getLogoImg" class="popup_type_text6 UserUploadedImg">
+				
+              </span>
+              
+              <span id="message4" class="popup_type_text4">
+              </span>
+              </div>
+            </div>
+          </div>
+        </div>	
+      </div>
+      
+       <!-----------Image Upload---------->
+      <div class="popup_left" id="ImgUpload" style="display:none;">
+        <img src="{{ 'caseback2.png' | asset_url }}" alt="" />
+       
+        <div class="popup_table_absolute">
+          <div class="popup_table">
+            <div class="popup_table_cell">
+     
+              <div class="printed-area">
+               
+              <span class="UserUploadedImg" id="UserUpload">
+              	
+              </span> 
+               
+<!--               <span id="message5" class="popup_type_text5">
+              </span> -->
+              </div>
+            </div>
+          </div>
+        </div>	
+      </div> 
+      
+      <button class="close_pop" type="button" onclick="hidePopDiv()"><img src="{{ 'imgpsh_fullsize_close.png' | asset_url }}" alt="" /></button>
+      <div class="pop_up_right"> 
+        <h1 id="HideEng">PERSONALISATION</h1>
+        <p class="orderDispatch">Order by 3pm for same day dispatch</p>
+        <div id="tabs">
+          <ul>
+            <li><a href="#tabs-1" id="tab1">Text Only</a></li>
+            <li><a href="#tabs-2" id="tab2">Image Library</a></li>
+<!--             <li><a href="#tabs-3" id="tab3">Image Upload</a></li> -->
+          </ul>
+
+          <!----------First-tab---------->
+          <div id="tabs-1" class="clearfix">
+            <h6>Enter your message below</h6>
+            <div class="popup_right_field">
+              <div class="popup_field_inner">
+                <input class="changeFont" id="input_mess1" type="text" placeholder="Line 1" id="msg1_{{ product.variants.first.id }}"> 
+                <span class="message_num">0</span><span>/15</span>
+              </div>
+              <div class="popup_field_inner">
+                <input class="changeFont" id="input_mess2" type="text" placeholder="Line 2" maxlength="15" id="msg2_{{ product.variants.first.id }}"> 
+                <span class="message_num">0</span><span>/15</span>
+              </div>
+              <div class="popup_field_inner">
+                <input class="changeFont" id="input_mess3" type="text" placeholder="Line 3" maxlength="15" id="msg3_{{ product.variants.first.id }}"> 
+                <span class="message_num">0</span><span>/15</span>
+              </div>
+            </div>
+            <h6>Choose a font style:</h6>
+            <div class="popup_field_inner">
+              <select id="textFont">
+                <option value="FuturaBT-Medium">Sans Serif</option>
+                <option value="Clarendon">Serif</option>
+                <option value="JennaSue">Handwriting</option>
+                <option value="Pinyon Script">Script</option>
+              </select>
+            </div>
+
+            <div class="popup_submit">
+              <input type="button" value="CHECKOUT" onclick="addTocart()">
+              <img class="loader-img" src="{{ 'bc-sf-filter-loading.gif' | asset_url }}" alt="loader" style="display:none;">
+            </div>
+          </div>
+          <!----------Second-tab---------->
+          <div id="tabs-2"  class="clearfix">
+            <h6>Choose a design from our gallery</h6>
+            <div class="popup_field_inner">
+              <select id="LogoCat">
+                {% for i in (1..6) %}
+                {% capture CatEnable %}Category_{{ i }}_enabled{% endcapture %}
+                {% capture CatName %}logocategory_{{ i }}{% endcapture %}
+                {% if settings[CatEnable] %}
+                <option value="cat_{{ i }}">{{ settings[CatName] }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+           
+            <div class="ImageGallery" id="getImg">
+            {% for i in (1..6) %}
+              {% capture CatEnable %}Category_{{ i }}_enabled{% endcapture %}
+              {% if settings[CatEnable] %}
+              <div id="cat_{{ i }}" {% unless forloop.first %}style="display:none;"{% endunless %}>
+                {% for j in (1..20) %}
+                {% capture logoImageEnable %}badge{{ i }}_{{ j }}_enabled{% endcapture %}
+                {% capture logoImage %}badge{{ i }}_{{ j }}.jpg{% endcapture %}
+                {% capture logoName %}badge{{ i }}_{{ j }}_text{% endcapture %}
+                {% if settings[logoImageEnable] %}
+                <label class="imgsWrap">
+                  <input type="radio" name="radioName" value='{{ logoImage | asset_url | img_tag }}' data-logoName="{{ settings[logoName] }}" />
+                  <span> {{ logoImage | asset_url | img_tag }}<span>{{ settings[logoName] }}</span></span>                  
+                </label>
+                {% endif %}
+                {% endfor %}
+              </div>
+              {% endif %}
+            {% endfor %}
+            </div>   
+            
+            <div class="guideLines hideCulture">Enter your message below</div>
+            <div class="popup_field_inner hideCulture">
+              <input id="input_mess4" type="text" placeholder="Add text" maxlength="15" id="msg4_{{ product.variants.first.id }}"> 
+              <span class="message_num">0</span><span>/15</span>
+            </div>
+
+            <div class="popup_submit">
+              <input type="button" value="CHECKOUT" id="AddImages">
+              <img class="loader-img" src="{{ 'bc-sf-filter-loading.gif' | asset_url }}" alt="loader" style="display:none;">
+            </div>
+
+          </div><!-----second tab close------->
+          
+          <!----------Third-tab---------->
+          <!---
+          <div id="tabs-3"  class="clearfix">
+            <h6>Upload your own design to engrave:</h6>
+            <ul>
+              <li><i>Great for: a handwritten note, a child's drawing, a logo.</i></li>
+              <li>Use a strong black line on a white background.</li>
+              <li>Keep roughly square. Crop any white space.</li>
+              <li>No photographic images.</li>
+            </ul>
+            <div class="popup_field_inner" id="UploadFile">
+              <label>
+                <input type="file" id="uploadImg" name="properties[Uploaded Image]">
+                <span id="selectFile">Select your file to upload</span>
+                <span class="browseBtn">Browse</span>
+              </label>
+              <!--<div class="guideLines">View our image upload guidelines <a href="#">here</a></div>-->
+           <!-- </div>
+            
+<!--             <div class="guideLines">Enter a message below</div>
+            <div class="popup_field_inner">
+              <input id="input_mess5" type="text" placeholder="Add text" maxlength="15" id="msg5_{{ product.variants.first.id }}"> 
+              <span class="message_num">0</span><span>/15</span>
+            </div> -->
+
+        <!--    <div class="popup_submit">
+              <input type="button" value="CHECKOUT" id="AddUploadedImages">
+            </div>
+
+
+          </div> --><!-----Third tab close------->
+          
+        </div>        
+      </div>
+      <span id="bottomMsg" align="center"> For Illustrative Purposes Only. Engraved watches are non-returnable unless faulty. </span>
+
+    </div>
+  </div>
+</div>
+
+  {{ 'custom.js' | asset_url | script_tag }}
+
+<style>
+  span#bottomMsg {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+  }
+</style>

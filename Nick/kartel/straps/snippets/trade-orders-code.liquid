@@ -1,0 +1,12 @@
+{% if customer %}{% if customer.tags contains "xxx" or customer.email contains "inspiradigital.co.uk" %}
+            <script>
+                var TradeOrders = {
+                    customer: "{{customer.id}}",
+                    shopAddress: "{{shop.permanent_domain}}",
+                    url: "//trade-orders.appira.com",
+                    handle: "trade-orders"
+                };
+                window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">\x3C/script>');
+            </script>
+			<script src="//trade-orders.appira.com/js/trade-orders.js" type="text/javascript"></script>
+		{% endif %}{% endif %}

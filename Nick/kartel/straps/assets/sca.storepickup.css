@@ -1,0 +1,40 @@
+.pac-container, .scasp-location-popup, .scasp-fancybox-container {z-index: 2147483647 !important;}
+#sca-storepickup-container{width:100%;text-align:left;margin:10px 0;}
+#sca-storepickup-container, #sca-storepickup-container input {font-size:13px;}
+#sca-storepickup-methods{text-align:center;margin:0;padding:0;display:flex;}
+#sca-storepickup-methods li{border-radius:5px;border:1px solid #eee;background-color:#fff;list-style:none;display:inline-block;flex-grow:1;flex-basis:0;padding:25px 5px;}
+#sca-storepickup-methods li.sca-storepickup-shipping-tab,#sca-storepickup-methods li.sca-storepickup-delivery-tab {margin-right:5px;}
+#sca-storepickup-methods li:hover{cursor:pointer;}
+#sca-storepickup-methods li.active{background-color:#f8f8f8;}
+#sca-storepickup-methods li img{width:40px;height:40px;}
+#sca-storepickup-methods li p{margin:0;}
+#sca-storepickup-desc{margin-top:10px;}
+.sca-storepickup-pickup-desc{margin-bottom:5px;}
+#sca-storepickup-container .bh-sl-map{height:140px;}
+#sca-storepickup-container .bh-sl-loc-list{background-color: #fff;overflow-x:auto;max-height:250px;margin-top:10px;border:1px solid #ccc;}
+#sca-storepickup-container .bh-sl-container{padding:0;margin-bottom:10px;}
+#sca-storepickup-container .bh-sl-loc-list ul{margin:0;padding:0;}
+#sca-storepickup-container .bh-sl-loc-list ul li{padding:5px;background-color:#fff;border:1px solid #f8f8f8;margin:0 !important;}
+#sca-storepickup-container .bh-sl-loc-list ul li:hover{cursor:pointer;}
+.scasp-title{font-weight:bold;}
+.list-focus{background-color:#f8f8f8 !important;}
+.scasp-list-details{display:flex;display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;}
+.list-label{width:27px;height:42px;background:url('scasp-marker.png') no-repeat;background-size:24px 42px;font-weight:bold;margin-top:7px;padding-top:4px;}
+.list-label span{margin-left:7px;}
+#sca-storepickup-container .location_id{height:12px;margin:6px 6px 0 0 !important;cursor:pointer;-webkit-border-radius:50%;background-image: -webkit-linear-gradient(top, rgb(186,0,0) 0%, rgb(255,59,59) 49%);-webkit-appearance: radio !important;width: auto !important;}
+.scasp-list-content{width:100%;}
+.bh-sl-form-container{position:relative;margin-bottom:10px;}
+#bh-sl-address,#date-pickup,#date-delivery{width:100%;border:1px solid #ccc;}
+#bh-sl-address{padding-right:45px;width:100%}
+#date-pickup,#date-delivery{background:url('scasp-datetime-picker.png') no-repeat #fff;background-size:20px 20px;background-position:right 10px top 8px;}
+#scasp-geocode-btn{position:absolute;top:4px;right:5px;height:30px;width:30px;}
+#scasp-geocode-btn:hover{opacity:1;}
+.scasp-datetime-required,.scasp-store-required,.scasp-error-msg{color:red;display:none;font-style:italic;}
+.scasp-location-popup{width: 400px; max-width: 100%;}
+.scasp-location-popup table{width: 100%;margin-top: 20px;}
+.scasp-location-popup h3{margin-top: 20px;}
+.scasp-list-container{display: block;}
+.scasp-list-container a {color:#d97c76 !important;}
+#date-delivery{margin-bottom: 0;border-radius: 6px;border-color: #949494 !important;padding: 10px 45px 10px 10px;}
+#sca-storepickup-container ul.picker__list li.picker__list-item--disabled {display: none !important;}
+.scasp-delivery-no-validate {clear: both;display: block; margin-bottom: 10px;}

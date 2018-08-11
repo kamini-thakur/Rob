@@ -1,0 +1,20 @@
+
+<div class="signatureCasing-prod-section">
+  <div class="first-section">
+      <div class="section-description">
+        <p>{{ productDesc[1] }}</p>  
+      </div>
+      <div class="section-image">
+         <img src="{{ product.variants.first.sku | append : '-box1-case.png' | file_url }}" >
+      </div>
+  </div>
+  
+  <div class="second-section">
+      <div class="section-image">
+         <img src="{{ product.variants.first.sku | append : '-box2-case.png' | file_url }}" >
+      </div>
+      <div class="section-description">
+        <p>{{ productDesc[2] }}</p>  
+      </div>
+  </div>
+</div>
