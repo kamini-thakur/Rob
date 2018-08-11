@@ -1,0 +1,421 @@
+{% comment %}
+
+By using a variation of the 'view all' parameter technique, you can create
+a custom layout for any template by adding ?view=xxxx
+
+In this example, you can have a list view of your collection page by going to
+/collections/all?view=list
+
+For more information on collection tags:
+- http://docs.shopify.com/themes/liquid-variables/collection
+
+For more information on the ?view parameter:
+- http://docs.shopify.com/support/configuration/store-customization/can-i-show-more-than-50-products-on-my-homepage-can-i-add-a-view-all-function-to-my-collection-pages#add-view-all
+
+{% endcomment %}
+
+{% paginate collection.products by section.settings.num_products %}
+
+{% comment %}
+Use .grid--rev so that the collection tags appear below the products on mobile
+{% endcomment %}
+<div class="container">
+  <div class="row">
+    {% if section.settings.show_sidebar %}
+    <aside id="shop-sidebar" class="sidebar col-xs-12 col-lg-3">
+      <div class="collection-filter">
+        <h3 class="plus title">{{ 'collections.sidebar.mobile_sidebar_toggle' | t }}</h3>
+        <div class="collection-sidebars">
+          <div class="box">
+            <div class="title">{{ 'collections.sidebar.sidebar' | t }}</div>
+
+            <div class="categories">
+              {% for link1 in linklists[section.settings.sidebar_link].links %}
+              <div class="cat">{{ link1.title }} <span class="open">+</span><span class="close">-</span></div>
+              <div class="cat-links">
+                {% for link in linklists[link1.handle].links %}
+                <div class="cat-link">
+                  <a href="{{ link.url }}" class="triangle">
+                    {{ link.title }}  
+                    <span>
+                      {% if link.object.products_count != blanck  %} ({{ link.object.products_count }}) {% endif %}
+                    </span>
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% if section.settings.enable_swatches %}
+          <script>
+            $(document).ready(function(){
+              $('.brands').perfectScrollbar();
+            });
+          </script>
+
+          {% if template contains 'collection' and collection.all_tags.size > 0 %}
+          {% assign categories = '' %}
+          {% for tag in collection.all_tags %}
+          {% if tag contains '_' %}
+          {% capture categories %}{% unless categories == blank  %}{{ categories }}|{% endunless %}{{ tag | split: '_' | first }}{% endcapture %}
+          {% endif %}
+          {% endfor %}
+          {% assign cat_array = categories | split: '|' | uniq  %}
+          {% endif %}  
+          {% if collection.all_tags.size > 0 %}
+          <!-- <h3 class="filter-by">Filter By:</h3> -->
+          {% comment %}
+          Loop through tag categories
+          {% endcomment %}
+          {% assign file_extension = 'png' %}
+          {% for cat_item in cat_array %}
+          <div {% if cat_item == "Brand"  %} class="box checkboxes widget widget-brand item-{{cat_item | handleize}}" {% endif %} {% if cat_item == "Colours"  %} class="box item-color  widget widget-colors item-{{cat_item | handleize}}" {% endif %} {% if cat_item == "Size"  %} class="box size widget widget-choosesize item-{{cat_item | handleize}}" {% endif %}{% if cat_item contains 'Product' %}class="hide"{%endif%}>
+            {% if cat_item == "Brand"  %}
+            <div class="title">Select A {{ cat_item }}</div>
+            {% elsif cat_item == "Colours" %}
+            <div class="title">Choose A {{ cat_item }}</div>
+            {% elsif cat_item == "Size" %}
+            <div class="title">Choose A {{ cat_item }}</div>
+            {% endif %}
+            <div class="{% if cat_item == "Brand" %}advanced-filters brands ps-container ps-theme-default ps-active-y margin-0 {% endif %}">
+              {% comment %}
+              Loop through collection tags
+              {% endcomment %}
+              {% for tag in collection.all_tags %}
+              {% assign cat = tag | split: '_' | first %}      
+              {% if cat != tag and cat_item == cat %}
+              {% if tag contains 'Brand_' %}
+              {% if current_tags contains tag %}
+              <div class="brand advanced-filter brand active-filter " data-group="{{ cat_item }}" data-handle="{{ tag | handle }}">
+                <div class="brands active-brand" style="background-color: {{ tag | remove_first: cat_item | remove_first: '_' | downcase | replace: " " ,"" }}; background-image: url({{ tag | remove_first: cat_item | remove_first: '_' | downcase | replace: " ","" | append: '.' | append: file_extension | asset_url }})">{{ tag | remove_first: cat_item | remove_first: '_' | link_to_remove_tag: tag }}</div>
+              </div>
+              {% else %}
+              <div class="brand advanced-filter" data-group="{{ cat_item }}" data-handle="{{ tag | handle }}">
+                <div class="brands" style="background-color: {{ tag | remove_first: cat_item | remove_first: '_' | downcase | replace: " " ,"" }}; background-image: url({{ tag | remove_first: cat_item | remove_first: '_' | append: '.' | downcase | replace: " ","" | append: file_extension | asset_url }})">{{ tag | remove_first: cat_item | remove_first: '_' | link_to_add_tag: tag }}</div>
+              </div>
+              {% endif %}
+
+              {% elsif tag contains 'Colours_' %}
+
+              {% comment %}
+              Strip out tag category prefix and add/remove link for tag filtering
+              {% endcomment %}
+              {% if current_tags contains tag %}
+              <div class="colors advanced-filter c0l0r active-filter" data-group="{{ cat_item }}" data-handle="{{ tag | handle }}">
+                <div class="color" style="background-color: {{ tag | remove_first: cat_item | remove_first: '_' | downcase | replace: " " ,"" }}; background-image: url({{ tag | remove_first: cat_item | remove_first: '_' | downcase | replace: " ","" | append: '.' | append: file_extension | asset_url }})">{{ tag | remove_first: cat_item | remove_first: '_' | link_to_remove_tag: tag }}</div>
+              </div>
+              {% else %}
+              <div class="colors advanced-filter c0l0r" data-group="{{ cat_item }}" data-handle="{{ tag | handle }}">
+                <div class="color" style="background-color: {{ tag | remove_first: cat_item | remove_first: '_' | downcase | replace: " " ,"" }}; background-image: url({{ tag | remove_first: cat_item | remove_first: '_' | append: '.' | downcase | replace: " ","" | append: file_extension | asset_url }})">{{ tag | remove_first: cat_item | remove_first: '_' | link_to_add_tag: tag }}</div>
+              </div>
+              {% endif %}
+
+              {% elsif tag contains 'Size_' %}
+              {% comment %}
+              Strip out tag category prefix and add/remove link for tag filtering
+              {% endcomment %}
+
+              {% if current_tags contains tag %}
+              <div class="sizes advanced-filter active-filter" data-group="{{ cat_item }}" data-handle="{{ tag | handle }}">
+                <div class="size active-size">{{ tag | remove_first: cat_item | remove_first: '_' | link_to_remove_tag: tag }}</div>
+              </div>
+              {% else %}
+              <div class="sizes advanced-filter" data-group="{{ cat_item }}" data-handle="{{ tag | handle }}">
+                <div class="size">{{ tag | remove_first: cat_item | remove_first: '_' | link_to_add_tag: tag }}</div>
+              </div>
+              {% endif %}
+              {% else %}
+
+              {% comment %}
+              Strip out tag category prefix and add/remove link for tag filtering
+              {% endcomment %}
+              {% if current_tags contains tag %}
+              <li class="advanced-filter  active-filter" data-group="{{ cat_item }}" data-handle="{{ tag | handle }}">{{ tag | remove_first: cat_item | remove_first: '_' | link_to_remove_tag: tag }}</li>
+              {% else %}
+              <li class="advanced-filter" data-group="{{ cat_item }}" data-handle="{{ tag | handle }}">{{ tag | remove_first: cat_item | remove_first: '_' | link_to_add_tag: tag }}</li>
+              {% endif %}
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+          {%  endif%}
+          {% endif %}
+          {% if collection.products.size > 1 %}
+          <div class="box">
+            <div class="slider-range widget widget-price set-price">
+              <div class="title">{{ 'collections.sidebar.price_filter_title' | t }}</div>
+              {% include 'price-filter' %} 
+            </div>
+
+          </div>
+          {% endif %}    
+          <div class="box">
+            <div class="title">{{ 'collections.sidebar.related_collection' | t }}</div>
+            <div class="related">
+              {% assign on_sale = false %}
+              {% if product.compare_at_price > product.price %}
+              {% assign on_sale = true %}
+              {% endif %}
+              {% capture featured_row %}{{ section.settings.popular_collection }}{% endcapture %}     
+              {% assign header_title = collections[featured_row].title %}
+              {% for product in collections[featured_row].products limit: 2 %}
+              {% include 'popular-item' %}
+              {% endfor %}    
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    {% endif %}
+    <div id="shop-list" {% if settings.sidebar_enable %} class="content col-xs-12 col-lg-9" {% else %} class="col-lg-12 col-sm-12 col-xs-12" {% endif %}>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="cover">
+            {% if collection.image == blank and section.settings.collection_image == blank %}
+            <div class="cover">
+              {{ 'lifestyle-1' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            {% elsif collection.image == blank %} 
+            <img src="{{ section.settings.collection_image | img_url: '1024x' }}" class="img-responsive" alt="image banner">
+            <div class="col-xs-12 col-sm-5 col-md-6 col-lg-5 cover-title">
+              {% if section.settings.collection_main_text != blank %}
+              <span class="main">{{ section.settings.collection_main_text }}</span>
+              {% endif %}
+              {% if section.settings.collection_main_text != blank %}
+              <span class="sub">{{ section.settings.collection_main_text }}</span>
+              {% endif %}
+            </div>
+            {% elsif collection.image != blank %}
+
+            <div class="cover">
+              <img src="{{ collection.image | img_url: 'master' }}">
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% comment %}
+        Different markup if a collection description exists
+        {% endcomment %}
+        <div class="col-xs-12">
+          <div class="row">
+          <div class="shop-options">
+            <div class="col-md-6 hidden-xs hidden-sm">
+              {% comment %}<h1 class="section-header__title section-header__left">{{ collection.title }}</h1> {% endcomment %}
+              {% if collection and collection.all_products_count <= 50 %}
+              {% for collection_product in collection.all_products %}
+              {% if collection_product.handle == product.handle %}
+              {% assign product_index = forloop.index %}
+              {% endif %}
+              {% endfor %}
+              <span class="showing"> Showing :{{ paginate.current_page }} {{ product_index }}  - {{ section.settings.num_products }} From {{ collection.all_products_count }} Products </span>
+              {% endif %}
+            </div>
+            <div class="col-xs-12 col-md-6">
+              {% include 'collection-sorting' %}
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      {% comment %}
+      Use class grid-uniform to have evenly sized columns clear
+      each other properly at each breakpoint.
+      {% endcomment %}
+      <div class="row" id="product_collection">
+        <div class="shop-product-list">
+          <!-- begin product list output -->
+          {% for product in collection.products %}
+          {% comment %}
+          Check if the product is on sale and set a variable to be used below.
+          {% endcomment %}
+          {% assign on_sale = false %}
+          {% if product.compare_at_price > product.price %}
+          {% assign on_sale = true %}
+          {% endif %}
+
+          {% comment %}
+          Check if the product is sold out and set a variable to be used below.
+          {% endcomment %}
+          {% assign sold_out = true %}
+          {% if product.available %}
+          {% assign sold_out = false %}
+          {% endif %}
+          {% comment %}
+          Link to your product with the 'within: collection' filter for the link to be aware of the collection.
+          This allows you to create collection-based navigation on the product page.
+
+          Results of using 'within: collection':
+          - Instead of a URL with /products/product-handle
+          you would get /collections/collection-handle/products/product-handle
+
+          For more info on navigation within a collection
+          - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
+          {% endcomment %}
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 product_price" data-price = "{{ product.price | money_without_currency }}">
+            <div class="row">
+              <div class="product">
+                <div class="col-xs-12 col-lg-3">
+                  <div class="product-img">
+                    <a href="{{ product.url | within: collection }}">
+                      <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}">
+                    </a>
+                    {% comment %}<div class="actions">
+                    <a class="action" href="{{ product.featured_image.src | img_url: '1024x1024' }}" data-lightbox="image"><span class="icon-maximize-plus"></span></a>
+                    {% include 'wishlist-product' %}
+                    <a class="action" href="{{ product.url | within: collection }}"><span class="icon-shoppingcart"></span></a>
+                    </div> {% endcomment %}
+                  </div>
+                </div>
+                <div class="col-xs-12 col-lg-9">
+                  <div class="product-info">                
+                    <span class="name">{{ product.title }}</span>
+                    <span class="price">
+                      {% comment %}
+                      You can show a leading 'from' or 'up to' by checking 'product.price_varies'
+                      if your variants have different prices.
+                      {% endcomment %}
+                      {% if on_sale %}
+                      {% if product.price_varies %}
+                      {% assign sale_price = product.price | money %}
+                      {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                      {% else %}
+                      <strong>{{ 'products.product.on_sale' | t }}</strong>
+                      {{ product.price | money }}
+                      {% endif %}
+                      {% else %}
+                      {% if product.price_varies %}
+                      {% assign price = product.price | money %}
+                      {{ 'products.general.from_text_html' | t: price: price }}
+                      {% else %}
+                      {{ product.price | money }}
+                      {% endif %}
+                      {% endif %}
+                      {% if sold_out %}
+                      <strong>{{ 'products.product.sold_out' | t }}</strong>
+                      {% endif %}
+                      {% if on_sale %}
+                      <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span><s>{{ product.compare_at_price | money }}</s>
+                      {% endif %}
+                    </span>
+                    <div class="rating">
+
+                    </div>
+                    <p class="description hidden-xs hidden-sm hidden-md">{{ product.content | strip_html | truncatewords: 30 }}</p>
+                    <div class="actions">
+                      <form action="/cart/add" method="post" id="product-form-{{ product.id }}">   
+                        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                        <div>
+                          <!--     <a class="action" type="submit" href="{{ product.url | within: collection }}"><span class="icon-shoppingcart"></span></a> -->
+                          <button type="submit" class="action action text" name="add">Add to cart</button>
+                        </div>  
+                      </form>
+                      <a class="action hidden-xs" href="{{ product.featured_image.src | img_url: '1024x1024' }}" data-lightbox="image"><span class="icon-maximize-plus"></span></a>
+                      {% include 'wishlist-product' %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="grid__item">
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          </div>
+          {% endfor %}
+          <!-- //product list output -->
+        </div>
+      </div>
+
+      {% if paginate.pages > 1 %}
+      {% include 'pagination' %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endpaginate %}
+
+{% schema %}
+  {
+    "name": "Collection",
+    "class": "collection-template-section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_sidebar",
+        "label": "Show Sidebar",
+        "default": true
+      },
+      {
+        "type": "link_list",
+        "id": "sidebar_link",
+        "label": "Choose side bar link"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_swatches",
+        "label": "Enble Swatches",
+        "default": true
+      },
+      {
+        "type": "collection",
+        "id": "popular_collection",
+        "label": "Choose Popular collection"
+      },
+      {
+        "type": "image_picker",
+        "id": "collection_image",
+        "label": "Collection Banner"
+      },
+      {
+        "type": "text",
+        "id": "collection_main_text",
+        "label": "Collection Main Text",
+        "default": "Collection Main Text"
+      },
+      {
+        "type": "text",
+        "id": "collection_sub_text",
+        "label": "Collection Sub Text",
+        "default": "Collection Sub Text"
+      },
+      {
+        "type": "select",
+        "id": "num_products",
+        "label": "Products per page",
+        "default": "20",
+        "options": [
+          {
+            "value": "10",
+            "label": "10"
+          },
+          {
+            "value": "15",
+            "label": "15"
+          },
+          {
+            "value": "20",
+            "label": "20"
+          },
+          {
+            "value": "25",
+            "label": "25"
+          },
+          {
+            "value": "30",
+            "label": "30"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,224 @@
+<div data-section-id="{{ section.id }}" data-section-type="header-section">
+<div class="header-promo">
+    <div class="promo-menu">
+      <div class="promo-menu-item-inner">
+        <i class="fa fa-gift" aria-hidden="true"></i>
+        <img src="{{section.settings.Top-header-image | img_url}}"/>
+        <span class="promo-styled">{{section.settings.Header-text}}</span>
+      </div>
+        <div class="promo-menu-item-inner">
+      <i class="fa fa-truck" aria-hidden="true"></i>
+<!--         <img src="{{section.settings.Top-header-image1 | img_url}}"/> -->
+        <span class="promo-styled">{{section.settings.Header-text1}}</span>
+        <span class="promo-small">{{section.settings.Header-text-line1}}</span>
+</div>
+        <div class="promo-menu-item-inner">
+      <i class="fa fa-heartbeat" aria-hidden="true"></i>
+<!--         <img src="{{section.settings.Top-header-image1 | img_url}}"/> -->
+        <span class="promo-styled">{{section.settings.Header-text2}}</span>
+      </div>
+      </div>
+    </div>
+
+  <header id="mainh" class="container-fluid hidden-xs hidden-sm hidden-md">
+    
+    <div id="logo">
+      <div class="{{ logo_classes }}">
+        {% comment %}
+        Use the uploaded logo from theme settings if enabled.
+        Site name gets precedence with H1 tag on homepage, div on other pages.
+        {% endcomment %}
+        {% if template == 'index' %}
+        <h1 class="h2 site-header__logo" itemscope itemtype="http://schema.org/Organization">
+          {% else %}
+          <div class="h2 site-header__logo" itemscope itemtype="http://schema.org/Organization">
+            {% endif %}
+            {% if section.settings.logo_use_image  %}
+            <a href="/" itemprop="url">
+              {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+              <img src="{{ section.settings.logo | img_url: image_size }}"
+                   srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                   alt="{{ section.settings.logo.alt | default: shop.name }}"
+                   itemprop="logo">
+            </a>
+            {% else %}
+            <a href="/" itemprop="url">{{ shop.name }}</a>
+            {% endif %}
+            {% if template == 'index' %}
+            </h1>
+          {% else %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+
+    {% include 'navigation' %}
+    <div id="right-menu">
+      {% comment %} <span class="lang">
+      <a href="#" class="active">EN</a> / <a href="#">DE</a> / <a href="#">FR</a>
+      </span>  {% endcomment %}
+      <div class="currency">
+        {% include 'currency-picker' %}
+      </div>
+      {% if shop.customer_accounts_enabled %}
+      {% if customer %}    
+      <div class="acc">
+        <a href="/account"><div class="btn">{% if customer.first_name != blank %} {{ customer.first_name }} {% else %}  {{ 'layout.customer.account' | t }} {% endif %} | {{ 'layout.customer.log_out' | t | customer_logout_link }}</div></a>
+      </div>
+      {% else %}
+      <div class="acc">
+        <a href="/account"><div class="btn">{{ 'layout.customer.log_in' | t }}</div></a>
+      </div>
+      {% endif %}
+      {% endif %}
+
+      <div class="cart cart-overview">
+        <a href="/cart">
+        <span id="open-close-cart"><span class="icon-shoppingcart"> </span><span class="title CartCount"> ({{ cart.item_count }})</span> </span>
+        </a>
+        <div id="shopping-cart" class="cart-list">
+
+          {% include 'shopping-cart' %}
+
+        </div>
+      </div>
+
+      <div class="slash">/</div>
+      <div>
+        <a href="/pages/wish-list">
+      	<span class="icon_heart_alt icon-heart"></span>
+        </a>
+      </div>
+       <div class="slash">/</div>
+      <div class="search">
+        <span class="icon-search search-open"></span>
+        <div id="bigsearch">
+          <div class="close-search"></div>
+          <div class="searchform">
+            <form action="/search" method="get" role="search">
+              <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field" aria-label="{{ 'general.search.placeholder' | t }}">
+              <input type="submit" value="Search" />
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile header -->
+  <header id="mobile-header" class="container-fluid hidden-lg">
+    <span class="nav-open"><span class="icon-navicon"></span></span>
+    {% include 'mobile-navigation' %}
+    <div style="text-align: center;">
+      <div id="logo">
+        <div class="{{ logo_classes }}">
+          {% comment %}
+          Use the uploaded logo from theme settings if enabled.
+          Site name gets precedence with H1 tag on homepage, div on other pages.
+          {% endcomment %}
+          {% if template == 'index' %}
+          <h1 class="" itemscope itemtype="http://schema.org/Organization">
+            {% else %}
+            <div class="" itemscope itemtype="http://schema.org/Organization">
+              {% endif %}
+              {% if section.settings.logo %}
+              <a href="/" itemprop="url">
+                {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+                <img src="{{ section.settings.logo | img_url: image_size }}"
+                     srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                     alt="{{ section.settings.logo.alt | default: shop.name }}"
+                     itemprop="logo">
+              </a>
+              {% else %}
+              <a href="/" itemprop="url">{{ shop.name }}</a>
+              {% endif %}
+              {% if template == 'index' %}
+              </h1>
+            {% else %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="right-menu-mobile set-crt">
+    <a href="/cart">
+      <div class="cart cart-overview">
+      <span id="open-close-cart-mobile"><span class="icon-shoppingcart"> </span><span class="title CartCount"> ({{ cart.item_count }})</span> </span>
+      </div>
+      </a>
+      <div class="slash">/</div>
+        <a href="/pages/wish-list">
+      	<span class="icon_heart_alt icon-heart"></span>
+        </a>
+    </div>
+      
+  </header>
+  <!-- /Mobile header -->
+
+</div>
+
+{% schema %}
+{
+"name": "Header",
+"settings": [
+{
+"type": "image_picker",
+"id": "Top-header-image",
+"label": "Top-header-image"
+},
+{
+"type": "text",
+"id": "Header-text",
+"label": "Header-text"
+},
+{
+"type": "image_picker",
+"id": "Top-header-image1",
+"label": "Top-header-image"
+},
+{
+"type": "text",
+"id": "Header-text1",
+"label": "Header-text"
+},
+{
+"type": "text",
+"id": "Header-text-line1",
+"label": "Header-text"
+},
+{
+"type": "image_picker",
+"id": "Top-header-image2",
+"label": "Top-header-image"
+},
+{
+"type": "text",
+"id": "Header-text2",
+"label": "Header-text"
+},
+
+{
+"type": "checkbox",
+"id": "logo_use_image",
+"label": "Use custom logo"
+},
+{
+"type": "image_picker",
+"id": "logo",
+"label": "Custom logo"
+
+},
+{
+"type": "text",
+"id": "logo_max_width",
+"label": "Max logo width",
+"default": "450",
+"info": "Defined in pixels. Do not add the 'px' unit."
+}
+]
+}
+{% endschema %}
+
+

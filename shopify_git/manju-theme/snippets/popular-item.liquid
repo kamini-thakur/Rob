@@ -1,0 +1,26 @@
+<div class="item">
+    <a href="{{ product.url | within: collection }}">
+      <img class="item-img" src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}">
+    </a> 
+  <div class="item-details">
+      <a href="{{ product.url | within: collection }}"><span class="item-name">{{ product.title }}</span></a>
+    <div class="price"> 
+      <span class="item-price">
+      {% assign on_sale = false %}
+      {% if product.compare_at_price > product.price %}
+      {% assign on_sale = true %}
+      {% endif %}
+      {% if sold_out %}
+      <br>
+      <strong>{{ 'products.product.sold_out' | t }}</strong>
+      {% endif %}
+      {% if on_sale %}
+      {{ product.price | money }}<del>{{ product.compare_at_price | money }}</del>
+      {% else %}
+      {{ product.price | money }}
+      {% endif %}
+        </span>
+    </div>
+    <a class="btn" href="{{ product.url }}">Add to cart</a>
+  </div>
+</div>

@@ -1,0 +1,606 @@
+<!-- Main header -->
+<div class="container">
+  <nav id="main-nav">
+    <div class="ul">
+      <div class="li">
+        {% if settings.menu-link1 and settings.menu-link1 != '' %}
+        {% capture menu %}{{ settings.megamenu1_text | handleize }}{% endcapture %}
+        <a href="{{ settings.megamenu1_link }}">{{ menu | replace:"-"," "}} {% if linklists[menu].links.size > 0 %}<span class="icon-down"></span>{% endif %}</a>
+        {% if settings.megamenu1_sub_toggle and settings.megamenu1_sub_toggle != '' %}
+        <div class="ul submenu big-submenu">
+          <div class="container">
+            <div class="row">
+              {% for i in (1..4) %}                
+              {% capture collection_iteration %}megamenu2_sub_col__{{ i }}{% endcapture %}
+              {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}  
+              {% if  i == 1  %}
+              <span class="title col-lg-12">{{ linklists[collection_name].title  }}</span>
+              {% endif %}
+              {% for link_sub in linklists[collection_name].links  %}
+              {% assign modulovalue = forloop.index | modulo:5 %}  
+              {% if modulovalue == 1 %}	
+              <div class="col-lg-3">
+                {% endif %}
+                <span class="smrow"><a href="{{ link_sub.url }}">{{ link_sub.title }}
+                  {% assign link_name = link_sub.title | escape | downcase %}
+                    {% assign new_label_1_1  = settings.megamenu1_new_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in new_label_1_1 %} 
+                    {% if link_label  != "" and link_label ==  link_name %}
+                    <span class="new" >new</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% assign sell_label_1_1  = settings.megamenu1_sale_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in sell_label_1_1 %} 
+                    {% if link_label != "" and link_label ==  link_name %}
+                    <span class="sale" >sale</span>
+                    {% endif %}
+                    {% endfor %}
+                  
+                  
+                  </a></span>
+                {% if modulovalue == 0  or forloop.last %}
+              </div>
+              {% endif %}
+              {% endfor %}
+              {% endfor %}
+              {% if settings.megamenu1_bg_toggle %}
+              <div class="col-md-4 section">
+                <div class="img">
+                  <img src="{{ 'megamenu1_bg.png' | asset_url }}" alt="" />
+                  <div class="img-title">
+                    <span class="main">Leather Jacket</span>
+                    <span class="sub">Men's fashion</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="ul {% if linklists[menu] and linklists[menu].links.size > 0 %} submenu small{% endif %}">
+          {% if linklists[menu].links.size > 0 %}<span class="title">{{ menu }}</span>{% endif %}
+          {% for link in linklists[menu].links %}
+          <span class="smrow"><a href="{{ link.url }}">{{ link.title }}</a></span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="li">
+        {% if settings.menu-link2 and settings.menu-link2 != '' %}
+        {% capture menu %}{{ settings.megamenu2_text | handleize }}{% endcapture %}
+        <a href="{{ settings.megamenu2_link }}">{{ menu | replace:"-"," "}} {% if linklists[menu].links.size > 0 %}<span class="icon-down"></span>{% endif %}</a>
+        {% if settings.megamenu2_sub_toggle and settings.megamenu2_sub_toggle != '' %}
+        <div class="ul submenu big-submenu">
+          <div class="container">
+            <div class="row">
+              {% for i in (1..4) %}                
+              {% capture collection_iteration %}megamenu2_sub_col__{{ i }}{% endcapture %}
+              {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}  
+              {% if  i == 1  %}
+              <span class="title col-lg-12">{{ linklists[collection_name].title  }}</span>
+              {% endif %}
+              {% for link_sub in linklists[collection_name].links  %}
+              {% assign modulovalue = forloop.index | modulo:5 %}  
+              {% if modulovalue == 1 %}	
+              <div class="col-lg-3">
+                {% endif %}
+                <span class="smrow"><a href="{{ link_sub.url }}">{{ link_sub.title }}
+                   {% assign link_name = link_sub.title | escape | downcase %}
+                    {% assign new_label_2_1  = settings.megamenu2_new_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in new_label_2_1 %} 
+                    {% if link_label  != "" and link_label ==  link_name %}
+                    <span class="new" >new</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% assign sell_label_2_1  = settings.megamenu2_sale_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in sell_label_2_1 %} 
+                    {% if link_label != "" and link_label ==  link_name %}
+                    <span class="sale" >sale</span>
+                    {% endif %}
+                    {% endfor %}
+ 
+                  </a></span>
+                {% if modulovalue == 0  or forloop.last %}
+              </div>
+              {% endif %}
+              {% endfor %}
+              {% endfor %}
+              {% if settings.megamenu2_bg_toggle %}
+              <div class="col-md-4 section">
+                <div class="img">
+                  <img src="{{ 'megamenu2_bg.png' | asset_url }}" alt="" />
+                  <div class="img-title">
+                    <span class="main">Leather Jacket</span>
+                    <span class="sub">Men's fashion</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="ul {% if linklists[menu] and linklists[menu].links.size > 0 %} submenu small{% endif %}">
+          {% if linklists[menu].links.size > 0 %}<span class="title">{{ menu }}</span>{% endif %}
+          {% for link in linklists[menu].links %}
+          <span class="smrow"><a href="{{ link.url }}">{{ link.title }}</a></span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="li">
+        {% if settings.menu-link3 and settings.menu-link3 != '' %}
+        {% capture menu %}{{ settings.megamenu3_text | handleize }}{% endcapture %}
+        <a href="{{ settings.megamenu3_link }}">{{ menu | replace:"-"," "}} {% if linklists[menu].links.size > 0 %}<span class="icon-down"></span>{% endif %}</a>
+        {% if settings.megamenu3_sub_toggle and settings.megamenu3_sub_toggle != '' %}
+        <div class="ul submenu big-submenu">
+          <div class="container">
+            <div class="row">
+              {% for i in (1..4) %}     
+              {% capture collection_iteration %}megamenu3_sub_col__{{ i }}{% endcapture %}
+              {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+              <div class="col-md-2 section">
+                <span class="title">{{ linklists[collection_name].title  }}</span>
+                {% for link_sub in linklists[collection_name].links  %}
+                <span class="smrow"><a href="{{ link_sub.url }}">{{ link_sub.title }}
+                  {% assign link_name = link_sub.title | escape | downcase %}
+                    {% assign new_label_3_1  = settings.megamenu3_new_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in new_label_3_1 %} 
+                    {% if link_label  != "" and link_label ==  link_name %}
+                    <span class="new" >new</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% assign sell_label_3_1  = settings.megamenu3_sale_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in sell_label_3_1 %} 
+                    {% if link_label != "" and link_label ==  link_name %}
+                    <span class="sale" >sale</span>
+                    {% endif %}
+                    {% endfor %}  
+                  </a></span>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              {% if settings.megamenu3_bg_toggle %}
+              <div class="col-md-4 section">
+                <div class="img">
+                  <img src="{{ 'megamenu3_bg.png' | asset_url }}" alt="" />
+                  <div class="img-title">
+                    <span class="main">Leather Jacket</span>
+                    <span class="sub">Men's fashion</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="ul {% if linklists[menu] and linklists[menu].links.size > 0 %} submenu small{% endif %}">
+          {% if linklists[menu].links.size > 0 %}<span class="title">{{ menu }}</span>{% endif %}
+          {% for link in linklists[menu].links %}
+          <span class="smrow"><a href="{{ link.url }}">{{ link.title }}</a></span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="li">
+        {% if settings.menu-link4 and settings.menu-link4 != '' %}
+        {% capture menu %}{{ settings.megamenu4_text | handleize }}{% endcapture %}
+        <a href="{{ settings.megamenu4_link }}">{{ menu | replace:"-"," "}}{% if linklists[menu].links.size > 0 %} <span class="icon-down"></span>{% endif %}</a>
+        {% if settings.megamenu4_sub_toggle and settings.megamenu4_sub_toggle != '' %}
+        <div class="ul submenu big-submenu">
+          <div class="container">
+            <div class="row">
+              {% for i in (1..4) %}     
+              {% capture collection_iteration %}megamenu4_sub_col__{{ i }}{% endcapture %}
+              {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+              <div class="col-md-2 section">
+                <span class="title">{{ linklists[collection_name].title  }}</span>
+                {% for link_sub in linklists[collection_name].links  %}
+                <span class="smrow"><a href="{{ link_sub.url }}">{{ link_sub.title }}
+                   {% assign link_name = link_sub.title | escape | downcase %}
+                    {% assign new_label_4_1  = settings.megamenu4_new_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in new_label_4_1 %} 
+                    {% if link_label  != "" and link_label ==  link_name %}
+                    <span class="new" >new</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% assign sell_label_4_1  = settings.megamenu4_sale_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in sell_label_4_1 %} 
+                    {% if link_label != "" and link_label ==  link_name %}
+                    <span class="sale" >sale</span>
+                    {% endif %}
+                    {% endfor %}     
+                  </a></span>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              {% if settings.megamenu4_bg_toggle %}
+              <div class="col-md-4 section">
+                <div class="img">
+                  <img src="{{ 'megamenu4_bg.png' | asset_url }}" alt="" />
+                  <div class="img-title">
+                    <span class="main">Leather Jacket</span>
+                    <span class="sub">Men's fashion</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="ul {% if linklists[menu] and linklists[menu].links.size > 0 %} submenu small{% endif %}">
+          {% if linklists[menu].links.size > 0 %}<span class="title">{{ menu }}</span>{% endif %}
+          {% for link in linklists[menu].links %}
+          <span class="smrow"><a href="{{ link.url }}">{{ link.title }}</a></span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="li">
+        {% if settings.menu-link5 and settings.menu-link5 != '' %}
+        {% capture menu %}{{ settings.megamenu5_text | handleize }}{% endcapture %}
+        <a href="{{ settings.megamenu5_link }}">{{ menu | replace:"-"," "}} {% if linklists[menu].links.size > 0 %}<span class="icon-down"></span>{% endif %}</a>
+        {% if settings.megamenu5_sub_toggle and settings.megamenu5_sub_toggle != '' %}
+        <div class="ul submenu big-submenu">
+          <div class="container">
+            <div class="row">
+              {% for i in (1..4) %}     
+              {% capture collection_iteration %}megamenu5_sub_col__{{ i }}{% endcapture %}
+              {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+              <div class="col-md-2 section">
+                <span class="title">{{ linklists[collection_name].title  }}</span>
+                {% for link_sub in linklists[collection_name].links  %}
+                <span class="smrow"><a href="{{ link_sub.url }}">{{ link_sub.title }}
+                  {% assign link_name = link_sub.title | escape | downcase %}
+                    {% assign new_label_5_1  = settings.megamenu5_new_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in new_label_5_1 %} 
+                    {% if link_label  != "" and link_label ==  link_name %}
+                    <span class="new" >new</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% assign sell_label_5_1  = settings.megamenu5_sale_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in sell_label_5_1 %} 
+                    {% if link_label != "" and link_label ==  link_name %}
+                    <span class="sale" >sale</span>
+                    {% endif %}
+                    {% endfor %}  
+                  </a></span>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              {% if settings.megamenu5_bg_toggle %}
+              <div class="col-md-4 section">
+                <div class="img">
+                  <img src="{{ 'megamenu5_bg.png' | asset_url }}" alt="" />
+                  <div class="img-title">
+                    <span class="main">Leather Jacket</span>
+                    <span class="sub">Men's fashion</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="ul {% if linklists[menu] and linklists[menu].links.size > 0 %} submenu small{% endif %}">
+          {% if linklists[menu].links.size > 0 %}<span class="title">{{ menu }}</span>{% endif %}
+          {% for link in linklists[menu].links %}
+          <span class="smrow"><a href="{{ link.url }}">{{ link.title }}</a></span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="li">
+        {% if settings.menu-link6 and settings.menu-link6 != '' %}
+        {% capture menu %}{{ settings.megamenu6_text | handleize }}{% endcapture %}
+        <a href="{{ settings.megamenu6_link }}">{{ menu | replace:"-"," "}} {% if linklists[menu].links.size > 0 %}<span class="icon-down"></span>{% endif %}</a>
+        {% if settings.megamenu6_sub_toggle and settings.megamenu6_sub_toggle != '' %}
+        <div class="ul submenu big-submenu">
+          <div class="container">
+            <div class="row">
+              {% for i in (1..4) %}     
+              {% capture collection_iteration %}megamenu6_sub_col__{{ i }}{% endcapture %}
+              {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+              <div class="col-md-2 section">
+                <span class="title">{{ linklists[collection_name].title  }}</span>
+                {% for link_sub in linklists[collection_name].links  %}
+                <span class="smrow"><a href="{{ link_sub.url }}">{{ link_sub.title }}
+                  {% assign link_name = link_sub.title | escape | downcase %}
+                    {% assign new_label_6_1  = settings.megamenu6_new_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in new_label_6_1 %} 
+                    {% if link_label  != "" and link_label ==  link_name %}
+                    <span class="new" >new</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% assign sell_label_6_1  = settings.megamenu6_sale_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in sell_label_6_1 %} 
+                    {% if link_label != "" and link_label ==  link_name %}
+                    <span class="sale" >sale</span>
+                    {% endif %}
+                    {% endfor %}   
+                  </a></span>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              {% if settings.megamenu6_bg_toggle %}
+              <div class="col-md-4 section">
+                <div class="img">
+                  <img src="{{ 'megamenu6_bg.png' | asset_url }}" alt="" />
+                  <div class="img-title">
+                    <span class="main">Leather Jacket</span>
+                    <span class="sub">Men's fashion</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="ul {% if linklists[menu] and linklists[menu].links.size > 0 %} submenu small{% endif %}">
+          {% if linklists[menu].links.size > 0 %}<span class="title">{{ menu }}</span>{% endif %}
+          {% for link in linklists[menu].links %}
+          <span class="smrow"><a href="{{ link.url }}">{{ link.title }}</a></span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="li">
+        {% if settings.menu-link7 and settings.menu-link7 != '' %}
+        {% capture menu %}{{ settings.megamenu7_text | handleize }}{% endcapture %}
+        <a href="{{ settings.megamenu7_link }}">{{ menu | replace:"-"," "}} {% if linklists[menu].links.size > 0 %}<span class="icon-down"></span>{% endif %}</a>
+        {% if settings.megamenu7_sub_toggle and settings.megamenu7_sub_toggle != '' %}
+        <div class="ul submenu big-submenu">
+          <div class="container">
+            <div class="row">
+              {% for i in (1..4) %}     
+              {% capture collection_iteration %}megamenu7_sub_col__{{ i }}{% endcapture %}
+              {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+              <div class="col-md-2 section">
+                <span class="title">{{ linklists[collection_name].title  }}</span>
+                {% for link_sub in linklists[collection_name].links  %}
+                <span class="smrow"><a href="{{ link_sub.url }}">{{ link_sub.title }}
+                  {% assign link_name = link_sub.title | escape | downcase %}
+                    {% assign new_label_7_1  = settings.megamenu7_new_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in new_label_7_1 %} 
+                    {% if link_label  != "" and link_label ==  link_name %}
+                    <span class="new" >new</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% assign sell_label_7_1  = settings.megamenu7_sale_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in sell_label_7_1 %} 
+                    {% if link_label != "" and link_label ==  link_name %}
+                    <span class="sale" >sale</span>
+                    {% endif %}
+                    {% endfor %} 
+                  </a></span>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              {% if settings.megamenu7_bg_toggle %}
+              <div class="col-md-4 section">
+                <div class="img">
+                  <img src="{{ 'megamenu7_bg.png' | asset_url }}" alt="" />
+                  <div class="img-title">
+                    <span class="main">Leather Jacket</span>
+                    <span class="sub">Men's fashion</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="ul {% if linklists[menu] and linklists[menu].links.size > 0 %} submenu small{% endif %}">
+          {% if linklists[menu].links.size > 0 %}<span class="title">{{ menu }}</span>{% endif %}
+          {% for link in linklists[menu].links %}
+          <span class="smrow"><a href="{{ link.url }}">{{ link.title }}</a></span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="li">
+        {% if settings.menu-link8 and settings.menu-link8 != '' %}
+        {% capture menu %}{{ settings.megamenu8_text | handleize }}{% endcapture %}
+        <a href="{{ settings.megamenu8_link }}">{{ menu | replace:"-"," "}} {% if linklists[menu].links.size > 0 %}<span class="icon-down"></span>{% endif %}</a>
+        {% if settings.megamenu8_sub_toggle and settings.megamenu8_sub_toggle != '' %}
+        <div class="ul submenu big-submenu">
+          <div class="container">
+            <div class="row">
+              {% for i in (1..4) %}     
+              {% capture collection_iteration %}megamenu8_sub_col__{{ i }}{% endcapture %}
+              {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+              <div class="col-md-2 section">
+                <span class="title">{{ linklists[collection_name].title  }}</span>
+                {% for link_sub in linklists[collection_name].links  %}
+                <span class="smrow"><a href="{{ link_sub.url }}">{{ link_sub.title }}
+                   {% assign link_name = link_sub.title | escape | downcase %}
+                    {% assign new_label_8_1  = settings.megamenu8_new_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in new_label_8_1 %} 
+                    {% if link_label  != "" and link_label ==  link_name %}
+                    <span class="new" >new</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% assign sell_label_8_1  = settings.megamenu8_sale_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in sell_label_8_1 %} 
+                    {% if link_label != "" and link_label ==  link_name %}
+                    <span class="sale" >sale</span>
+                    {% endif %}
+                    {% endfor %}    
+                  </a></span>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              {% if settings.megamenu8_bg_toggle %}
+              <div class="col-md-4 section">
+                <div class="img">
+                  <img src="{{ 'megamenu8_bg.png' | asset_url }}" alt="" />
+                  <div class="img-title">
+                    <span class="main">Leather Jacket</span>
+                    <span class="sub">Men's fashion</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="ul {% if linklists[menu] and linklists[menu].links.size > 0 %} submenu small{% endif %}">
+          {% if linklists[menu].links.size > 0 %}<span class="title">{{ menu }}</span>{% endif %}
+          {% for link in linklists[menu].links %}
+          <span class="smrow"><a href="{{ link.url }}">{{ link.title }}</a></span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="li">
+        {% if settings.menu-link9 and settings.menu-link9 != '' %}
+        {% capture menu %}{{ settings.megamenu9_text | handleize }}{% endcapture %}
+        <a href="{{ settings.megamenu9_link }}">{{ menu }}{% if linklists[menu].links.size > 0 %} <span class="icon-down"></span>{% endif %}</a>
+        {% if settings.megamenu9_sub_toggle and settings.megamenu9_sub_toggle != '' %}
+        <div class="ul submenu big-submenu">
+          <div class="container">
+            <div class="row">
+              {% for i in (1..4) %}     
+              {% capture collection_iteration %}megamenu9_sub_col__{{ i }}{% endcapture %}
+              {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+              <div class="col-md-2 section">
+                <span class="title">{{ linklists[collection_name].title  }}</span>
+                {% for link_sub in linklists[collection_name].links  %}
+                <span class="smrow"><a href="{{ link_sub.url }}">{{ link_sub.title }}
+                    {% assign link_name = link_sub.title | escape | downcase %}
+                    {% assign new_label_9_1  = settings.megamenu9_new_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in new_label_9_1 %} 
+                    {% if link_label  != "" and link_label ==  link_name %}
+                    <span class="new" >new</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% assign sell_label_9_1  = settings.megamenu9_sale_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in sell_label_9_1 %} 
+                    {% if link_label != "" and link_label ==  link_name %}
+                    <span class="sale" >sale</span>
+                    {% endif %}
+                    {% endfor %}     
+                  </a></span>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              {% if settings.megamenu9_bg_toggle %}
+              <div class="col-md-4 section">
+                <div class="img">
+                  <img src="{{ 'megamenu9_bg.png' | asset_url }}" alt="" />
+                  <div class="img-title">
+                    <span class="main">Leather Jacket</span>
+                    <span class="sub">Men's fashion</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="ul {% if linklists[menu] and linklists[menu].links.size > 0 %} submenu small{% endif %}">
+          {% if linklists[menu].links.size > 0 %}<span class="title">{{ menu }}</span>{% endif %}
+          {% for link in linklists[menu].links %}
+          <span class="smrow"><a href="{{ link.url }}">{{ link.title }}</a></span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="li">
+        {% if settings.menu-link10 and settings.menu-link10 != '' %}
+        {% capture menu %}{{ settings.megamenu2_text | handleize }}{% endcapture %}
+        <a href="{{ settings.megamenu10_link }}">{{ menu | replace:"-"," "}} {% if linklists[menu].links.size > 0 %}<span class="icon-down"></span>{% endif %}</a>
+        {% if settings.megamenu10_sub_toggle and settings.megamenu10_sub_toggle != '' %}
+        <div class="ul submenu big-submenu">
+          <div class="container">
+            <div class="row">
+              {% for i in (1..4) %}     
+              {% capture collection_iteration %}megamenu10_sub_col__{{ i }}{% endcapture %}
+              {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+              <div class="col-md-2 section">
+                <span class="title">{{ linklists[collection_name].title  }}</span>
+                {% for link_sub in linklists[collection_name].links  %}
+                <span class="smrow"><a href="{{ link_sub.url }}">{{ link_sub.title }}
+                   {% assign link_name = link_sub.title | escape | downcase %}
+                    {% assign new_label_10_1  = settings.megamenu10_new_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in new_label_10_1 %} 
+                    {% if link_label  != "" and link_label ==  link_name %}
+                    <span class="new" >new</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% assign sell_label_10_1  = settings.megamenu10_sale_1_label  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %} 
+                    {% for link_label in sell_label_10_1 %} 
+                    {% if link_label != "" and link_label ==  link_name %}
+                    <span class="sale" >sale</span>
+                    {% endif %}
+                    {% endfor %}     
+                  </a></span>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              {% if settings.megamenu10_bg_toggle %}
+              <div class="col-md-4 section">
+                <div class="img">
+                  <img src="{{ 'megamenu10_bg.png' | asset_url }}" alt="" />
+                  <div class="img-title">
+                    <span class="main">Leather Jacket</span>
+                    <span class="sub">Men's fashion</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="ul {% if linklists[menu] and linklists[menu].links.size > 0 %} submenu small{% endif %}">
+          {% if linklists[menu].links.size > 0 %}<span class="title">{{ menu }}</span>{% endif %}
+          {% for link in linklists[menu].links %}
+          <span class="smrow"><a href="{{ link.url }}">{{ link.title }}</a></span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+</div>
+
+
+<!-- /Main header -->

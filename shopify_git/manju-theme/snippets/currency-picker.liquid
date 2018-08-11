@@ -1,0 +1,29 @@
+<label class="currency-picker__wrapper hide">
+  <span class="currency-picker__label">Currency</span>
+  <select class="currency-picker" name="currencies" style="display: inline; width: auto; vertical-align: inherit;">
+    {% assign codes = 'USD,EUR,GBP,CAD,ARS,AUD,BBD,BDT,BSD,BHD,BRL,BOB,BND,BGN,ILS,MMK,KYD,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,XPF,FJD,GHS,GTQ,GYD,GEL,HKD,HUF,ISK,INR,IDR,NIS,JMD,JPY,JOD,KZT,KES,KWD,LVL,LTL,MXN,MYR,MUR,MDL,MAD,MNT,MZN,ANG,NZD,NGN,NOK,OMR,PKR,PYG,PEN,PHP,PLN,QAR,RON,RUB,SAR,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TRY,UAH,AED,UYU,VEB,VND,ZMK' | split: ',' %}
+    {% assign supported_codes = settings.supported_currencies | split: ' ' %}
+    <option class="flag-{{ shop.currency }}" value="{{ shop.currency }}" selected="selected">{{ shop.currency }}</option>
+    {% for code in supported_codes %}
+    {% if code != shop.currency and codes contains code %}
+    <option  value="{{ code }}">{{ code }}</option>
+    {% endif %}
+    {% endfor %}
+  </select>
+</label>
+
+<div id="currency-picker" class="currency-hover currency-click"><span class="currency_code">{{ shop.currency }}</span><span class="icon-down"></span></div>
+<div id="currency-dropdown" class="visible-currency visible-mobile">  
+<ul class="currencies">
+  {% for code in supported_codes %}
+  <li class="currencies" value="{{ code }}">
+    <a href="javascript:;"><span>{{ code }}</span>(<img src="https://cdn.shopify.com/s/files/1/1685/6099/files/{{ code | downcase }}.png?8622569489958123409" alt="{{ code }}">)</a>
+    <input type="hidden" value="{{ code }}">
+  </li>
+  {% endfor %}    
+</ul>
+</div>
+
+
+
+

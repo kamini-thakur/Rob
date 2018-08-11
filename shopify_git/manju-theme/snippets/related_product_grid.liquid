@@ -1,0 +1,73 @@
+{% comment %}
+Set the default grid_item_width if no variable is set
+{% endcomment %}
+{% unless grid_item_width %}
+{% assign grid_item_width = 'col-xs-12 col-sm-6 col-md-3 col-lg-3' %}
+{% endunless %}
+
+{% comment %}
+Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% comment %}
+Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+<div class="{{grid_item_width}} featured-product coll-info-height">
+  <div class="product p1">
+    <div class="product-img">
+      <a href="{{ product.url | within: collection }}" class="grid__image">
+        <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+      </a>
+      <div class="actions">
+        <a class="action" href="{{ product.featured_image.src | img_url: '1024x1024' }}" data-lightbox="image"><span class="icon-maximize-plus"></span></a>
+        {% include 'wishlist-product' %}
+
+        <a class="action" href="{{ product.url | within: collection }}"><span class="icon-shoppingcart"></span></a>
+      </div>
+
+      <div class="add-to-cart open">
+        <span class="icon-plus"></span>
+      </div>
+      <div class="add-to-cart close">
+        <span class="icon-plus close-btn"></span>
+      </div>
+    </div>
+    <span class="name">
+      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+    </span>
+    <span class="price">
+
+      {% if on_sale %}
+      {% if product.price_varies %}
+      {% assign sale_price = product.price | money %}
+      {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+      {% else %}
+      <strong>{{ 'products.product.on_sale' | t }}</strong> &nbsp;
+      {{ product.price | money }}
+      {% endif %}
+      {% else %}
+      {% if product.price_varies %}
+      {% assign price = product.price | money %}
+      {{ 'products.general.from_text_html' | t: price: price }}
+      {% else %}
+      {{ product.price | money }}
+      {% endif %}
+      {% endif %}
+      {% if sold_out %}
+      &nbsp; <br><strong>{{ 'products.product.sold_out' | t }}</strong>
+      {% endif %}
+      {% if on_sale %}
+      <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+      <del><s>{{ product.compare_at_price | money }}</s></del>
+      {% endif %}
+    </span>
+  </div>
+</div>

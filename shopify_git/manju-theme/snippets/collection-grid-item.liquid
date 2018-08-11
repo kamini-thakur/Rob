@@ -1,0 +1,12 @@
+<!-- Slide #1 -->
+  <div class="ms-slide {% if forloop.first %} active {% endif %}">
+    <div class="ms-product">
+      <div class="share">
+        {% include 'social-sharing' %}
+      </div>
+      <a href="{{ product.url | within: collection }}"><img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt }}" alt="" /></a>
+      <a href="{{ product.url | within: collection }}"><span class="name">{{ product.title }}</span></a>
+      <span class="price">{{ product.price | money }}</span>
+    </div>
+  </div>
+ 

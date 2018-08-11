@@ -1,0 +1,295 @@
+<!doctype html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js no-touch"> <!--<![endif]-->
+<head>
+
+  <!-- Basic page needs ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  {% if settings.favicon_enable %}
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+  {% endif %}
+
+  <!-- Title and description ================================================== -->
+  <title>
+  {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+  <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Helpers ================================================== -->
+  {% include 'social-meta-tags' %}
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+
+  <!-- CSS ================================================== -->
+  {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'bootstrap.min.css'  | asset_url | stylesheet_tag }}
+  {{ 'owl.theme.css' | asset_url | stylesheet_tag }}
+  {{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
+  {{ 'font-awesome.min.css' | asset_url | stylesheet_tag }}
+  {{ 'style-font.css' | asset_url | stylesheet_tag }}
+  {{ 'rs-slider.css' | asset_url | stylesheet_tag }}
+  {{ 'settings.css' | asset_url | stylesheet_tag }}
+  {{ 'lightbox.css' | asset_url | stylesheet_tag }}
+  {{ 'stylesheet.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'perfect-scrollbar.css' | asset_url | stylesheet_tag }}
+  {{ 'swatches.css' | asset_url | stylesheet_tag  }}
+  {{ 'main.scss.css' | asset_url | stylesheet_tag  }}
+
+  <!-- Header hook for plugins ================================================== -->
+  {{ content_for_header }}
+  {% include 'oldIE-js' %}
+{{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
+{{ 'modernizr.min.js' | asset_url | script_tag }}
+{{ 'owl.carousel.js' | asset_url | script_tag }}
+
+<!--   {{ 'theme.js' | asset_url | script_tag }} -->
+
+  {% comment %}
+    If you store has customer accounts disabled, you can remove the following JS file
+  {% endcomment %}
+  {% if template contains 'customers' %}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {% endif %}
+  <!-- jQuery UI -->
+
+
+
+
+</head>
+
+{% comment %}
+  Add the page template as a class for easy page or template specific styling.
+{% endcomment %}
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+
+  <div id="NavDrawer" class="drawer drawer--left">
+    <div class="drawer__header">
+      <div class="drawer__title h3">{{ 'layout.drawers.browse' | t }}</div>
+      <div class="drawer__close js-drawer-close">
+        <button type="button" class="icon-fallback-text">
+          <span class="icon icon-x" aria-hidden="true"></span>
+          <span class="fallback-text">{{ 'layout.drawers.close_menu' | t }}</span>
+        </button>
+      </div>
+    </div>
+    <!-- begin mobile-nav -->
+    <ul class="mobile-nav">
+      <li class="mobile-nav__item mobile-nav__search">
+        {% include 'search-bar' %}
+      </li>
+      {% for link in linklists.main-menu.links %}
+        {% comment %}
+          Create a dropdown menu by naming a linklist the same as a link in the parent nav
+
+          More info on dropdowns:
+            - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
+        {% endcomment %}
+        {% assign child_list_handle = link.title | handleize %}
+        {% if linklists[child_list_handle].links != blank %}
+          <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}" aria-haspopup="true">
+            <div class="mobile-nav__has-sublist">
+              <a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a>
+              <div class="mobile-nav__toggle">
+                <button type="button" class="icon-fallback-text mobile-nav__toggle-open">
+                  <span class="icon icon-plus" aria-hidden="true"></span>
+                  <span class="fallback-text">See More</span>
+                </button>
+                <button type="button" class="icon-fallback-text mobile-nav__toggle-close">
+                  <span class="icon icon-minus" aria-hidden="true"></span>
+                  <span class="fallback-text">{{ 'cart.general.close_cart' | t | json }}</span>
+                </button>
+              </div>
+            </div>
+            <ul class="mobile-nav__sublist">
+              {% for childlink in linklists[child_list_handle].links %}
+                <li class="mobile-nav__item {% if childlink.active %} mobile-nav__item--active{% endif %}">
+                  <a href="{{ childlink.url }}" class="mobile-nav__link">{{ childlink.title | escape }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% else %}
+          <li class="mobile-nav__item{% if link.active %} mobile-nav__item--active{% endif %}">
+            <a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% comment %}
+        If customer accounts are enabled, provide login and create account links
+      {% endcomment %}
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          <li class="mobile-nav__item">
+            {% if customer.first_name != blank %}
+              {% capture first_name %}{{ customer.first_name }}{% endcapture %}
+              <a href="/account">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</a>
+            {% else %}
+              <a href="/account">{{ 'layout.customer.account' | t }}</a>
+            {% endif %}
+          </li>
+          <li class="mobile-nav__item">
+            {{ 'layout.customer.log_out' | t | customer_logout_link }}
+          </li>
+        {% else %}
+          <li class="mobile-nav__item">
+            {{ 'layout.customer.log_in' | t | customer_login_link }}
+          </li>
+          <li class="mobile-nav__item">
+            {{ 'layout.customer.create_account' | t | customer_register_link }}
+          </li>
+        {% endif %}
+      {% endif %}
+    </ul>
+    <!-- //mobile-nav -->
+  </div>
+
+  <div id="PageContainer" class="is-moved-by-drawer">
+    {% section 'header' %}
+    {% include 'breadcrumb' %}
+    {% if template != 'index' %}
+      <div class="container">
+       <div class="row">
+        {{ content_for_layout }}
+       </div>
+    </div>
+    {% else  %}
+    {{ content_for_layout }}
+    {% endif %}
+
+    {% section 'footer' %}
+
+    <!-- begin site-footer -->
+
+    <!-- //site-footer -->
+  </div>
+
+  {{ 'fastclick.min.js' | asset_url | script_tag }}
+  {{ 'timber.js' | asset_url | script_tag }}
+
+
+  {% if template == "index" %}
+  {{ 'jquery.themepunch.tools.min.js' | asset_url | script_tag }}
+  {{ 'jquery.themepunch.revolution.min.js' | asset_url | script_tag }}
+  {% endif %}
+  {{ 'fashionist.js' | asset_url | script_tag }}
+  {{ 'perfect-scrollbar.jquery.js' | asset_url | script_tag }}
+  {% if template != 'cart' %}
+  {{ 'mini-slider.js' | asset_url | script_tag }}
+  {% endif %}
+  {{ 'lightbox.js' | asset_url | script_tag }}
+  {{ 'jquery.cart.min.js' | asset_url | script_tag }}
+  {{ 'currency-change.js' | asset_url | script_tag }}
+  {% include 'currencies' %}
+
+   <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+  <!-- jQuery for rs-slider -->
+  {% if template == 'index' %}
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+			jQuery('.tp-banner').revolution(
+			{
+				delay:8000,
+				startwidth:1170,
+				startheight:860,
+				hideThumbs:0,
+				navigationStyle:'custom-bullets',
+				navigationVAlign:'bottom',
+				navigationHAlign:'right',
+
+				soloArrowRightHalign:'right',
+			    soloArrowRightValign:'bottom',
+			    soloArrowRightHOffset:22,
+			    soloArrowRightVOffset:120,
+
+				soloArrowLeftHalign:'right',
+			    soloArrowLeftValign:'bottom',
+			    soloArrowLeftHOffset:22,
+			    soloArrowLeftVOffset:120
+			});
+		});
+	</script>
+
+	<!-- Custom Script for showing the page count (1/3, 2/3, ...) -->
+	<script>
+		jQuery(document).ready(function() {
+			//positioning the left (up) arrow on the slider
+			var bottommargin = $('.tp-bullets').height() + 33 + 'px';
+			$('.tp-leftarrow').css('margin-bottom', bottommargin);
+
+			// Adding numbers to pages
+			var rs_pages_count = $('.tp-banner li').length;
+			$('#rs-pages').html('<span>' + rs_pages_count + '</span>');
+
+			for (var i = 0; i < $('.tp-banner li').length; i++) {
+				var slides = $('.tp-banner li #rs-current-page');
+				var selector = slides[i];
+				$(selector).html(i + 1);
+			}
+		});
+	</script>
+  {% endif %}
+  {% comment %}
+    Template-specific js
+  {% endcomment %}
+  <script>
+    {% if resetPassword %}
+      $(function() {
+        timber.resetPasswordSuccess();
+      });
+    {% endif %}
+  </script>
+{% comment %}
+    Ajaxify your cart with this plugin.
+    Documentation:
+      - http://shopify.com/timber#ajax-cart
+  {% endcomment %}
+
+    {{ 'handlebars.min.js' | asset_url | script_tag }}
+
+    {% include 'ajax-cart-hover' %}
+
+    {{ 'ajax-cart.js' | asset_url | script_tag }}
+    <script>
+      jQuery(function($) {
+        ajaxCart.init({
+          formSelector: '#AddToCartForm',
+          cartContainer: '#shopping-cart',
+          addToCartSelector: '#AddToCart',
+          cartCountSelector: '.CartCount',
+          cartCostSelector: '#CartCost',
+          moneyFormat: {{ shop.money_format | json }}
+        });
+      });
+
+
+    </script>
+
+
+<script>jQuery(function() {jQuery('.swatch :radio').change(function() {var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');var optionValue = jQuery(this).val();jQuery(this).closest('form').find('.single-option-selector').eq(optionIndex).val(optionValue).trigger('change');});});</script>
+{% if template contains 'customer' %}
+
+	<script type="text/javascript">
+	     $(document).ready(function() {
+	   	   var n1 = Math.round(Math.random() * 10 + 1);
+	     	   var n2 = Math.round(Math.random() * 10 + 1);
+	   	   $("#question").val(n1 + " + " + n2);
+	  	   $("#create_customer").submit(function (e) {
+	          	   if (eval($("#question").val()) != $("#answer").val()) {
+	                     $("#answer").css('box-shadow', '0px 0px 7px red');
+	              	     e.preventDefault();
+	          	   }
+	     	   });
+	    });
+	 </script>
+{% endif %}
+</body>
+</html>

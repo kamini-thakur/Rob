@@ -1,0 +1,19 @@
+<div id="pagination" class="pagination col-xs-12">
+  {% if paginate.previous.is_link %}
+    <a href="{{ paginate.previous.url }}" class="pagination-item pagination-previous"><span class="icon-left"></span></a>
+  {% else %}
+    <a  class="pagination-item pagination-previous pagination-previous--disabled"><span class="icon-left"></span></a>
+  {% endif %}
+  {% for part in paginate.parts %}
+    {% if part.is_link %}
+  <div class="pages"><a href="{{part.url}}"class="page-num">{{ part.title }}</a></div>
+    {% elsif current_page %}
+  <div class="pages"><a class="pagination-item pagination--current page-num active">{{current_page }}</a></div>
+    {% endif %}
+  {% endfor %}
+  {% if paginate.next.is_link %}
+    <a href="{{ paginate.next.url }}" class="pagination-item pagination-next"><span class="icon-right"></span></a>
+  {% else %}
+    <a  class="pagination-item pagination-next pagination-next--disabled"><span class="icon-right"></span></a>
+  {% endif %}
+</div>

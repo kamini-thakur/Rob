@@ -1,0 +1,185 @@
+<div class="content" id="contact">
+  <section id="contact-form">
+    <div class="container">
+      <span class="title page-title">{{ page.title }}</span>
+
+      {% comment %}
+      Regular page content goes here.
+      {% endcomment %}
+      <div class="rte">
+        {{ page.content }}
+      </div>
+      {% if section.settings.display_google_map and  section.settings.google_map_code != blank %}
+      <div class="col-xs-12">
+        <div class="row">
+          <div id="contact-google-map">
+            {% if section.settings.google_map_code != blank %}
+            {{ section.settings.google_map_code }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="title">
+            {{ 'contact.form.title' | t }}
+          </div>
+        </div>
+
+        <div class="col-xs-12">
+          {% form 'contact' %}
+
+          {% comment %}
+          Successful message
+          {% endcomment %}
+          {% if form.posted_successfully? %}
+          <p class="note form-success">
+            {{ 'contact.form.post_success' | t }}
+          </p>
+          {% endif %}
+
+          {{ form.errors | default_errors }}
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              {% assign name_attr = 'contact.form.name' | t | handle %}
+              <label for="ContactFormName" class="hidden-label">{{ 'contact.form.name' | t }} <em>*</em></label>
+              <input type="text" id="ContactFormName" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <label for="ContactFormEmail" class="hidden-label">{{ 'contact.form.email' | t }} <em>*</em></label>
+              <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <label for="ContactForSubject" class="hidden-label">{{ 'contact.form.subject' | t }}</label>
+              <input type="text" name="contact[subject]" class="input-full" value="{% if form.subject %}{{ form.subject }}{% elsif customer %}{{ customer.subject }}{% endif %}" id="subject" placeholder="{{ 'contact.form.subject' | t }}">
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <label for="ContactForWebsite" class="hidden-label">Website</label>
+              <input type="text" name="contact[website]" class="input-full" value="{% if form.website %}{{ form.website }}{% elsif customer %}{{ customer.website }}{% endif %}" id="website" placeholder="{{ 'contact.form.website' | t }}">
+            </div>
+          </div>
+
+          <label for="ContactFormMessage" class="hidden-label">{{ 'contact.form.message' | t }}</label>
+          <textarea rows="10" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+          <input type="submit" name="contact-submit" value="{{ 'contact.form.send' | t }}" />
+          {% endform%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="company-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <div class="box">
+            <span class="bigicon icon-phone"></span>
+            <div class="contact">
+              <span class="contact-type">{{ section.settings.shipping_main_text_1 }}</span>
+              <span class="contact-details">{{ section.settings.shipping_sub_text_1 }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-4">
+          <div class="box brown">
+            <span class="bigicon icon-email"></span>
+            <div class="contact">
+              <span class="contact-type">{{ section.settings.shipping_main_text_2 }}</span>
+              <span class="contact-details">{{ section.settings.shipping_sub_text_2 }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-4">
+          <div class="box">
+            <span class="bigicon icon-map-marker"></span>
+            <div class="contact">
+              <span class="contact-type">{{ section.settings.shipping_main_text_3 }}</span>
+              <span class="contact-details">{{ section.settings.shipping_sub_text_3 }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+  {
+    "name": "Contact Page",
+    "settings": [
+       {
+        "type": "checkbox",
+        "id": "display_google_map",
+        "label": "Display Google Map?",
+        "default": true
+       },
+       {
+        "type": "text",
+        "id": "google_map_code",
+        "label": "Google Map Code"
+       },
+       {
+        "type": "checkbox",
+        "id": "enable_shipping_message",
+        "label": "Enable Shipping Message",
+        "default": true
+       },
+       {
+        "type": "text",
+        "id": "shipping_main_text_1",
+        "label": "Shipping Main Title 1",
+        "default": "Shipping Main Title 1"
+       },
+       {
+        "type": "text",
+        "id": "shipping_sub_text_1",
+        "label": "Shipping Sub Title 1",
+        "default": "Shipping Sub Title 1"
+       },
+       {
+        "type": "text",
+        "id": "shipping_main_text_2",
+        "label": "Shipping Main Title 2",
+        "default": "Shipping Main Title 2"
+       },
+       {
+        "type": "text",
+        "id": "shipping_sub_text_2",
+        "label": "Shipping Sub Title 2",
+        "default": "Shipping Sub Title 2"
+       },
+       {
+        "type": "text",
+        "id": "shipping_main_text_3",
+        "label": "Shipping Main Title 3",
+        "default": "Shipping Main Title 3"
+       },
+       {
+        "type": "text",
+        "id": "shipping_sub_text_3",
+        "label": "Shipping Sub Title 3",
+        "default": "Shipping Sub Title 3"
+       }
+     ],
+    "presets": [
+      {
+        "name": "Contact Page",
+        "category": "Contact"
+      }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,209 @@
+<!-- Footer -->
+<footer id="footer" class="bordertop">
+  <div class="container">
+    <div class="col-xs-12 col-lg-4">
+      <div class="row">
+        <div class="logo">
+          {% if section.settings.footer_logo != blank %}
+          {% if section.settings.footer_logo_max_width != empty %}
+          {% capture image_size %}{{ section.settings.footer_logo_max_width }}x{% endcapture %}
+          {% else %}
+          {% assign image_size = "150x" %}
+          {% endif %}
+          <a href="/" itemprop="url" class="footer__logo-link">
+            <img src="{{ section.settings.footer_logo | img_url: image_size }}" alt="{{ shop.name }}" itemprop="logo">
+          </a>
+          {% else %}
+          <a href="/" itemprop="url" class="site-header__logo-text">{{ shop.name }}</a>
+          {% endif %}
+        </div>
+        <p class="description">{{ section.settings.shop_description }}</p>
+        {% if section.settings.footer_social_enable %}
+        <div class="social">
+          {% include 'social-icon' %}	
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section.settings.footer_linklist_one %}
+    <div class="col-xs-6 col-md-3 col-lg-2">
+      <div class="row">
+        {% assign link_title_1 =  section.settings.footer_linklist_one %}
+        <span class="row-title">{{ linklists[link_title_1].title }}</span>
+        <div class="a-list">
+          {% for link in linklists[section.settings.footer_linklist_one].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if section.settings.footer_linklist_two %}
+    <div class="col-xs-6 col-md-3 col-lg-2">
+      <div class="row">
+        {% assign link_title_2 =  section.settings.footer_linklist_two %}
+        <span class="row-title">{{ linklists[link_title_2].title }}</span>
+        <div class="a-list">
+          {% for link in linklists[section.settings.footer_linklist_two].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if section.settings.footer_linklist_three %}
+    <div class="col-xs-6 col-md-3 col-lg-2">
+      <div class="row">
+        {% assign link_title_3 =  section.settings.footer_linklist_three %}
+        <span class="row-title">{{ linklists[link_title_3].title }}</span>
+        <div class="a-list">
+          {% for link in linklists[section.settings.footer_linklist_three].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if section.settings.footer_linklist_four %}
+    <div class="col-xs-6 col-md-3 col-lg-2">
+      <div class="row">
+        {% assign link_title_4 =  section.settings.footer_linklist_four %}
+        <span class="row-title">{{ linklists[link_title_4].title }}</span>
+        <div class="a-list">
+          {% for link in linklists[section.settings.footer_linklist_four].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="container">
+    <div class="col-xs-12 col-sm-6">
+      <div class="row">
+        <span class="copy"> &copy; {{ 'now' | date: "%Y" }}  <a href="/">{{ shop.name }}</a> | {{ 'layout.footer.copyright' | t }} | {{ powered_by_link }}</span>
+      </div>
+    </div>
+
+    {% if section.settings.show_payment_icons %}
+    {% if section.blocks.size > 0 %}
+    <div class="col-xs-12 col-sm-6">
+      <div class="row">
+        <div class="cards">
+          {% for block in section.blocks %}
+          <img src="{{ block.settings.payment_icon | img_url: '30x20' }}" alt="" />
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}
+  </div>
+</footer>
+{% schema %}
+  {
+    "name": "Footer",
+    "max_blocks": 5,
+    "settings": [
+      {
+  		"type": "image_picker",
+  		"id": "footer_logo",
+  		"label": "Logo image",
+  		"info": "200px wide .png recommended"
+  	  },
+      {
+  		"type": "text",
+  		"id": "footer_logo_max_width",
+  		"label": "Custom logo width (in pixels)",
+  		"default": "50",
+  		"info": "Do not add the 'px' unit"
+  	  },
+      {
+  		"type": "text",
+  		"id": "shop_description",
+  		"label": "Shop Description",
+  		"default": "Description"
+  	  },
+      {
+        "type": "link_list",
+        "id": "footer_linklist_one",
+        "label": "Menu 1",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist_two",
+        "label": "Menu 2",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist_three",
+        "label": "Menu 3",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist_four",
+        "label": "Menu 4",
+        "default": "main-menu"
+      },
+      {
+  		"type": "checkbox",
+  		"id": "footer_social_enable",
+  		"label": "Show Social Icons",
+  		"default": true
+  	  },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Payment Icon",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "payment_icon",
+            "label": "Payment Icon"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "image",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

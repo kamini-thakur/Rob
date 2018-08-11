@@ -1,0 +1,42 @@
+var acc = document.getElementsByClassName("cat");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+      this.classList.toggle("active");
+      this.nextElementSibling.classList.toggle("show");
+    }
+  }
+
+  $(function() {
+    $(".item-type").insertBefore($(".item-colour"));
+    var filters = $('.advanced-filter'),
+        el,
+        elGroup,
+        elHandle,
+        activeTagInGroup;
+
+    filters.on('click', function(e) {
+      el = $(this);
+      elGroup = el.data('group');
+      elHandle = el.data('handle');
+      activeTagInGroup = $('.active-filter[data-group="'+ elGroup +'"]');
+      // If the tag clicked is not already active and its group contains an active tag, we will swap tag within the group.
+      if ( !el.hasClass('active-filter')  && activeTagInGroup.size() ) {
+        e.preventDefault();
+        location.href = location.href
+        // swap tag
+        .replace(activeTagInGroup.data('handle'), elHandle)
+        // go back to page 1
+        .replace(/(&page=\d+)|(page=\d+&)|(\?page=\d+$)/, '');
+      }
+    });
+  });
+
+  $( document ).ready(function() {
+    $('.collection-filter > h3').click(function(){
+      $('.collection-filter > h3').toggleClass("plus");
+      $('.collection-sidebars').toggle('slow');
+      $('.collection-filter > h3').toggleClass("minus");
+    });
+  });

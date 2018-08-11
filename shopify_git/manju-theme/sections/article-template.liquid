@@ -1,0 +1,177 @@
+<div class="row">
+  <article class="{% if section.settings.article_show_sidebar %} col-lg-9 col-md-8 col-sm-8 {% else %}col-xs-12 col-md-offset-1 col-md-10 content {% endif %}" itemscope itemtype="http://schema.org/Article">
+    <div class="blog-post">
+      <div class="blog-post-img">
+        {% if article.image %}
+        <a class="article__featured-image" href="{{ article.url }}">
+          <img class="" src="{{ article | img_url: '1024x1024' }}">
+        </a>
+        {% endif %}
+        <div class="text fixed hidden-xs">
+          <span class="title">{{ article.title }}</span>
+          <div class="separator"></div>
+          <span class="tagged"><i>{{ 'blogs.article.tag_title' | t }}</i> <b>{% for tag in article.tags %}
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+            {% endfor %}</b></span>
+        </div>
+      </div>
+
+      <h2 class="blog-post-title">{{ article.title }}</h2>
+      <div class="blog-post-details">
+       {% if section.settings.blog_show_author %}
+        <span><span class="icon-user"></span> {{ 'blogs.article.by_author' | t: author: article.author }}</span>
+       {% endif %}
+ 
+        {% if section.settings.blog_show_tag %}
+        <span><span class="icon-bookmark"></span> {% for tag in article.tags %}
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+          {% endfor %}</span>
+        {% endif %}
+        <p class="rte">{{ article.content }}</p>
+      </div>
+    </div>
+   
+    {% if section.settings.show_share_buttons %}
+    <section class="share">
+      <span class="text">{{ 'blogs.article.share' | t }}</span>
+      {% include 'social-sharing' %}
+    </section>
+    {% endif %}
+    
+    <section class="author">
+      <div class="row">
+        <div class="col-md-2 hidden-xs hidden-sm">
+          <img class="" src="{{ article | img_url: '1024x1024' }}">
+        </div>
+
+        <div class="col-xs-12 col-md-10">
+          <div class="author-info">
+            <span class="author-name">{{ article.author }}</span>
+          </div>
+          <div class="author-about rte">{{ article.content }}</div>
+        </div>
+      </div>
+    </section>
+    
+    {% if blog.comments_enabled? %}
+    <section class="comments">
+      <div class="title">{{ 'blogs.article.comment' | t }}</div>
+
+      <div class="row">
+        {% paginate article.comments by 5 %}
+        
+        <div class="comment" id="comments">
+          <div class="col-md-10 col-lg-9">
+            <div class="row replies">
+              {% for comment in article.comments %}
+              <div class="col-xs-12 col-md-10 comment{% unless number_of_comments > article.comments_count %}{% if forloop.first %} first{% endif %}{% endunless %}{% if forloop.last %} last {% endif %}" id="{{ comment.id }}">
+                <div class="author-info">
+                  <span class="author-name">{{ comment.author }}</span>
+                  <span class="date"><time datetime="{{ comment.created_at | date:  "%d %b, %Y" }}">{{ comment.created_at | date: "%B %d,%Y at %I:%M %p" }}</time></span>
+                </div>
+                <div class="comment-text rte"> {{ comment.content }}</div>
+
+              </div>
+
+              {% unless forloop.last %}
+              <div><hr></div>
+              {% endunless %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+          {% if paginate.pages > 1 %}
+                      <hr>
+                      <div class="pagination">
+                        {% include 'pagination' %}
+                      </div>
+                      {% endif %}
+
+        {% endpaginate %}
+      </div>
+    </section>
+    {% endif %}
+    {% if comment and comment.created_at %}
+        <p class="note form-success blog">
+          {% if blog.moderated? %}
+          {{ 'blogs.comments.success_moderated' | t }}
+          {% else %}
+          {{ 'blogs.comments.success' | t }}
+          {% endif %}
+        </p>
+        {% endif %}
+    <div id="comment_form" class="comment-respond">
+      <div class="form-vertical">
+        <div class="heading-title">
+          <h3 class="comment-reply-title">
+            <span>{{ 'blogs.comments.title' | t }}</span>
+          </h3>
+        </div>
+        {% form 'new_comment', article %}
+        {{ form.errors | default_errors }}
+        <div class="comment_form">
+          <div class="col-md-6 col-xs-12 col-sm-6">
+            <label for="CommentAuthor">{{ 'blogs.comments.name' | t }}
+              <span class="required">*</span></label>
+            <input class="input-field{% if form.errors contains 'author' %} error{% endif %}" placeholder="{{ 'blogs.comments.name' | t }}" value="{{ form.author }}" autocapitalize="words" type="text" name="comment[author]" id="CommentAuthor" />
+          </div>
+          <div class="col-md-6 col-xs-12 col-sm-6">
+            <label for="CommentEmail">{{ 'blogs.comments.email' | t }}<span class="required">*</span></label>
+            <input type="email" name="comment[email]" id="CommentEmail" class="input-field{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'blogs.comments.email' | t }}" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
+          </div>
+          <div class="text_area_form col-md-12 col-xs-12">
+            <label for="CommentBody">{{ 'blogs.comments.message' | t }}</label>
+            <textarea name="comment[body]" id="CommentBody" class="input-field{% if form.errors contains 'body' %} error{% endif %}" placeholder="{{ 'blogs.comments.message' | t }}">{{ form.body }}</textarea>
+          </div>
+          {% if blog.moderated? %}
+          <p>{{ 'blogs.comments.moderated' | t }}</p>
+          {% endif %}           
+          <div class="col-md-12 text-right">
+            <input type="submit" class="btn-submit btn-hover" value="{{ 'blogs.comments.post' | t }}">
+          </div>
+        </div>
+        {% endform %}
+      </div>
+      <!--#respond-->
+    </div>
+
+
+  </article>
+  {% if section.settings.article_show_sidebar %}
+  <aside class="col-lg-3 col-xs-12 col-sm-4 sidebar">
+    {% include 'blog-sidebar' %}
+  </aside>
+  {% endif %} 
+</div>
+
+{% schema %}
+  {
+    "name": "Posts",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "article_show_sidebar",
+        "label": "Show Sidebar",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": "Show author",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_tag",
+        "label": "Show Tag",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

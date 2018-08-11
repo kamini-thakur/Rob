@@ -1,0 +1,327 @@
+{% if section.settings.enable_featured_product %}
+<div data-section-type="collection-list" data-section-id="{{ section.id }}">
+  <section id="featured">
+    <div class="container product-tabs">
+      <div class="top">
+        <h2 class="wline">{{ section.settings.section_title }}</h2>
+        <ul class="choose">
+          {% if section.settings.collection_title_1 != '' %}
+          <li><a href="#tab-1">{{ section.settings.collection_title_1 }}</a></li>
+          {% endif %}
+          {% if section.settings.collection_title_2 != '' %}
+          <li><a href="#tab-2"> {{ section.settings.collection_title_2 }}</a></li> 
+          {% endif %}
+          {% if section.settings.collection_title_3 != '' %}
+          <li><a href="#tab-3">{{ section.settings.collection_title_3 }}</a></li>
+          {% endif %}
+          {% if section.settings.collection_title_4 != '' %}
+          <li><a href="#tab-4">{{ section.settings.collection_title_4 }}</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      {% case section.settings.grid %}
+      {% when '2' %}
+      {%- assign grid_item_width = 'col-xs-12 col-sm-6 col-md-6' -%}
+      {%- assign image_size = '540x600' -%}
+      {% when '3' %}
+      {%- assign grid_item_width = 'col-xs-12 col-sm-6 col-md-4' -%}
+      {%- assign image_size = '345x550' -%}
+      {% endcase %}
+
+      {%- assign product_limit = section.settings.grid | times: section.settings.grid_row -%}
+      <div class="row">
+        {% for block in section.blocks %}
+        {% capture tabs %}tab-{{ forloop.index }}{% endcapture %}
+        {% capture tabs_avlb %}collection_title_{{ forloop.index }}{% endcapture %}
+        {% if section.settings[tabs_avlb]  != '' %}
+        <div id="{{ tabs }}">
+          {% for product in collections[block.settings.collection].products limit: product_limit %}
+          {% capture tabs %}tab-{{ forloop.index }}{% endcapture %}
+          <div class="{{ grid_item_width }} featured-product home-prod-height">
+            {% include 'homepage-product-grid' %}
+          </div>
+          {% else %}
+
+          {% for i in (1..product_limit) %}
+          <div class="featured-product home-prod-height {{ grid_item_width }}">
+            <div class="product coll-info-height">
+              <a href="#" class="grid-view-item__link">
+                <div class="grid-view-item__image">
+                  {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                  {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+                <span class="name">{{ 'homepage.onboarding.product_title' | t }}</span>
+                <span class="price">$19.19</span>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Featured collection",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_featured_product",
+        "label": "Enable Featured Product",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Heading",
+        "default": "Featured Product"
+      },
+      {
+        "type": "text",
+        "id": "collection_title_1",
+        "label": "Collection 1",
+        "default": "Collection Title 1"
+      },
+      {
+        "type": "text",
+        "id": "collection_title_2",
+        "label": "Collection 2",
+        "default": "Collection Title 2"
+      },
+      {
+        "type": "text",
+        "id": "collection_title_3",
+        "label": "Collection 3",
+        "default": "Collection Title 3"
+      },
+      {
+        "type": "text",
+        "id": "collection_title_4",
+        "label": "Collection 4",
+        "default": "Collection Title 4"
+      },
+      {
+        "type": "select",
+        "id": "grid",
+        "label": "Collections per row",
+        "default": "3",
+        "options": [
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "grid_row",
+        "label": "Product row",
+        "default": "3",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          }
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "type": "featured_collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection list",
+        "category": "Collection",
+        "settings": {
+        "grid": "4"
+        },
+        "blocks": [
+          {
+            "type": "featured_collection"
+          },
+          {
+            "type": "featured_collection"
+          },
+          {
+            "type": "featured_collection"
+          },
+          {
+            "type": "featured_collection"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{% javascript %}
+/* jquery for section load */
+function ftrload() {
+  $('ul.choose').each(function(){
+      var active, content, links = $(this).find('a');
+      active = links.first().addClass('active');
+      content = $(active.attr('href'));
+      links.not(':first').each(function () {
+        $($(this).attr('href')).hide();
+      });
+      $(this).find('a').click(function(e){
+        active.removeClass('active');
+        content.hide();
+        active = $(this);
+        content = $($(this).attr('href'));
+        active.addClass('active');
+        content.show();
+        return false;
+      });
+    });
+
+    function fixButtonHeights() {
+      var heights = new Array();
+
+      // Loop to get all element heights
+      $('.home-prod-height').each(function() { 
+
+        // Need to let sizes be whatever they want so no overflow on resize
+        $(this).css('min-height', '0');
+        $(this).css('max-height', 'none');
+        $(this).css('height', 'auto');
+
+        // Then add size (no units) to array
+        heights.push($(this).height());
+      });
+
+      // Find max height of all elements
+      var max = Math.max.apply( Math, heights );
+
+      // Set all heights to max height
+      $('.home-prod-height').each(function() {
+
+        $(this).css('height', max + 'px');
+        // Note: IF box-sizing is border-box, would need to manually add border
+
+      }); 
+    }
+
+
+      // Fix heights on page load
+      fixButtonHeights();
+
+      // Fix heights on window resize
+      $(window).resize(function() {
+        // Needs to be a timeout function so it doesn't fire every ms of resize
+        setTimeout(function() {
+          fixButtonHeights();
+        }, 100);
+      });
+ 
+  }
+
+
+$(document)
+ .on( 'shopify:section:load', ftrload )
+;
+/* ends */
+
+  $(document).ready(function() {
+    $('ul.choose').each(function(){
+      var active, content, links = $(this).find('a');
+      active = links.first().addClass('active');
+      content = $(active.attr('href'));
+      
+     links.not(':first').each(function () {
+        $($(this).attr('href')).hide();
+      });
+      $(this).find('a').click(function(e){
+        active.removeClass('active');
+        content.hide();
+        active = $(this);
+        content = $($(this).attr('href'));
+        active.addClass('active');
+        content.show();
+        return false;
+      });
+    });
+  });
+<!-- $( document ).ready(function() {
+  (function($){
+    function fixButtonHeights() {
+      var heights = new Array();
+
+      // Loop to get all element heights
+      $('.home-prod-height').each(function() { 
+        // Need to let sizes be whatever they want so no overflow on resize
+        $(this).css('min-height', '0');
+        $(this).css('max-height', 'none');
+        $(this).css('height', 'auto');
+
+        // Then add size (no units) to array
+        heights.push($(this).height());
+      });
+
+      // Find max height of all elements
+      var max = Math.max.apply( Math, heights );
+
+      // Set all heights to max height
+      $('.home-prod-height').each(function() {
+        $(this).css('height', max + 'px');
+        // Note: IF box-sizing is border-box, would need to manually add border
+
+      }); 
+    }
+
+    $(window).load(function() {
+      // Fix heights on page load
+      fixButtonHeights();
+
+      // Fix heights on window resize
+      $(window).resize(function() {
+        // Needs to be a timeout function so it doesn't fire every ms of resize
+        setTimeout(function() {
+          fixButtonHeights();
+        }, 100);
+      });
+    });
+  })(jQuery);
+    }); -->
+{% endjavascript %}
+
+{% stylesheet %}
+{% endstylesheet %}
+

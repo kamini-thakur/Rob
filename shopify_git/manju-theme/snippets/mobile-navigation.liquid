@@ -1,0 +1,288 @@
+<!-- Mobile header -->			
+<nav id="mobile-nav" class="col-xs-10 col-sm-4">
+  <div class="searchform" style="padding-top: 10px;float: left;padding-bottom: 10px;">
+    <form action="/search" method="get" role="search">
+      <input style="width: 70%;float: left;display: inline-block;padding: 5px;font-size: 13px;" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field" aria-label="{{ 'general.search.placeholder' | t }}">
+      <input style="width: 30%;float: left;display: inline-block;margin: 0;height: 32px;padding: 5px;font-s;font-size: 13px;line-height: 20px;" type="submit" value="Search" />
+    </form>
+  </div>
+  {% if settings.menu-link1 and settings.menu-link1 != '' %}
+  {% capture menu %}{{ settings.megamenu1_text | handleize }}{% endcapture %}
+  <div class="mob-table"><a href="{{ settings.megamenu1_link }}">{{ menu | replace:"-"," "}}</a><span class="icon-down" onclick="show_submenu('{{ menu }}-submenu')"></span></div>
+  {% if settings.megamenu1_sub_toggle and settings.megamenu1_sub_toggle != '' %}
+  <div id="{{ menu }}-submenu" class="submenu-list">	 
+    {% for i in (1..4) %}     
+    {% capture collection_iteration %}megamenu1_sub_col__{{ i }}{% endcapture %}
+    {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+
+    <span class="title">{{ linklists[collection_name].title  }}</span>
+    {% for link_sub in linklists[collection_name].links  %}
+    <a href="{{ link_sub.url }}">{{ link_sub.title }}</a>
+    {% endfor %}
+
+    {% endfor %}
+  </div>
+  {% else %}
+  <div  id="{{ menu }}-submenu" class="submenu-list">
+    <span class="title">{{ menu }}</span>
+    {% for link in linklists[menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {% if settings.menu-link2 and settings.menu-link2 != '' %}
+  {% capture menu %}{{ settings.megamenu2_text | handleize }}{% endcapture %}
+  <div class="mob-table"><a href="{{ settings.megamenu2_link }}">{{ menu | replace:"-"," "}}</a> <span class="icon-down" onclick="show_submenu('{{ menu }}-submenu')"></span></div>
+  {% if settings.megamenu2_sub_toggle and settings.megamenu2_sub_toggle != '' %}
+  <div id="{{ menu }}-submenu" class="submenu-list">	 
+    {% for i in (1..4) %}     
+    {% capture collection_iteration %}megamenu2_sub_col__{{ i }}{% endcapture %}
+    {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+
+    <span class="title">{{ linklists[collection_name].title  }}</span>
+    {% for link_sub in linklists[collection_name].links  %}
+    <a href="{{ link_sub.url }}">{{ link_sub.title }}</a>
+    {% endfor %}
+
+    {% endfor %}
+  </div>
+  {% else %}
+  <div  id="{{ menu }}-submenu" class="submenu-list">
+    <span class="title">{{ menu }}</span>
+    {% for link in linklists[menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {% if settings.menu-link3 and settings.menu-link3 != '' %}
+  {% capture menu %}{{ settings.megamenu3_text | handleize }}{% endcapture %}
+  <div class="mob-table"><a href="{{ settings.megamenu3_link }}">{{ menu | replace:"-"," "}}</a> <span class="icon-down" onclick="show_submenu('{{ menu }}-submenu')"></span></div>
+  {% if settings.megamenu3_sub_toggle and settings.megamenu3_sub_toggle != '' %}
+  <div id="{{ menu }}-submenu" class="submenu-list">	 
+    {% for i in (1..4) %}     
+    {% capture collection_iteration %}megamenu1_sub_col__{{ i }}{% endcapture %}
+    {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+
+    <span class="title">{{ linklists[collection_name].title  }}</span>
+    {% for link_sub in linklists[collection_name].links  %}
+    <a href="{{ link_sub.url }}">{{ link_sub.title }}</a>
+    {% endfor %}
+
+    {% endfor %}
+  </div>
+  {% else %}
+  <div  id="{{ menu }}-submenu" class="submenu-list">
+    <span class="title">{{ menu }}</span>
+    {% for link in linklists[menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {% if settings.menu-link4 and settings.menu-link4 != '' %}
+  {% capture menu %}{{ settings.megamenu4_text | handleize }}{% endcapture %}
+  <div class="mob-table"><a href="{{ settings.megamenu4_link }}">{{ menu | replace:"-"," "}}</a> <span class="icon-down" onclick="show_submenu('{{ menu }}-submenu')"></span></div>
+  {% if settings.megamenu4_sub_toggle and settings.megamenu4_sub_toggle != '' %}
+  <div id="{{ menu }}-submenu" class="submenu-list">	 
+    {% for i in (1..4) %}     
+    {% capture collection_iteration %}megamenu4_sub_col__{{ i }}{% endcapture %}
+    {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+
+    <span class="title">{{ linklists[collection_name].title  }}</span>
+    {% for link_sub in linklists[collection_name].links  %}
+    <a href="{{ link_sub.url }}">{{ link_sub.title }}</a>
+    {% endfor %}
+
+    {% endfor %}
+  </div>
+  {% else %}
+  <div  id="{{ menu }}-submenu" class="submenu-list">
+    <span class="title">{{ menu }}</span>
+    {% for link in linklists[menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {% if settings.menu-link5 and settings.menu-link5 != '' %}
+  {% capture menu %}{{ settings.megamenu5_text | handleize }}{% endcapture %}
+  <div class="mob-table"><a href="{{ settings.megamenu5_link }}">{{ menu | replace:"-"," "}}</a> <span class="icon-down" onclick="show_submenu('{{ menu }}-submenu')"></span></div>
+  {% if settings.megamenu5_sub_toggle and settings.megamenu5_sub_toggle != '' %}
+  <div id="{{ menu }}-submenu" class="submenu-list">	 
+    {% for i in (1..4) %}     
+    {% capture collection_iteration %}megamenu5_sub_col__{{ i }}{% endcapture %}
+    {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+
+    <span class="title">{{ linklists[collection_name].title  }}</span>
+    {% for link_sub in linklists[collection_name].links  %}
+    <a href="{{ link_sub.url }}">{{ link_sub.title }}</a>
+    {% endfor %}
+
+    {% endfor %}
+  </div>
+  {% else %}
+  <div  id="{{ menu }}-submenu" class="submenu-list">
+    <span class="title">{{ menu }}</span>
+    {% for link in linklists[menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {% if settings.menu-link6 and settings.menu-link6 != '' %}
+  {% capture menu %}{{ settings.megamenu6_text | handleize }}{% endcapture %}
+  <div class="mob-table"><a href="{{ settings.megamenu6_link }}">{{ menu | replace:"-"," "}}</a> <span class="icon-down" onclick="show_submenu('{{ menu }}-submenu')"></span></div>
+  {% if settings.megamenu6_sub_toggle and settings.megamenu6_sub_toggle != '' %}
+  <div id="{{ menu }}-submenu" class="submenu-list">	 
+    {% for i in (1..4) %}     
+    {% capture collection_iteration %}megamenu6_sub_col__{{ i }}{% endcapture %}
+    {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+
+    <span class="title">{{ linklists[collection_name].title  }}</span>
+    {% for link_sub in linklists[collection_name].links  %}
+    <a href="{{ link_sub.url }}">{{ link_sub.title }}</a>
+    {% endfor %}
+
+    {% endfor %}
+  </div>
+  {% else %}
+  <div  id="{{ menu }}-submenu" class="submenu-list">
+    <span class="title">{{ menu }}</span>
+    {% for link in linklists[menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {% if settings.menu-link7 and settings.menu-link7 != '' %}
+  {% capture menu %}{{ settings.megamenu7_text | handleize }}{% endcapture %}
+  <div class="mob-table"><a href="{{ settings.megamenu7_link }}">{{ menu | replace:"-"," "}}</a> <span class="icon-down" onclick="show_submenu('{{ menu }}-submenu')"></span></div>
+  {% if settings.megamenu7_sub_toggle and settings.megamenu7_sub_toggle != '' %}
+  <div id="{{ menu }}-submenu" class="submenu-list">	 
+    {% for i in (1..4) %}     
+    {% capture collection_iteration %}megamenu7_sub_col__{{ i }}{% endcapture %}
+    {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+
+    <span class="title">{{ linklists[collection_name].title  }}</span>
+    {% for link_sub in linklists[collection_name].links  %}
+    <a href="{{ link_sub.url }}">{{ link_sub.title }}</a>
+    {% endfor %}
+
+    {% endfor %}
+  </div>
+  {% else %}
+  <div  id="{{ menu }}-submenu" class="submenu-list">
+    <span class="title">{{ menu }}</span>
+    {% for link in linklists[menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+  {% if settings.menu-link8 and settings.menu-link8 != '' %}
+  {% capture menu %}{{ settings.megamenu8_text | handleize }}{% endcapture %}
+  <div class="mob-table"><a href="{{ settings.megamenu8_link }}">{{ menu | replace:"-"," "}}</a> <span class="icon-down" onclick="show_submenu('{{ menu }}-submenu')"></span></div>
+  {% if settings.megamenu8_sub_toggle and settings.megamenu1_sub_toggle != '' %}
+  <div id="{{ menu }}-submenu" class="submenu-list">	 
+    {% for i in (1..4) %}     
+    {% capture collection_iteration %}megamenu8_sub_col__{{ i }}{% endcapture %}
+    {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+
+    <span class="title">{{ linklists[collection_name].title  }}</span>
+    {% for link_sub in linklists[collection_name].links  %}
+    <a href="{{ link_sub.url }}">{{ link_sub.title }}</a>
+    {% endfor %}
+
+    {% endfor %}
+  </div>
+  {% else %}
+  <div  id="{{ menu }}-submenu" class="submenu-list">
+    <span class="title">{{ menu }}</span>
+    {% for link in linklists[menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {% if settings.menu-link9 and settings.menu-link9 != '' %}
+  {% capture menu %}{{ settings.megamenu9_text | handleize }}{% endcapture %}
+  <div class="mob-table"><a href="{{ settings.megamenu9_link }}">{{ menu | replace:"-"," "}}</a> <span class="icon-down" onclick="show_submenu('{{ menu }}-submenu')"></span></div>
+  {% if settings.megamenu9_sub_toggle and settings.megamenu9_sub_toggle != '' %}
+  <div id="{{ menu }}-submenu" class="submenu-list">	 
+    {% for i in (1..4) %}     
+    {% capture collection_iteration %}megamenu9_sub_col__{{ i }}{% endcapture %}
+    {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+
+    <span class="title">{{ linklists[collection_name].title  }}</span>
+    {% for link_sub in linklists[collection_name].links  %}
+    <a href="{{ link_sub.url }}">{{ link_sub.title }}</a>
+    {% endfor %}
+
+    {% endfor %}
+  </div>
+  {% else %}
+  <div  id="{{ menu }}-submenu" class="submenu-list">
+    <span class="title">{{ menu }}</span>
+    {% for link in linklists[menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {% if settings.menu-link10 and settings.menu-link10 != '' %}
+  {% capture menu %}{{ settings.megamenu10_text | handleize }}{% endcapture %}
+  <div class="mob-table"><a href="{{ settings.megamenu10_link }}">{{ menu | replace:"-"," "}}</a> <span class="icon-down" onclick="show_submenu('{{ menu }}-submenu')"></span></div>
+  {% if settings.megamenu10_sub_toggle and settings.megamenu10_sub_toggle != '' %}
+  <div id="{{ menu }}-submenu" class="submenu-list">	 
+    {% for i in (1..4) %}     
+    {% capture collection_iteration %}megamenu10_sub_col__{{ i }}{% endcapture %}
+    {% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}   
+
+    <span class="title">{{ linklists[collection_name].title  }}</span>
+    {% for link_sub in linklists[collection_name].links  %}
+    <a href="{{ link_sub.url }}">{{ link_sub.title }}</a>
+    {% endfor %}
+
+    {% endfor %}
+  </div>
+  {% else %}
+  <div  id="{{ menu }}-submenu" class="submenu-list">
+    <span class="title">{{ menu }}</span>
+    {% for link in linklists[menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+  <div class="right-menu-mobile">
+    {% comment %} <span class="lang">
+    <a href="#" class="active">EN</a> / <a href="#">DE</a> / <a href="#">FR</a>
+    </span>  {% endcomment %}
+    <div class="currency col-xs-12 col-md-12 padding-0">
+      {% include 'currency-picker' %}
+    </div>
+    {% if shop.customer_accounts_enabled %}
+    {% if customer %}    
+    <div class="acc col-xs-12 col-md-12 padding-0">
+      <a href="/account"><div class="btn">{% if customer.first_name != blank %} {{ customer.first_name }} {% else %}  {{ 'layout.customer.account' | t }} {% endif %} | {{ 'layout.customer.log_out' | t | customer_logout_link }}</div></a>
+    </div>
+    {% else %}
+    <div class="acc col-xs-12 col-md-12 padding-0">
+      <a href="/account"><div class="btn">{{ 'layout.customer.log_in' | t }}</div></a>
+    </div>
+    {% endif %}
+    {% endif %}
+
+  </div>
+</nav>
+<!-- /Mobile header -->

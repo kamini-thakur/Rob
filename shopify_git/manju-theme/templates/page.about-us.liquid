@@ -1,0 +1,103 @@
+<!-- /templates/page.liquid -->
+<div id="about-us-page">
+  <div class="container">
+    <div class="row">
+      {% comment %}
+      Regular page content goes here.
+      {% endcomment %}
+      <div class="rte">
+        {{ page.content }}
+      </div>
+      <section id="our-clients-say">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <div style="text-align: center;">
+                <h2>{{ settings.testimonial-title }}</h2>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4">
+              <div class="client-story">
+                <img src="{{ 'client-img-1.jpg' | asset_url }}" alt="" />
+                <span class="client-name">{{ settings.client-name-1 }}</span>
+                <span class="client-job">{{ settings.client-desi-1 }}</span>
+                <p>{{ settings.client-tesimonil-1 }}</p>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4">
+              <div class="client-story">
+                <img src="{{ 'client-img-2.jpg' | asset_url }}" alt="" />
+                <span class="client-name">{{ settings.client-name-2 }}</span>
+                <span class="client-job">{{ settings.client-desi-2 }}</span>
+                <p>{{ settings.client-tesimonil-2 }}</p>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4">
+              <div class="client-story">
+                <img src="{{ 'client-img-3.jpg' | asset_url }}" alt="" />
+                <span class="client-name">{{ settings.client-name-3 }}</span>
+                <span class="client-job">{{ settings.client-desi-3 }}</span>
+                <p>{{ settings.client-tesimonil-3 }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="our-skills">
+        <div class="container-fluid ourskills">
+          <div class="row">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div style="text-align: center;">
+                    <h2>{{ settings.features }}</h2>
+                    <p class="subtitle">{{ settings.sub-title }}</p>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                  <div class="feature">
+                    <span class="feature-name">{{ settings.progress-bar-title-1 }}</span>
+                    <p class="feature-description">{{ settings.progress-bar-para-1 }}</p>
+                    <div class="percentage" style="width:{{ settings.progress-bar-title-clr-1 }}"><div class="text"><span>{{ settings.progress-bar-title-clr-1 }}</span></div></div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                  <div class="feature">
+                    <span class="feature-name">{{ settings.progress-bar-title-2 }}</span>
+                    <p class="feature-description">{{ settings.progress-bar-para-2 }}</p>
+                    <div class="percentage" style="width:{{ settings.progress-bar-title-clr-2 }}"><div class="text"><span>{{ settings.progress-bar-title-clr-2 }}</span></div></div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                  <div class="feature">
+                    <span class="feature-name">{{ settings.progress-bar-title-3 }}</span>
+                    <p class="feature-description">{{ settings.progress-bar-para-3 }}</p>
+                    <div class="percentage" style="width:{{ settings.progress-bar-title-clr-3 }}"><div class="text"><span>{{ settings.progress-bar-title-clr-3 }}</span></div></div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                  <div class="feature">
+                    <span class="feature-name">Trendsetter</span>
+                    <p class="feature-description">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                    <div class="percentage" style="width:{{ settings.progress-bar-title-clr-4 }}"><div class="text"><span>{{ settings.progress-bar-title-clr-4 }}</span></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <a href="{{ settings.about-btn-url }}" class="button">{{ settings.about-btn }}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>

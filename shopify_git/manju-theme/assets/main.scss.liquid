@@ -1,0 +1,49 @@
+$font-indie: 'Indie Flower', cursive;
+
+.hidden,
+.shopify-preview-bar__section {
+  display: block !important;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  width: 100%;
+
+/*   &.demo {
+    background-image: url('{{ "mockup-screen-1.jpg" | asset_url }}');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+  } */
+}
+
+.gmx-overlay {
+  background-color: fade-out(#db161e, .25);
+  font-family: $font-indie;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  .content {
+    color: #fff;
+    left: 50%;
+    position: relative;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+
+    img {
+      display: inline-block;
+      width: 200px;
+    }
+    h1 {
+      display: block;
+      margin-top: 0;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+  }
+}

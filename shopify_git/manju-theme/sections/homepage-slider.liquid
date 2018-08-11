@@ -1,0 +1,259 @@
+{{ 'owl.carousel.js' | asset_url | script_tag }}
+    {{ 'owl.carousel.min.js' | asset_url | script_tag }}
+{% if section.settings.enable_slider %}
+<div data-section-id="{{ section.id }}" data-section-type="slideshow-section">
+  <div class="tp-banner-container">
+    <div class="tp-banner">
+      <ul>
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.settings.enable_slide %}
+
+        <li data-transition="fade" data-slotamount="7" data-masterspeed="1500" class="svg-image" >
+          {% if block.settings.bg_image != blank %}
+          {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+
+          <img src="{{ block.settings.bg_image | img_url: '1024x' }}"  alt="slidebg1"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+          <!-- LAYER NR. 1 -->
+          <div class="tp-caption skewfromright fadeout start" data-x="{% if forloop.index == 1 %}right{% elsif forloop.index == 2 %}center{% elsif forloop.index == 3 %}center{% endif %}" data-y="{% if forloop.index == 1 %}center{% elsif forloop.index == 2 %}center{% elsif forloop.index == 3 %}center{% endif %}" data-speed="500" data-start="1200"  data-easing="Power4.easeOut"   >
+            {% if block.settings.slide_caption %}<div class="big-bg-text" style="color: {{ block.settings.caption_color}};">{{ block.settings.slide_caption }}</div> {% endif %}
+          </div>
+
+          <!-- LAYER NR. 2 -->
+<!--           <div class="tp-caption slidemaskfrombottom fadeout hidden-xs hidden-sm" data-x="{% if forloop.index == 1 %}right{% elsif forloop.index == 2 %}center{% elsif forloop.index == 3 %}center{% endif %}" data-y="{% if forloop.index == 1 %}0{% elsif forloop.index == 2 %}0{% elsif forloop.index == 3 %}0{% endif %}" data-speed="500" data-start="1200" data-easing="Power4.easeOut">
+            <img src="{{ block.settings.image | img_url: '1024x' }}" alt="" width="650" height="867" data-ww="302px" data-hh="152px" data-no-retina>
+          </div> -->
+          <!-- LAYER NR. 3 -->
+          {% if block.settings.main_title != blank %}
+          <div class="tp-caption bigtext skewfromright fadeout" data-x="center" data-y="280" data-speed="500" data-start="1200" data-easing="Power4.easeOut">
+            {{ block.settings.main_title }}
+          </div>
+          {% endif %}
+          <!-- LAYER NR. 4 -->
+          {% if block.settings.subheading != blank %}
+          <div class="tp-caption subtitle skewfromleft fadeout" data-x="center" data-y="360" data-speed="500" data-start="1200" data-easing="Power4.easeOut">
+            {{ block.settings.subheading }}
+          </div>
+          {% endif %}
+          <!-- LAYER NR. 5 -->
+          {% if block.settings.link != blank %}
+          <div class="tp-caption skewfromright fadeout" data-x="center" data-y="405" data-speed="50" data-start="1200" data-easing="Power4.easeOut">
+            <div class="separate"></div>
+          </div>
+          {% endif %}
+          <!-- LAYER NR. 6 -->
+          {% if block.settings.link == blank %} 
+          <div class="tp-caption skewfromleft fadeout" data-x="center" data-y="450" data-speed="500" data-start="1200" data-easing="Power4.easeOut">
+            <a href="{{ block.settings.link }}" class="slider-btn transparent">{{ block.settings.link_title }}</a>
+          </div>
+          {% endif %}
+           {% if block.settings.link2 == blank %} 
+          <div class=" link2" data-x="center" data-y="450" data-speed="500" data-start="1200" data-easing="Power4.easeOut">
+            <a href="{{ block.settings.link2 }}" class="slider-btn transparent">{{ block.settings.link_title2 }}</a>
+          </div>
+          {% endif %}
+           {% if block.settings.link3 == blank %} 
+          <div class=" link3" data-x="center" data-y="450" data-speed="500" data-start="1200" data-easing="Power4.easeOut">
+            <a href="{{ block.settings.link3}}" class="slider-btn transparent">{{ block.settings.link_title3 }}</a>
+          </div>
+          {% endif %}
+           {% if block.settings.link4== blank %} 
+          <div class=" link4" data-x="center" data-y="450" data-speed="500" data-start="1200" data-easing="Power4.easeOut">
+            <a href="{{ block.settings.link4 }}" class="slider-btn transparent">{{ block.settings.link_title4 }}</a>
+          </div>
+          {% endif %}
+
+          <div id="rs-current-page"></div>
+          {% else %}
+          {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+          {% capture svg_tag_class %}placeholder-noblocks slide-link slide-link--{{ block.id }}{% endcapture %}
+          {%- assign placeholder = 'placeholder-lifestyle-' | append: current -%}
+          {{ 'lifestyle-' | append: current | placeholder_svg_tag: svg_tag_class }}
+          {% endif %}
+
+        </li>
+        {% endif %}        
+        {% endfor %}
+        {% endif %}
+      </ul>
+
+    </div>
+    <div id="rs-pages"></div> 
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+ {
+  "name": "Slideshow",
+  "class": "index-section index-section--flush",
+  "max_blocks": 6,
+  "settings": [
+     {
+       "type": "checkbox",
+       "id": "enable_slider",
+       "label": "Enable Slider",
+       "default": true
+      }
+   ],
+  "blocks": [
+    {
+    "type": "image",
+    "name": "Image slide",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_slide",
+        "label": "Enable Slide",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Background Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "slide_caption",
+        "label": "Slide Caption",
+        "default": "Slide caption"
+      },
+      {
+        "type": "color",
+        "id": "caption_color",
+        "label": "Caption Color",
+        "default": "#fff"
+      },
+      {
+        "type": "text",
+        "id": "main_title",
+        "label": "Heading",
+        "default": "Image slide"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Tell your brand's story through video and images"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Slide link"
+       },
+       {
+        "type": "text",
+        "id": "link_title",
+        "label": "Slide Button Text"
+       },
+      {
+        "type": "url",
+        "id": "link2",
+        "label": "Slide link"
+       },
+       {
+        "type": "text",
+        "id": "link_title2",
+        "label": "Slide Button Text"
+       },
+      {
+        "type": "url",
+        "id": "link3",
+        "label": "Slide link"
+       },
+       {
+        "type": "text",
+        "id": "link_title3",
+        "label": "Slide Button Text"
+       } ,     {
+        "type": "url",
+        "id": "link4",
+        "label": "Slide link"
+       },
+       {
+        "type": "text",
+        "id": "link_title4",
+        "label": "Slide Button Text"
+       }
+      ]
+      }
+     ],
+        "presets": [{
+        "name": "Slideshow",
+        "category": "Image",
+        "blocks": [
+        {
+        "type": "image"
+        },
+        {
+        "type": "image"
+        },
+        {
+        "type": "image"
+        },
+        {
+        "type": "image"
+        },
+        {
+        "type": "image"
+        },
+        {
+        "type": "image"
+        }
+     ] 
+   }
+ ]
+}
+{% endschema %}
+
+{% javascript %}
+
+function revload() {
+  jQuery('.tp-banner').revolution(
+			{
+				delay:8000,
+				startwidth:1170,
+				startheight:860,
+				hideThumbs:0,
+				navigationStyle:'custom-bullets',
+				navigationVAlign:'bottom',
+				navigationHAlign:'right',
+					
+				soloArrowRightHalign:'right',
+			    soloArrowRightValign:'bottom',
+			    soloArrowRightHOffset:22,
+			    soloArrowRightVOffset:120,
+			
+				soloArrowLeftHalign:'right',
+			    soloArrowLeftValign:'bottom',
+			    soloArrowLeftHOffset:22,
+			    soloArrowLeftVOffset:120
+			});
+			//positioning the left (up) arrow on the slider
+			var bottommargin = $('.tp-bullets').height() + 33 + 'px';
+			$('.tp-leftarrow').css('margin-bottom', bottommargin);
+			
+			// Adding numbers to pages
+			var rs_pages_count = $('.tp-banner li').length;
+			$('#rs-pages').html('<span>' + rs_pages_count + '</span>');
+				
+			for (var i = 0; i < $('.tp-banner li').length; i++) {
+				var slides = $('.tp-banner li #rs-current-page');
+				var selector = slides[i];
+				$(selector).html(i + 1);
+			}
+		
+
+}
+ 
+$(document)
+ .on('shopify:section:load', revload )
+;
+
+{% endjavascript %}
+                                 

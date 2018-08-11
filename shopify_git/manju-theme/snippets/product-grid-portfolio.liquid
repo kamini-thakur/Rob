@@ -1,0 +1,149 @@
+<!-- /snippets/product-grid-item.liquid -->
+{% comment %}
+
+This snippet is used to showcase each product during the loop,
+'for product in collection.products' in collection.liquid.
+
+A liquid variable (grid_item_width) is set just before the this
+snippet is included to change the size of the container.
+Once the variable is set on a page, all future instances of this
+snippet will use that width. Overwrite the variable to adjust this.
+
+Example
+- assign grid_item_width = 'large--one-quarter medium--one-half'
+
+{% endcomment %}
+
+{% comment %}
+Set the default grid_item_width if no variable is set
+{% endcomment %}
+{% unless grid_item_width %}
+{% assign grid_item_width = 'large--one-third medium--one-half' %}
+{% endunless %}
+
+{% comment %}
+Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% comment %}
+Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+  <div class="col-xs-12 col-sm-6 col-md-4 featured-product">
+						<div class="product p1">
+							<div class="share">
+								{% include 'social-sharing' %}
+							</div>
+							<a href="{{ product.url | within: collection }}" class="">
+        						<img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}">
+      						</a>
+							<span class="name"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></span>
+							<span class="price">
+                              {% comment %}
+                              You can show a leading 'from' or 'up to' by checking 'product.price_varies'
+                              if your variants have different prices.
+                              {% endcomment %}
+                              {% if on_sale %}
+                              {% if product.price_varies %}
+                              {% assign sale_price = product.price | money %}
+                              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                              {% else %}
+                              <strong>{{ 'products.product.on_sale' | t }}</strong> &nbsp;
+                              {{ product.price | money }}
+                              {% endif %}
+                              {% else %}
+                              {% if product.price_varies %}
+                              {% assign price = product.price | money %}
+                              {{ 'products.general.from_text_html' | t: price: price }}
+                              {% else %}
+                              {{ product.price | money }}
+                              {% endif %}
+                              {% endif %}
+                              {% if sold_out %}
+                              &nbsp;<br><strong>{{ 'products.product.sold_out' | t }}</strong>
+                              {% endif %}
+                              {% if on_sale %}
+                              <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                              <del><s>{{ product.compare_at_price | money }}</s></del>
+                              {% endif %}
+    					</span>
+
+							<div class="actions">
+								<a class="action" href="template/img/products/small/glasses.png" data-lightbox="image"><span class="icon-maximize-plus"></span></a>
+								<a class="action"><span class="icon-heart"></span></a>
+								<a class="action"><span class="icon-shoppingcart"></span></a>
+							</div>
+							
+							<div class="actions">
+    <a class="action" href="{{ product.featured_image.src | img_url: '1024x1024' }}" data-lightbox="image"><span class="icon-maximize-plus"></span></a>
+    {% include 'wishlist-product' %}
+    
+    <a class="action" href="{{ product.url | within: collection }}"><span class="icon-shoppingcart"></span></a>
+  </div>
+
+  <div class="colors">
+    {% include 'item-swatch' %}
+  </div>
+
+  <div class="add-to-cart open">
+    <span class="icon-plus"></span>
+  </div>
+  <div class="add-to-cart close">
+    <span class="icon-plus close-btn"></span>
+  </div>
+						</div>
+					</div>
+  
+  
+
+<script>
+  $( document ).ready(function() {
+    (function($){
+      function fixButtonHeights() {
+        var heights = new Array();
+
+        // Loop to get all element heights
+        $('.coll-info-height').each(function() { 
+          // Need to let sizes be whatever they want so no overflow on resize
+          $(this).css('min-height', '0');
+          $(this).css('max-height', 'none');
+          $(this).css('height', 'auto');
+
+          // Then add size (no units) to array
+          heights.push($(this).height());
+        });
+
+        // Find max height of all elements
+        var max = Math.max.apply( Math, heights );
+
+        // Set all heights to max height
+        $('.coll-info-height').each(function() {
+          $(this).css('height', max + 'px');
+          // Note: IF box-sizing is border-box, would need to manually add border
+
+        }); 
+      }
+
+      $(window).load(function() {
+        // Fix heights on page load
+        fixButtonHeights();
+
+        // Fix heights on window resize
+        $(window).resize(function() {
+          // Needs to be a timeout function so it doesn't fire every ms of resize
+          setTimeout(function() {
+            fixButtonHeights();
+          }, 100);
+        });
+      });
+    })(jQuery);
+  });
+</script>
+

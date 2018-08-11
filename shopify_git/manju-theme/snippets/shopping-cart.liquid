@@ -1,0 +1,34 @@
+{% if cart.item_count > 0 %}
+<div class="cont">
+ <span class="title CartCount">{{ 'cart.general.title_top_bar' | t }} ({{ cart.item_count }})</span>
+    {% for item in cart.items %}
+    <div class="item" id="item-{{item.variant_id}}">
+      {% assign found = false %}
+      {% for img in item.product.images %}
+      {% if found == false and item.variant.title contains img.alt %}
+      <img src="{{ img | product_img_url: 'medium' }}"  alt="{{ item.alt | escape }}" />
+      {% assign found = true %}
+      {% endif %}
+      {% endfor %}
+      {% if found == false %}
+      <img src="{{ item | img_url: 'medium' }}"  alt="{{ item.title | escape }}" class="item-img" />
+      {% endif %} 
+      <div class="item-details">
+        <span class="item-name"><a href="{{ item.url }}">{{ item.title }}</a></span>
+        <span class="item-price" itemprop="price" content="{{ current_variant.price | divided_by: 100 }}">{{ item.price | money }}</span>
+        <a href="#" class="btn-item-delete remove_item" data-id="{{ item.variant_id }}">
+          {{ 'cart.general.remove' | t }}
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-cart">
+<div class="empty_cart_text">
+  {{ 'cart.general.empty' | t }}
+</div>
+</div>
+{% endif %}
+
+

@@ -1,0 +1,30 @@
+<!-- /snippets/ajax-cart-template.liquid -->
+{% comment %}
+
+  This snippet provides the default handlebars.js templates for
+  the ajax cart plugin. Use the raw liquid tags to keep the
+  handlebar.js template tags as available hooks.
+
+{% endcomment %}
+  <script id="CartTemplate" type="text/template">
+  {% raw %}
+     <div class="cont">
+      <a href="/cart"> 
+      <span class="title CartCount">
+      {% endraw %}{{ 'cart.general.title_top_bar' | t }} {% raw %} ({{ totalQty }}) </span>
+      </a>
+    {{#items}}
+    <div class="item" id="item-{{variation_id}}">
+      <img src="{{img}}" alt="" class="item-img">
+      <div class="item-details">
+        <span class="item-name"><a href="{{url}}">{{name}}</a></span>
+        <span class="item-price">{{{price}}}</span>
+        <a href="#" class="btn-item-delete remove_item" data-id="{{variation_id}}">{% endraw %}{{ 'cart.general.remove' | t }} {% raw %}</a>
+      </div>
+    </div>
+    {{/items}}
+    </div>
+    
+      
+  {% endraw %}
+  </script>

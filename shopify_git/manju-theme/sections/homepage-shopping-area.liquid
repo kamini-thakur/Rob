@@ -1,0 +1,231 @@
+<!-- Big, full-width container with images -->
+<section id="bigimgs">
+  <div class="container-fluid bigimage-svg">
+    <div class="row">
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+        <div class="row">
+         {% if section.settings.shop_image_1 != blank %}
+              <style>
+                @media screen and (max-width: 150px) {
+                 #bigimgs .img {
+                    background-image: url('{{ section.settings.shop_image_1 | img_url: '150x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                      }
+                }
+
+                @media screen and (min-width: 151px) and (max-width: 300px) {
+                  #bigimgs .img {
+                    background-image: url('{{ section.settings.shop_image_1 | img_url: '300x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                  }
+                }
+
+                @media screen and (min-width: 301px) and (max-width: 600px) {
+                  #bigimgs .img {
+                    background-image: url('{{ section.settings.shop_image_1 | img_url: '600x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                  }
+                }
+
+                @media screen and (min-width: 601px) and (max-width: 800px) {
+                  #bigimgs .img {
+                    background-image: url('{{ section.settings.shop_image_1 | img_url: '800x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                  }
+                }
+
+                @media screen and (min-width: 801px) and (max-width: 1000px) {
+                  #bigimgs .img {
+                    background-image: url('{{ section.settings.shop_image_1 | img_url: '800x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                  }
+                }
+
+                @media screen and (min-width: 1001px) {
+                  #bigimgs .img {
+                    background-image: url('{{ section.settings.shop_image_1 | img_url: '1000x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                  }
+                }
+              </style>
+           
+            {% endif %}
+          
+          {% if section.settings.shop_image_1 != blank %}
+          <div class="img"></div>
+          {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-lg-4 col-md-4 col-sm-4 banner-desc">
+        <div class="row">
+          <div class="banner">
+            <h2 class="title">{{ section.settings.shop_main_text }}</h2>
+            <span class="subtitle">{{ section.settings.shop_sub_text }}</span>
+            <p class="description"> {{ section.settings.shop_desc }}</p>
+            <a href="{{ section.settings.shop_link }}" class="button">{{ section.settings.shop_button_text }}</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="row">
+          {% if section.settings.shop_image_2 != blank %}
+              <style>
+                @media screen and (max-width: 150px) {
+                  #bigimgs .img-2 {
+                    background-image: url('{{ section.settings.shop_image_2 | img_url: '150x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                      }
+                }
+
+                @media screen and (min-width: 151px) and (max-width: 300px) {
+                  #bigimgs .img-2 {
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                    background-image: url('{{ section.settings.shop_image_2 | img_url: '300x' }}');
+                  }
+                }
+
+                @media screen and (min-width: 301px) and (max-width: 600px) {
+                  #bigimgs .img-2 {
+                    background-image: url('{{ section.settings.shop_image_2 | img_url: '600x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                      }
+                }
+
+                @media screen and (min-width: 601px) and (max-width: 800px) {
+                  #bigimgs .img-2 {
+                    background-image: url('{{ section.settings.shop_image_2 | img_url: '800x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                      }
+                }
+
+                @media screen and (min-width: 801px) and (max-width: 1000px) {
+                  #bigimgs .img-2 {
+                    background-image: url('{{ section.settings.shop_image_2 | img_url: '1000x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                      }
+                }
+
+                @media screen and (min-width: 1001px) {
+                  #bigimgs .img-2 {
+                    background-image: url('{{ section.settings.shop_image_2 | img_url: '2000x' }}');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    height: 450px;
+                    background-size: cover;
+                      }
+                }
+              </style>
+           
+            {% endif %}
+          {% if section.settings.shop_image_2 != blank %}
+          <div class="img-2"></div>
+          {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Shopping Area",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_shopping_area",
+        "label": "Enable Shopping Area",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "shop_image_1",
+        "label": "Shop Image 1"
+      },
+      {
+        "type": "text",
+        "id": "shop_main_text",
+        "label": "Shop Main Text",
+        "default": "Shop Text"
+      },
+      {
+        "type": "text",
+        "id": "shop_sub_text",
+        "label": "Shop Sub Text",
+        "default": "Shop Sub Text"
+      },
+      {
+        "type": "text",
+        "id": "shop_desc",
+        "label": "Shop Description",
+        "default": "Shop Description"
+      },
+      {
+        "type": "text",
+        "id": "shop_button_text",
+        "label": "Shop Button Text"
+      },
+      {
+        "type": "url",
+        "id": "shop_link",
+        "label": "Shop Button link"
+      },
+      {
+        "type": "image_picker",
+        "id": "shop_image_2",
+        "label": "Shop Image 2"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shopping Area",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,175 @@
+
+{{ 'jquery.ui.touch-punch.js' | asset_url | script_tag }}
+<script type="text/javascript">
+  var allCookies = {
+    getItem: function(sKey) {
+      if (!sKey || !this.hasItem(sKey)) {
+        return null;
+      }
+      return unescape(document.cookie.replace(new RegExp("(?:^|.*;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1"));
+    },
+    setItem: function(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+      if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
+        return;
+      }
+      var sExpires = "";
+      if (vEnd) {
+        switch (vEnd.constructor) {
+          case Number:
+            sExpires = vEnd === Infinity ? "; expires=Tue, 19 Jan 2038 03:14:07 GMT" : "; max-age=" + vEnd;
+            break;
+          case String:
+            sExpires = "; expires=" + vEnd;
+            break;
+          case Date:
+            sExpires = "; expires=" + vEnd.toGMTString();
+            break;
+        }
+      }
+      document.cookie = escape(sKey) + "=" + escape(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+    },
+    removeItem: function(sKey, sPath) {
+      if (!sKey || !this.hasItem(sKey)) {
+        return;
+      }
+      document.cookie = escape(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sPath ? "; path=" + sPath : "");
+    },
+    hasItem: function(sKey) {
+      return (new RegExp("(?:^|;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+    },
+    keys: /* optional method: you can safely remove it! */ function() {
+      var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
+      for (var nIdx = 0; nIdx < aKeys.length; nIdx++) {
+        aKeys[nIdx] = unescape(aKeys[nIdx]);
+      }
+      return aKeys;
+    }
+  };
+
+  function showProducts(minPrice, maxPrice) {
+    var arr = [];
+    $(".product_price").hide().filter(function() {
+      var price = parseInt($(this).data("price"), 10);
+      arr.push(price);
+      return price >= minPrice && price <= maxPrice;
+    }).show();
+
+  }
+  var min_value = parseInt(allCookies.getItem("cookie_min_val"), 10);
+  min_value = (min_value > 0) ? min_value : 0;
+
+  var max_value = parseInt(allCookies.getItem("cookie_max_val"), 10);
+  max_value = (max_value > 0) ? max_value : 0;
+  //alert(cookie_val);
+
+  function slider_updt(min, max, cursbl) {
+
+    var options = {
+      range: true,
+      min: min,
+      touchonly: true,
+      max: max,
+      values: [min_value ? min_value : 0, max_value ? max_value : max],
+      slide: function(event, ui) {
+        var min = ui.values[0],
+            max = ui.values[1];
+        $('.minamount').val(cursbl + " " + ui.values[0]);
+        $('.maxamount').val(cursbl + " " + ui.values[1]);
+        $('.minamount').data('prod_price_min', ui.values[0]);
+        $('.maxamount').data('prod_price_max', ui.values[1]);
+        //$("#amount").val(newCurrency +" " + ui.values[0] + " - "  + newCurrency + " "+ ui.values[1]);
+        allCookies.setItem("cookie_min_val", min, "", "/");
+        allCookies.setItem("cookie_max_val", max, "", "/");
+        // showProducts(min, max);
+      }
+    },
+        min, max;
+    $("#slider-range").slider(options);
+    min = $("#slider-range").slider("values", 0);
+    max = $("#slider-range").slider("values", 1);
+
+    $('.minamount').data('prod_price_min', min);
+    $('.maxamount').data('prod_price_max', max);
+    if(min != 'Infinity')
+    {
+      $('.minamount').val(cursbl + " " + min);
+      $('.maxamount').val(cursbl + " " + max);
+    }
+    else
+    {
+      $('.minamount').val('0');
+      $('.maxamount').val('0');
+    }
+    // $("#amount").val(Currency.currentCurrency +" " + min + " - "  + Currency.currentCurrency + " "+ max);
+
+    showProducts(min, max);
+  }
+  function price_flt() {
+    var cursbl = String($("#product_collection .product_price").find(".price").find('.money').eq(0).text().replace(/-?[0-9]*\.?[0-9]+/, ""));
+    var prices = [];
+    $("#product_collection .product_price").find(".price").each(function() {
+      var number = Number($(this).find('.money').eq(0).text().replace(/[^0-9\.-]+/g, ""));
+      var price2 = parseInt(number, 10);
+      prices.push(price2);
+      $(this).closest(".product_price").data('price', price2);
+
+    });
+    prices.sort(function(a, b) {
+      return a - b
+    });
+    var low = Math.min.apply(Math, prices);
+    var high = Math.max.apply(Math, prices);
+
+    slider_updt(low, high, cursbl);
+
+  }
+  $(function() {
+
+    $('.minamount').val('0');
+    $('.maxamount').val('0');
+    var cursbl = String($("#product_collection .product_price").find(".price").find('.money').eq(0).text().replace(/-?[0-9]*\.?[0-9]+/, ""));
+    var prices = [];
+    $("#product_collection .product_price").each(function() {
+      var price2 = parseInt($(this).data('price'), 10);
+      prices.push(price2);
+    });
+
+    $("#product_collection .product_price").find(".price").each(function() {
+
+      var number = Number($(this).find('.money').eq(0).text().replace(/[^0-9\.-]+/g, ""));
+      var price2 = parseInt(number, 10);
+      prices.push(price2);
+      $(this).closest(".product_price").data('price', price2);
+
+
+    });
+    prices.sort(function(a, b) {
+      return a - b
+    });
+    var low = Math.min.apply(Math, prices);
+
+    var high = Math.max.apply(Math, prices);
+    slider_updt(low, high, cursbl);
+    $("#search-price").click(function() {
+
+      var min = $('.minamount').data('prod_price_min'),
+          max = $('.maxamount').data('prod_price_max');
+      showProducts(min, max);
+
+    });
+  });
+</script>
+
+<style>
+  .product-hidden {
+    clear: none !important;
+    display: none;
+  }
+</style>
+
+<div id="slider-range"></div>
+   
+  <input type="text" id="amount" class="minamount amount1"  disabled/> 
+  <span class="to"> - </span>
+  <input value="0" type="text" id="amount" class="maxamount amount2" disabled />
+  <input type="submit" id="search-price" class="btn btn-default" value="search" name="search" />

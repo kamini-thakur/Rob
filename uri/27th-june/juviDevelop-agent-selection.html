@@ -1,0 +1,97 @@
+<table class="form">
+<tbody>
+<tr>
+<td class="label"><label>Location ID*</label> <input id="locationId" maxlength="100" type="text" /></td>
+<td class="label"><label>Agent ID</label> <input id="agentId" maxlength="200" type="text" /></td>
+<!--td class="label"><label>Tax Variant ID</label> <input id="taxVariantId" type="text" maxlength="200" /></td-->
+<td><a class="save" href="#">Save</a></td>
+</tr>
+</tbody>
+</table>
+<script>// <![CDATA[
+$(function() {
+    $("#agentId").val(Cookies.get("seller_code"))
+    $("#locationId").val(Cookies.get("location_code"))
+//    $("#taxVariantId").val(Cookies.get("taxVarId"))
+});
+$("a.save").on('click',function(){ var loc_id = $("#locationId").val(), agent_id = $("#agentId").val(), tax_variant_id=$("#taxVariantId").val(); //Cookies.set('taxVarId',tax_variant_id);
+Cookies.set('seller_code',agent_id); Cookies.set('location_code',loc_id);
+alert('Details saved.') });
+// ]]></script>
+
+===============================================
+
+juvinesse.com
+----------------
+
+<table class="form">
+<tbody>
+<tr>
+<td class="label"><label>Location Code*</label> <input id="locationId" maxlength="100" type="text" /></td>
+<td class="label"><label>Agent ID</label> <input id="agentId" maxlength="200" type="text" /></td>
+<td><a class="save" href="#">Save</a><br /><a class="erase" href="#">Clear</a></td>
+</tr>
+</tbody>
+</table>
+<script>// <![CDATA[
+$(function() {
+    $("#agentId").val(Cookies.get("seller_code"));
+    $("#locationId").val(Cookies.get("location_code"));
+    $("#taxVariantId").val(Cookies.get("taxVarId"));
+
+    var loc_id = $("#locationId").val(), agent_id = $("#agentId").val(), tax_variant_id=$("#taxVariantId").val();
+
+    if(loc_id != '' && agent_id != '')
+    {
+      $('.homepageProds').addClass('half-price-prods');
+      $('.homepageProds').removeClass('full-price-prods');
+    }
+    else
+    {
+      $('.homepageProds').addClass('full-price-prods');
+      $('.homepageProds').removeClass('half-price-prods');
+    }
+});
+$("a.save").on('click',function(){
+  var loc_id = $("#locationId").val(), agent_id = $("#agentId").val(), tax_variant_id=$("#taxVariantId").val();
+  if(loc_id == "")
+  {
+    $("#locationId").css('border','1px solid red');
+  }
+  if(agent_id == "")
+  {
+    $("#agentId").css('border','1px solid red');
+  }
+  if(loc_id != '' && agent_id != '')
+  { 
+    $("#agentId,#locationId").css('border','1px solid #dce0e0');
+    Cookies.set('seller_code',agent_id); 
+    Cookies.set('location_code',loc_id);
+    alert('Saved');
+    $('.skin-system-full-pricing').find('ul').css('display','none');
+    $('.skin-system-half-pricing').find('ul').css('display','block');
+    $('.half_price').css('display','block');
+    $('.full_price').css('display','none');
+    $('.homepageProds').addClass('half-price-prods');
+    $('.homepageProds').removeClass('full-price-prods');
+  }
+});
+function deleteCookie(cname) {
+       document.cookie = cname+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+     }
+      $("a.erase").on('click',function(){
+        deleteCookie('seller_code');
+        deleteCookie('location_code');
+        deleteCookie('taxVarId');
+        alert('Data cleared');
+        $("#agentId").val("");
+        $("#locationId").val("");
+        $("#taxVariantId").val("");
+        $('.skin-system-full-pricing').find('ul').css('display','block');
+        $('.skin-system-half-pricing').find('ul').css('display','none');
+        $('.homepageProds').addClass('full-price-prods');
+        $('.homepageProds').removeClass('half-price-prods');
+        $('.half_price').css('display','none');
+        $('.full_price').css('display','block');
+      });
+// ]]></script>

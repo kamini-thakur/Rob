@@ -1,0 +1,22 @@
+development:
+  store: your-development-store.myshopify.com
+  theme_id: YOUR_ID
+  password: YOUR_PASS
+  ignore_files:
+    - /\.(dev)$/
+
+# GMX Creative (Staging)
+staging:
+  store: blue-muse-boutique.myshopify.com
+  theme_id: 176020620
+  password: READ_ONLY
+  ignore_files:
+    - /\.(dev)$/
+
+# GMX Creative (Production)
+production:
+  store: blue-muse-boutique.myshopify.com
+  theme_id: 175329164
+  password: READ_ONLY
+  ignore_files:
+    - /\.(dev)$/

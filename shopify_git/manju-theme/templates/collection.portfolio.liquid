@@ -1,0 +1,47 @@
+<!-- Page content -->
+<div class="content" id="portfolio">
+  <div class="container">
+    {% capture port %}{{ settings.megamenu1_text | handleize }}{% endcapture %}
+    <div class="choose-cat tabs">    
+      <ul class="portfolio">
+      {% for link in linklists.portfolio.links %}
+      <li>
+      <a href="#tab-{{ forloop.index }}" class="{% if forloop.first  %}active {% else %}{% endif %}">{{ link.title }}</a> {% if forloop.last  %} {% else %}/{% endif %}
+      </li>
+      {% endfor %}
+      </ul>
+    </div>
+    {% for link in linklists.portfolio.links %}
+    <div id="tab-{{ forloop.index }}">
+      {% if link.type == "collection_link" %}
+      {% assign products = link.object %}
+      {% for product in products.products %}
+      {% include 'product-grid-portfolio' %}
+      {% endfor %}
+
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<script>
+    $(document).ready(function() {
+    $('ul.portfolio').each(function(){
+      var active, content, links = $(this).find('a');
+      active = links.first().addClass('active');
+      content = $(active.attr('href'));
+      links.not(':first').each(function () {
+        $($(this).attr('href')).hide();
+      });
+      $(this).find('a').click(function(e){
+        active.removeClass('active');
+        content.hide();
+        active = $(this);
+        content = $($(this).attr('href'));
+        active.addClass('active');
+        content.show();
+        return false;
+      });
+    });
+  });
+</script>

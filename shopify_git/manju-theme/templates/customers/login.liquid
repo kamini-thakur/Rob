@@ -1,0 +1,129 @@
+<!-- /templates/customers/login.liquid -->
+
+<div class="content" id="login-page">
+  <div class="col-xs-12 col-md-6">
+    <div class="row">
+      <div class="note form-success" id="ResetSuccess" style="display:none;">
+        {{ 'customer.recover_password.success' | t }}
+      </div> 
+      <div class="col-xs-12">
+        <span class="title">{{ 'customer.login.title' | t }}</span>
+      </div>
+
+      <div id="CustomerLoginForm" class="form-login">
+        {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <label for="CustomerEmail" class="hidden-label">{{ 'customer.login.email' | t }} <em>*</em></label>
+          <input type="email" name="customer[email]" id="CustomerEmail" class="input-field input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.login.email' | t }}" autocorrect="off" autocapitalize="off" autofocus required="true">
+        </div>
+        {% if form.password_needed %}
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <label for="CustomerPassword" class="hidden-label">{{ 'customer.login.password' | t }} <em>*</em></label>
+          <input type="password" value="" name="customer[password]" id="CustomerPassword" class="input-field input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.login.password' | t }}" required="true">
+        </div>
+        {% endif %}
+        {% if form.password_needed %}
+        <div class="col-xs-12">
+          <a href="#recover" class="forgot-pass" id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a>
+        </div>
+        {% endif %}
+        <div class="col-xs-12">
+          <div class="buttons">
+            <input type="submit" name="sign-up" class="btn btn--full" value="{{ 'customer.login.sign_in' | t }}">
+          </div>
+        </div>
+        {% endform %}
+      </div>
+
+
+      <div id="RecoverPasswordForm" style="display: none;">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <span class="title">{{ 'customer.recover_password.title' | t }}</span>
+          <p>{{ 'customer.recover_password.subtext' | t }}</p>
+        </div>
+        <div class="form-vertical form-password">
+          {% form 'recover_customer_password' %}
+          {{ form.errors | default_errors }}
+          {% comment %}
+          Assign variable to be used after timber.init() is run in theme.liquid
+          {% endcomment %}
+          {% if form.posted_successfully? %}
+          {% assign resetPassword = true %}
+          {% endif %}
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label for="RecoverEmail" class="hidden-label">{{ 'customer.recover_password.email' | t }}</label>
+            <input type="email" value="" name="email" id="RecoverEmail" class="input-full" placeholder="{{ 'customer.recover_password.email' | t }}" autocorrect="off" autocapitalize="off" required>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-12 col-lg-6">
+            <div class="buttons">
+              <input type="submit" class="" value="{{ 'customer.recover_password.submit' | t }}">
+              <button type="button" id="HideRecoverPasswordLink" class="text-link">{{ 'customer.recover_password.cancel' | t }}</button>
+            </div>
+          </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div> 
+
+
+  <div class="col-xs-12 col-md-6">
+    <div class="row">
+      <div class="col-xs-12">
+        <span class="title">{{ 'customer.register.title' | t }}</span>
+      </div>
+      <div class="form-register">
+        {% form 'create_customer' %}
+        {{ form.errors | default_errors }}
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <label for="FirstName" class="hidden-label">{{ 'customer.register.first_name' | t }} <em>*</em></label>
+          <input type="text" name="customer[first_name]" id="FirstName" type="text" placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus required />
+        </div>  
+
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <label for="LastName" class="hidden-label">{{ 'customer.register.last_name' | t }} <em>*</em></label>
+          <input type="text" name="customer[last_name]" id="LastName" class="input-full" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words" required>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <label for="Email" class="hidden-label">{{ 'customer.register.email' | t }} <em>*</em></label>
+          <input type="email" name="customer[email]" id="Email" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.register.email' | t }}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off" required>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <label for="CreatePassword" class="hidden-label">{{ 'customer.register.password' | t }} <em>*</em></label>
+          <input type="password" name="customer[password]" id="CreatePassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.register.password' | t }}" required>
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
+
+          <div class="captcha">
+            <div class="question col-xs-6 col-md-6 col-lg-6 pad-left"><label>How much is:</label> <input type="text" readonly="readonly" id="question"/></div>
+            <div class="answer col-xs-6 col-md-6 pad-right"><label>Answer:*</label> <input type="text" id="answer"/></div>
+          </div>
+        </div>
+
+        <div class="col-xs-12">
+          <div class="buttons">
+            <input type="submit" value="{{ 'customer.register.submit' | t }}">
+            <a class="cancel-btn" href="{{ shop.url }}">{{ 'customer.register.cancel' | t }}</a>							
+          </div>
+        </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>            
+  {% comment %}
+  If accounts are set as optional, the following will be shown as an option
+  during checkout, not on the default /login page.
+  {% endcomment %}
+  {% if shop.checkout.guest_login %}
+  <hr>
+  <span class="title">{{ 'customer.login.guest_title' | t }}</span>
+  {% form 'guest_login' %}
+  <input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+  {% endform %}
+  {% endif %}
+</div>
+

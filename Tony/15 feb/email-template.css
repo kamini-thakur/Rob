@@ -1,0 +1,20 @@
+
+<style type="text/css">
+.im center:nth-child(2n), #canspamBarWrapper {
+    display: none !important;
+}
+.mcnButtonContentContainer {
+  background-color: black !important;
+}
+@media screen and (max-width: 1330px) and (min-width: 842px) {
+#templateHeader {
+  padding-bottom: 20px !important;
+  padding-top: 440px !important;
+}
+}
+@media screen and (max-width: 480px)  {
+#templateHeader, #templateColumns { 
+ padding-top: 150px !important;
+ }
+ }
+</style>

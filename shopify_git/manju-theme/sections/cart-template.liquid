@@ -1,0 +1,325 @@
+<div class="page-width" data-section-id="{{ section.id }}" data-section-type="cart-template">
+  <div id="shopping-cart-page">
+    {% if cart.item_count > 0 %}
+
+    <!-- <h1>{{ 'cart.general.title' | t }}</h1> -->
+
+    <form action="/cart" method="post" novalidate class="cart">
+      <div class="col-lg-12 table">
+        <div class="row th">
+          <div class="hidden-xs col-sm-4 col-md-3"><span class="th-title">{{ 'cart.label.product' | t }}</span></div>
+          <div class="col-sm-2 hidden-xs text-center"><span class="th-title">{{ 'cart.label.price' | t }}</span></div>
+          <div class="col-sm-2 hidden-xs text-center"><span class="th-title">{{ 'cart.label.quantity' | t }}</span></div>
+          
+          <div class="hidden-xs col-sm-2 text-center"><span class="th-title">{{ 'cart.general.product_sku' | t }}</span></div>
+          
+
+          <div class="col-sm-2 hidden-xs text-center"><span class="th-title">{{ 'cart.label.total' | t }}</span></div>
+        </div>
+        <!-- Table row -->
+
+        {% for item in cart.items %}
+        <div class="row tr">
+          <div class="mobile-tr-1">
+            <div class="col-md-offset-1 col-sm-2 col-xs-4 col-md-1 td">
+              <div class="remove hidden-xs">
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">
+                  <span class="icon-remove"></span>
+                </a>
+              </div>
+              <a href="{{ item.url | within: collections.all }}" class="cart__image">
+                {% comment %}
+                More image size options at:
+                - http://docs.shopify.com/themes/filters/product-img-url
+                {% endcomment %}
+                <img src="{{ item | img_url: 'master' }}" alt="{{ item.title | escape }}">
+              </a>
+            </div>
+
+            <div class="col-xs-8 col-sm-2 td mobile-text">
+              <span class="product-name"><a href="{{ item.url }}">{{ item.product.title }}</a></span>
+
+              <span class="product-type">
+                {% unless item.variant.title contains 'Default' %}
+                <small>{{ item.variant.title }}</small>
+                {% endunless %}
+
+                {% if section.settings.cart_vendor_enable %}
+                <p>{{ item.vendor }}</p>
+                {% endif %}
+              </span>
+            </div>
+            <div class="col-sm-2 col-xs-8 td text-center">
+              <span class="product-price mobile-price">
+                {{ item.price | money }}
+              </span>	
+            </div>
+          </div>
+          <div class="mobile-tr-2">
+            <div class="col-xs-4 col-sm-2 td text-center">
+              <center>
+                <input type="number" name="updates[]" id="quantity" class="custom-spinner quantity" data-id="{{ item.key }}" value="{{ item.quantity }}" min="0"/>
+              </center>
+            </div>
+            {% if section.settings.display_product_sku %}
+            <div class="col-sm-2 hidden-xs td text-center">
+              <span class="product-id">{{ item.sku }}</span>
+            </div>
+            {% endif %}
+
+
+            <div class="col-xs-6 col-sm-2 td text-center">
+              <span class="product-price black">
+                {% if item.original_line_price != item.line_price %}
+                <span class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></span>
+                {% endif %}
+                <span>
+                  {{ item.line_price | money }}
+                </span>
+                {% for discount in item.discounts %}
+                <span class="cart-item__discount">{{ discount.title }}</span>
+                {% endfor %}</span>
+            </div>
+            <div class="remove col-xs-2 hidden-sm hidden-md hidden-lg">
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart-remove-mobile">
+                <span class="icon-remove"></span>
+              </a>
+            </div>    
+          </div>
+        </div>
+        {% endfor %}
+
+        <!-- /Table row -->
+
+      </div>
+      <div class="col-lg-12 shopping-crt">
+        <button class="continue">{{ 'cart.general.continue_browsing_html' | t }}</button>
+        <button class="update"><span class="icon-refresh"></span> {{ 'cart.general.update' | t }}</button>
+      </div>
+      <div class="" id="shopping-cart-sub">
+
+        {% if section.settings.shipping_calculator_enable %}
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+          <div id="shipping-calculator">
+
+            <span class="title">{{ section.settings.shipping_calculator_heading | default: 'Get shipping estimates' }}</span>
+            <p class="info">At vero eos et accusam et justo duo dolores et ea rebum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed.</p>
+            <div class="select-outer">
+              <p class="field">
+                <label for="address_country">Country</label>
+                <select class="country input-field select-inner" id="address_country" name="address[country]" data-default="{% if shop.customer_accounts_enabled and customer %}{{ customer.default_address.country }}{% elsif section.settings.shipping_calculator_default_country != '' %}{{ section.settings.shipping_calculator_default_country }}{% endif %}">{{ country_option_tags }}</select>
+              </p>
+            </div>
+            <div class="select-outer">
+              <label id="address_province_label">STATE / PROVINCE</label>
+              <p class="field" id="address_province_container" style="display:none;">
+                <!--       <label for="address_province" id="address_province_label">Province</label> -->
+                <select id="address_province" class="select-inner" name="address[province]" data-default="{% if shop.customer_accounts_enabled and customer and customer.default_address.province != '' %}{{ customer.default_address.province }}{% endif %}"></select>
+              </p> 
+            </div>
+            <div class="select-outer">
+              <p class="field">
+                <label for="address_zip">Zip/Postal Code</label>
+                <input type="text" id="address_zip" name="address[zip]"{% if shop.customer_accounts_enabled and customer %} value="{{ customer.default_address.zip }}"{% endif %} placeholder="zip/postal code"/>
+              </p>
+            </div>
+            <input type="submit" class="get-rates btn button" name="calculate_shipping" value="{{ section.settings.shipping_calculator_submit_button_label | default: 'Calculate shipping' }}" />
+
+            <div id="wrapper-response"></div>
+
+          </div>
+
+          <script id="shipping-calculator-response-template" type="text/template">
+  <p id="shipping-rates-feedback" <% if (success) { %> class="success" <% } else { %> class="error" <% } %>>
+  <% if (success) { %>
+    <% if (rates.length > 1) { %> 
+    There are <%- rates.length %> shipping rates available for <%- address %>, starting at <%= rates[0].price %>.
+    <% } else if (rates.length == 1) { %>
+    There is one shipping rate available for <%- address %>.
+    <% } else { %>
+    We do not ship to this destination.
+    <% } %>
+  <% } else { %>
+    <%- errorFeedback %>
+  <% } %>
+            </p>
+  <ul id="shipping-rates">
+    <% for (var i=0; i<rates.length; i++) { %>
+    <li><%- rates[i].name %> at <%= rates[i].price %></li>
+    <% } %>
+            </ul> 
+          </script>
+
+          <!--[if lte IE 8]> 
+<style> #shipping-calculator { display: none; } </style> 
+<![endif]--> 
+
+          {{ '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js' | script_tag }}
+          {{ '/services/javascripts/countries.js' | script_tag }}
+          {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+          {{ 'jquery.cart.min.js' | asset_url | script_tag }}
+
+          <script>
+
+            Shopify.Cart.ShippingCalculator.show( {
+              submitButton: {{ section.settings.shipping_calculator_submit_button_label | default: 'Calculate shipping' | json }}, 
+              submitButtonDisabled: {{ section.settings.shipping_calculator_submit_button_label_disabled | default: 'Calculating...' | json }}{% if customer %},
+              customerIsLoggedIn: true{% endif %},
+              moneyFormat: {{ shop.money_with_currency_format | json }}
+            } );
+
+          </script>
+
+          <style>
+            #shopping-cart-sub .select-outer select {width: 100%;}
+          </style>
+        </div>
+        {% endif %}
+        <div class="col-sm-4 col-md-4 col-lg-4">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 btn-update">
+          <div class="cart-total">
+            <span class="title">{{ 'cart.general.total' | t }}</span>
+            <div class="row">
+              <div class="col-xs-12 table">
+                <div class="row tr">
+                  <div class="col-xs-6 col-sm-7 td"><span class="title">{{ 'cart.label.subtotal' | t }}</span></div>
+                  <div class="col-xs-6 col-sm-5 td text-right"><span class="price">{{ cart.total_price | money }}</span></div>
+                </div>
+                <div class="row tr">
+                  <div class="col-xs-6 col-sm-7 td"><span class="title">{{ 'cart.label.order_total' | t }}</span></div>
+                  <div class="col-xs-6 col-sm-5 td text-right"><span class="price black"><strong>{{ cart.total_price | money }}</strong></span></div>
+                </div>
+              </div>
+            </div>  
+            <input type="submit" class="details-btn btn brown" name="checkout" value="{{ 'cart.general.checkout' | t }}">
+          </div>
+        </div>
+
+      </div>
+      {% comment %}<div class="grid cart__row">
+      {% if settings.cart_notes_enable %}
+      <div class="grid__item two-thirds small--one-whole">
+        <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
+        <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+      </div>
+      {% endif %}
+      <div class="grid__item text-right{% if settings.cart_notes_enable %} one-third small--one-whole{% endif %}">
+        <p>
+          <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+          <span class="h3 cart__subtotal">{{ cart.total_price | money }}</span>
+        </p>
+        {% if cart.total_discounts > 0 %}
+        {% assign savings = cart.total_discounts | money %}
+        <p>
+          <span class="cart-subtotal__savings"><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span>
+        </p>
+        {% endif %}
+        <p><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
+        <button type="submit" name="update" class="btn--secondary update-cart">{{ 'cart.general.update' | t }}</button>
+        <button type="submit" name="checkout" class="btn">{{ 'cart.general.checkout' | t }}</button>
+      </div>
+      </div>{% endcomment %}
+    </form>
+    {% else %}
+    {% comment %}
+    The cart is empty
+    {% endcomment %}
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="col-lg-12">
+          <h2>{{ 'cart.general.title' | t }}</h2>
+          <p>{{ 'cart.general.empty' | t }}</p>
+          <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+<script>
+  $( function() {
+    $( ".quantity" ).spinner({
+      min: 1,
+      page: 1
+    });
+  });
+</script>
+
+{% schema %}
+{
+"name": "Cart page",
+"settings": [
+{
+"type": "checkbox",
+"id": "cart_vendor_enable",
+"label": "Show product vendor",
+"default": true
+},
+{
+"type": "header",
+"content": "Shipping Calculator"
+},
+{
+"type": "checkbox",
+"id": "shipping_calculator_enable",
+"label": "Enable Shipping Calculator",
+"default": true
+},
+{
+"type": "text",
+"id": "shipping_calculator_heading",
+"label": "Heading text",
+"default": "Get shipping estimates"
+},
+{
+"type": "text",
+"id": "shipping_calculator_default_country",
+"label": "Default country selection",
+"default": "United States"
+},
+{
+"type": "paragraph",
+"content": "If your customer is logged-in, the country in his default shipping address will be selected. If you are not sure about the  spelling to use here, refer to the first checkout page."
+},
+{
+"type": "text",
+"id": "shipping_calculator_submit_button_label",
+"label": "Submit button label",
+"default": "Calculate shipping"
+},
+{
+"type": "text",
+"id": "shipping_calculator_submit_button_label_disabled",
+"label": "Submit button label when calculating",
+"default": "Calculating..."
+},
+{
+"type": "paragraph",
+"content": "Do not forget to include the snippet shipping-calculator in your cart.liquid template where you want the shipping  calculator to appear. You can get the snippet here: [shipping-calculator.liquid](https:\/\/github.com\/carolineschnapp\/shipping-calculator\/blob\/master\/shipping-calculator.liquid) ."
+}
+]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+
+
+function cart_spin()
+{
+
+$( ".custom-spinner" ).spinner({
+min: 1
+});
+
+}
+
+$(document)	
+.on( 'shopify:section:select', cart_spin )
+;
+{% endjavascript %}

@@ -1,0 +1,172 @@
+{% paginate blog.articles by 6 %}
+ <div class="row">
+   
+  
+<div class="{% if section.settings.blog_show_sidebar %} col-lg-9 col-md-8 col-sm-8 {% if section.settings.layout == 'list' %}blog--list-view {% endif %} {% else %} col-xs-12 col-md-offset-1 col-md-10{% endif %}" id="blog-archive">
+{% if section.settings.layout == 'grid' %}
+    {% for article in blog.articles %}
+    <div class="col-xs-12 col-md-6">
+      <div class="article">
+        {% if article.image %}
+        <a href="{{ article.url }}">
+          {{ article | img_url: '1024x1024' | img_tag: article.title }}
+        </a>
+        {% endif %}
+
+        <div class="details">
+          <div class="triangle-separator"></div>
+          <div class="short-description rte">
+            {% if article.excerpt.size > 0 %}
+             {{ article.excerpt }}
+            {% else %}
+             <p>{{ article.content | strip_html | truncatewords: 100 }}</p>
+            {% endif %}</div>
+             <a href="{{ article.url }}" class="readmore">{{ 'blogs.article.read_more' | t }}</a>
+        </div> 
+
+        <a href="{{ article.url}}"><span class="title">{{ article.title }}</span></a>
+        <div class="separator"></div>
+        <span class="tagged"><i>{{ 'blogs.article.tag_title' | t }}</i> 
+          {% for tag in article.tags %}
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+          {% endfor %}
+        </span>  
+
+        {% unless forloop.last %}<hr>{% endunless %}
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    {% for article in blog.articles %}
+    <div class="col-xs-12 col-md-12 blog-list">
+
+      <!-- Blog post preview -->
+      <div class="blog-post text-center">
+        <div class="blog-post-img">
+          {% if article.image %}
+          <a href="{{ article.url }}">
+            {{ article | img_url: '1024x1024' | img_tag: article.title }}
+          </a>
+          {% endif %}
+          <div class="text hidden-xs">
+            <a href="{{ article.url }}"><span class="title">{{ article.title }}</span></a>
+            <div class="separator"></div>
+            <span class="tagged"><i>{{ 'blogs.article.tag_title' | t }}</i> <b>{% for tag in article.tags %}
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+              {% endfor %}</b></span>
+          </div>
+        </div>
+        <a href="{{ article.url }}"><h2 class="blog-post-title">{{ article.title }}</h2></a>
+
+       
+        <div class="blog-post-details">
+           {% if section.settings.blog_show_author %}
+          <span><span class="icon-user"></span> {{ 'blogs.article.by_author' | t: author: article.author }}</span>
+          {% endif %}
+          <span><span class="icon-bookmark"></span> {% for tag in article.tags %}
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+            {% endfor %}</span>
+
+          {% if blog.comments_enabled? and article.comments_count == 0 %}
+          <a href="{{ article.url }}#comment_form"><span><span class="icon-comment"></span> {{ 'blogs.comments.title' | t }}</span></a>
+          {% endif %} 
+
+          {% if blog.comments_enabled? and article.comments_count > 0 %}
+          <a href="{{ article.url }}#comments"><span><span class="icon-comment"></span> {{ 'blogs.comments.with_count' | t: count: article.comments_count }}</span></a>
+          {% endif %}
+        </div>
+        <p class="blog-post-short rte">
+
+          {% if article.excerpt.size > 0 %}
+          {{ article.excerpt }}
+          {% else %}
+          {{ article.content | strip_html }}
+          {% endif %}
+        </p> 
+        {% if article.excerpt.size > 0 %}
+        <a href="{{ article.url }}" class="blog-readmore">{{ 'blogs.article.read_more' | t }}</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    
+   {% endif %}
+   
+    
+    {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+    {% endif %}
+    
+
+  </div>
+   
+{% if section.settings.blog_show_sidebar %} 
+  <aside class="col-lg-3 col-xs-12 col-sm-4 sidebar">
+    <div class="col-xs-12 col-md-12">
+    {% include 'blog-sidebar' %}
+    </div>
+  </aside>
+ {% endif %}  
+
+
+</div>
+
+{% endpaginate %}
+{% schema %}
+  {
+    "name": "Blog pages",
+    "settings": [
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "default": "list",
+        "options": [
+          {
+            "value": "grid",
+            "label": "Grid"
+          },
+          {
+            "value": "list",
+            "label": "List"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_sidebar",
+        "label": "Show Sidebar",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": "Show author",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+
+
+
+<!-- Page content -->
+				
+				
+				
+
+
+
+
+
+
+
+
+

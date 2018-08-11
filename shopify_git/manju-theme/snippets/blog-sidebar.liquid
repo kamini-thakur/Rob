@@ -1,0 +1,57 @@
+<div class="box">
+  <div class="searchform">
+    <form name="search" class="searchform"  action="/search" method="get" role="search">
+      <input type="hidden" name="type" value="article" />
+      <input type="search" id="dsearch" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}"  class="form-control" aria-label="{{ 'general.search.placeholder' | t }}">
+      <button><span class="icon-right"></span></button>
+    </form>
+  </div>
+</div>
+<div class="box">
+  <div class="title">{{ 'blogs.sidebar.categories' | t }}</div>
+  <div class="categories">
+    {% for link in linklists.blogs.links %}
+    {% assign blg = link.object %}
+    {% if blg.articles_count >= 1 %}
+    <div class="cat-link"><a href="{{link.url}}">{{link.title}}<span class="quantity">({{ blg.articles_count }})</span></a></div> 
+    {% endif %} 
+    {% endfor %}
+  </div>
+</div>
+
+<div class="box">
+  <div class="title">{{ 'blogs.sidebar.recent_articles' | t }}</div>
+  <div class="recent-posts">
+    {% for article in blogs[blog.handle].articles limit:3 %}
+    <a href="{{ article.url }}">
+      <div class="post">
+        {% if article.image %}  
+        <div class="img">
+          {{ article | img_url: 'medium' | img_tag: article.title }}
+        </div>
+        {% endif %}
+        <div class="text">
+          <a href="{{ article.url }}">
+            <span class="post-title">{{ article.title | truncatewords: 5 }}</span></a>
+          <span class="desc">{{ article.content | truncatewords: 10 }}</span>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% if blog.all_tags.size > 0 %}
+<div class="box">
+  <div class="title">{{ 'blogs.article.tags' | t }}</div>
+  <div class="popular-tags">
+    {% for tag in blog.all_tags %}
+    {% if current_tags contains tag %}
+    <a class="tag">{{ tag }}</a>
+    {% else %}
+    <a class="tag" href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag}}</a>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+

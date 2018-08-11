@@ -1,0 +1,241 @@
+{% if section.settings.enable_banner %}
+<section id="welcome">
+  <div data-section-id="{{ section.id }}" data-section-type="shoify-section">
+    <div style="text-align: center;">
+      <h2 class="welcome">{{ section.settings.banner_title }}</h2>
+      <p class="welcometext">{{ section.settings.banner_desc | escape }}</p>
+    </div>
+    <div class="container welcome">
+      {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+      {% capture thecycle %}{% cycle 'odd', 'even' %}{% endcapture %}
+      {% if thecycle == 'odd' %}	
+      <div class="col-xs-12 col-sm-4">
+        <div class="row">
+          {% if block.settings.banner_image_1 != blank %}
+
+          <div class="img color">
+            <span class="bottomleft num">{{ block.settings.banner_title_1 }}</span>
+            <img src="{{ block.settings.banner_image_1 | img_url: '400x400' }}" alt="" />
+          </div>
+
+          {%  else %}
+          {% capture current %}{% cycle 1, 2 ,3 4 , 5 , 6 %}{% endcapture %}
+          {% capture svg_tag_class %}placeholder-noblocks slide-link slide-link--{{ block.id }}{% endcapture %}
+          {%- assign placeholder = 'placeholder-lifestyle-' | append: current -%}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+        <div class="row">
+          {% if block.settings.banner_image_2 != blank %}
+
+          <div class="img">
+            <img src="{{ block.settings.banner_image_2 | img_url: '400x400' }}" alt="" />
+            <span class="title">{{ block.settings.banner_title_2 }}</span>
+          </div>
+
+          {%  else %}
+          {% capture current %}{% cycle 1, 2 ,3 4 , 5 , 6 %}{% endcapture %}
+          {% capture svg_tag_class %}placeholder-noblocks slide-link slide-link--{{ block.id }}{% endcapture %}
+          {%- assign placeholder = 'placeholder-lifestyle-' | append: current -%}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      </div>
+      {% elsif thecycle == 'even' %}
+
+      <div class="col-xs-12 col-sm-4">
+        <div class="row">
+          {% if block.settings.banner_image_2 != blank %}
+
+          <div class="img">
+            <img src="{{ block.settings.banner_image_2 | img_url: '400x400' }}" alt="" />
+            <span class="title">{{ block.settings.banner_title_2 }}</span>
+          </div>
+
+          {%  else %}
+          {% capture current %}{% cycle 1, 2 ,3 4 , 5 , 6 %}{% endcapture %}
+          {% capture svg_tag_class %}placeholder-noblocks slide-link slide-link--{{ block.id }}{% endcapture %}
+          {%- assign placeholder = 'placeholder-lifestyle-' | append: current -%}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+        <div class="row">
+          {% if block.settings.banner_image_1 != blank %}
+
+          <div class="img color">
+            <span class="bottomcenter num">{{ block.settings.banner_title_1 }}</span>
+            <img src="{{ block.settings.banner_image_1 | img_url: '400x400' }}" alt="" />
+          </div>
+
+          {%  else %}
+          {% capture current %}{% cycle 1, 2 ,3 4 , 5 , 6 %}{% endcapture %}
+          {% capture svg_tag_class %}placeholder-noblocks slide-link slide-link--{{ block.id }}{% endcapture %}
+          {%- assign placeholder = 'placeholder-lifestyle-' | append: current -%}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Banner",
+    "class": "index-section",
+    "class": "index-section index-section--flush",
+    "max_blocks": 3,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_banner",
+        "label": "Enable Banner",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "banner_title",
+        "label": "Banner Title",
+        "default": "Banner Title"
+      },
+      {
+        "type": "text",
+        "id": "banner_desc",
+        "label": "Banner Description",
+        "default": "Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "banner_image_1",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "banner_title_1",
+            "label": "Banner Text",
+            "default": "Banner Text"
+          },
+          {
+            "type": "url",
+            "id": "banner_link_1",
+            "label": "Banner link"
+          },
+          {
+            "type": "image_picker",
+            "id": "banner_image_2",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "banner_title_2",
+            "label": "Heading",
+            "default": "title"
+          },
+          {
+            "type": "url",
+            "id": "banner_link_2",
+            "label": "Banner link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Banner",
+        "category": "Homepage Banner",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+/* jquery for section load */
+function ftrload() {
+  $('ul.choose').each(function(){
+      var active, content, links = $(this).find('a');
+      active = links.first().addClass('active');
+      content = $(active.attr('href'));
+      links.not(':first').each(function () {
+        $($(this).attr('href')).hide();
+      });
+      $(this).find('a').click(function(e){
+        active.removeClass('active');
+        content.hide();
+        active = $(this);
+        content = $($(this).attr('href'));
+        active.addClass('active');
+        content.show();
+        return false;
+      });
+    });
+
+    function fixButtonHeights() {
+      var heights = new Array();
+
+      // Loop to get all element heights
+      $('.home-prod-height').each(function() { 
+
+        // Need to let sizes be whatever they want so no overflow on resize
+        $(this).css('min-height', '0');
+        $(this).css('max-height', 'none');
+        $(this).css('height', 'auto');
+
+        // Then add size (no units) to array
+        heights.push($(this).height());
+      });
+
+      // Find max height of all elements
+      var max = Math.max.apply( Math, heights );
+
+      // Set all heights to max height
+      $('.home-prod-height').each(function() {
+
+        $(this).css('height', max + 'px');
+        // Note: IF box-sizing is border-box, would need to manually add border
+
+      }); 
+    }
+
+
+      // Fix heights on page load
+      fixButtonHeights();
+
+      // Fix heights on window resize
+      $(window).resize(function() {
+        // Needs to be a timeout function so it doesn't fire every ms of resize
+        setTimeout(function() {
+          fixButtonHeights();
+        }, 100);
+      });
+ 
+  }
+
+
+$(document)
+ .on( 'shopify:section:load', ftrload )
+;
+{% endjavascript %}
